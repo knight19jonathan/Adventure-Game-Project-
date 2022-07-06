@@ -4,6 +4,12 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+			rel="stylesheet"
+		/>
 		<title>Adventure Game</title>
 		<!-- Compiled and minified CSS materialize -->
 		<link
@@ -17,10 +23,19 @@
 
 	<body>
 		<nav>
-			<div class="nav-wrapper">
-				<a href="#" class="brand-logo center">DnD Machine</a>
+			<div class="nav-wrapper brown lighten-1">
+				<a href="#" class="brand-logo center lime-text" id="pageTitle"
+					>DnD Machine</a
+				>
 				<ul id="nav-mobile" class="left hide-on-med-and-down">
-					<li><button id="new-character">New Character</button></li>
+					<li>
+						<button
+							class="waves-effect waves-light btn lime black-text hoverable"
+							id="new-character"
+						>
+							New Character
+						</button>
+					</li>
 				</ul>
 			</div>
 		</nav>
@@ -33,12 +48,17 @@
 					width="200px"
 				/>
 				<textarea name="#" id="bio-area" cols="30" rows="10"></textarea>
-				<div id="skils-stats"></div>
-				<ul>
-					<li>Strength</li>
-					<li>Dexterity</li>
-					<li>HP</li>
-				</ul>
+				<div id="skils-stats">
+					<ul>
+						<li>Strength</li>
+						<li>Dexterity</li>
+						<li>Intelligence</li>
+					</ul>
+				</div>
+				<div>
+					<p id="playerHpLabel">Health</p>
+					<h1 class="red darken-4" id="playerHp">100</h1>
+				</div>
 			</aside>
 			<section id="map" class="col s12 m9">
 				<img
