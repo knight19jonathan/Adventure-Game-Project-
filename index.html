@@ -22,7 +22,7 @@
             <a href="#" class="brand-logo center lime-text" id="pageTitle">DnD Machine</a>
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li>
-                    <button class="waves-effect waves-light btn lime black-text hoverable" id="new-character">
+                    <button data-target="modal1" class="waves-effect waves-light btn modal-trigger lime black-text hoverable" id="new-character">
                         New Character
                     </button>
                 </li>
@@ -45,6 +45,25 @@
                 <p id="playerHpLabel">Health</p>
                 <h1 class="red darken-4" id="playerHp">100</h1>
             </div>
+            <!-- Modal Structure -->
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Modal Header</h4>
+                    <div class="input-field">
+                        <select>
+                          <option value="" disabled selected>Choose your option</option>
+                          <option value="1">Option 1</option>
+                          <option value="2">Option 2</option>
+                          <option value="3">Option 3</option>
+                        </select>
+                        <label>Materialize Select</label>
+                      </div>
+                    <p>A bunch of text</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                </div>
+            </div>
         </aside>
         <section id="map" class="col s12 m9">
             <img src="./assets/media/27107457885_ebba66b7c1_o.jpg" alt="simple map" />
@@ -53,10 +72,12 @@
     </main>
 
     <!-- Compiled and minified JQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!-- Compiled and minified JavaScript materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- our js -->
+
     <script src="./assets/js/logic.js"></script>
 </body>
 
