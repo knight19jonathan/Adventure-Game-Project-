@@ -1,19 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adventure Game</title>
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- Compiled and minified CSS materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- link css-->
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
+
 <body>
+
     <section>
         <button type="button" id="attackTEST">Test Attack</button>
         <p aria-placeholder="test"></p>
     </section>
 
     
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo center">Logo</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="sass.html">Sass</a></li>
+                <li><a href="badges.html">Components</a></li>
+                <li><a href="collapsible.html">JavaScript</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="row">
+
+        <aside id="character-element" class="col s12 m3">
+            <img src="http://placekitten.com/200/300" alt="placeholder kitten">
+            <textarea name="#" id="bio-area" cols="30" rows="10"></textarea>
+            <div id="skils-stats"></div>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. </p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            
+        </aside>
+        <section id="map" class="col s12 m9">
+            <img src="http://placekitten.com/200/300" alt="placeholder kitten">
+        </section>
+    </main>
+
+    <!-- Compiled and minified JavaScript materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <script src="./assets/js/logic.js"></script>
 </body>
+
 </html>
