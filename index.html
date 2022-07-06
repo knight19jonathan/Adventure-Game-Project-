@@ -1,47 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+			rel="stylesheet"
+		/>
+		<title>Adventure Game</title>
+		<!-- Compiled and minified CSS materialize -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+		/>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adventure Game</title>
-    <!-- Compiled and minified CSS materialize -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<!-- link css-->
+		<link rel="stylesheet" href="./assets/css/style.css" />
+	</head>
 
-    <!-- link css-->
-    <link rel="stylesheet" href="./assets/css/style.css">
-</head>
+	<body>
+		<nav>
+			<div class="nav-wrapper brown lighten-1">
+				<a href="#" class="brand-logo center lime-text" id="pageTitle"
+					>DnD Machine</a
+				>
+				<ul id="nav-mobile" class="left hide-on-med-and-down">
+					<li>
+						<button
+							class="waves-effect waves-light btn lime black-text hoverable"
+							id="new-character"
+						>
+							New Character
+						</button>
+					</li>
+				</ul>
+			</div>
+		</nav>
 
-<body>
-    <nav>
-        <div class="nav-wrapper">
-            <a href="#" class="brand-logo center">DnD Machine</a>
-        </div>
-    </nav>
+		<main class="row">
+			<aside id="character-element" class="col s12 m3">
+				<img
+					src="./assets/media/dndeightbitwarr.jpeg"
+					alt="dnd warrior character"
+					width="200px"
+				/>
+				<textarea name="#" id="bio-area" cols="30" rows="10"></textarea>
+				<div id="skils-stats">
+					<ul>
+						<li>Strength</li>
+						<li>Dexterity</li>
+						<li>Intelligence</li>
+					</ul>
+				</div>
+				<div>
+					<p id="playerHpLabel">Health</p>
+					<h1 class="red darken-4" id="playerHp">100</h1>
+				</div>
+			</aside>
+			<section id="map" class="col s12 m9">
+				<img
+					src="./assets/media/27107457885_ebba66b7c1_o.jpg"
+					alt="placeholder kitten"
+				/>
+				<!--https://www.flickr.com/photos/35034348373@N01/27107457885-->
+			</section>
+		</main>
 
-    <main class="row">
-
-        <aside id="character-element" class="col s12 m3">
-            <img src="http://placekitten.com/200/300" alt="placeholder kitten">
-            <textarea name="#" id="bio-area" cols="30" rows="10"></textarea>
-            <div id="skils-stats">
-                <ul>
-                    <li>Strength</li>
-                    <li>Dexterity</li>
-                    <li>HP</li>
-                </ul>
-            </div>
-            
-        </aside>
-        <section id="map" class="col s12 m9">
-            <img src="./assets/media/27107457885_ebba66b7c1_o.jpg" alt="placeholder kitten"> <!--https://www.flickr.com/photos/35034348373@N01/27107457885-->
-        </section>
-    </main>
-
-    <!-- Compiled and minified JavaScript materialize -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="./assets/js/logic.js"></script>
-</body>
-
+		<!-- Compiled and minified JavaScript materialize -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script src="./assets/js/logic.js"></script>
+	</body>
 </html>
