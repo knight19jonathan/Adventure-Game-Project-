@@ -1,0 +1,19 @@
+#new-character {
+	margin-left: 30px;
+}
+#character-element {
+	margin-top: 30px;
+}
+#map {
+	margin-top: 30px;
+}
+#playerHp {
+	margin: 0;
+}
+#playerHpLabel {
+	margin: 0;
+	font-weight: bolder;
+}
+#pageTitle {
+	font-family: 'Press Start 2P', cursive;
+}
