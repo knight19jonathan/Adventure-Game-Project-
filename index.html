@@ -25,6 +25,10 @@
 		<section>
 			<button id="attackTEST">Test Attack</button>
 			<p aria-placeholder="test"></p>
+	<body>
+		<section>
+			<button id="attackTEST">Roll a d20</button>
+			<button id="attackTEST2">Roll a d20</button>
 		</section>
 
 		<nav>
@@ -52,11 +56,6 @@
 				</ul>
 			</div>
 		</nav>
-
-		
-		</main>
-
-		
 
 		<main class="row">
 			<aside id="character-element" class="col s12 m3">
@@ -88,7 +87,7 @@
 				</button>
 
 				<!-- Modal on new start battle click -->
-				<div id="modal3" class="modal">
+				<div id="modal3" class="modal lime">
 					<div class="modal-content">
 						<h4>Modal 3 Header</h4>
 						<div class="row">
@@ -104,6 +103,9 @@
 						</div>
 						<div class="row justify-content-center">
 							<div class="col s4">
+								<div class="progress">
+									<div class="determinate red" style="width: 70%"></div>
+								</div>
 								<ul>
 									<li id="player-hp-li">HP:</li>
 									<li id="attack-bonus-li">Attack Bonus:</li>
@@ -113,12 +115,15 @@
 							<div class="col s4">
 								<button
 									id="attack-button"
-									class="waves-effect waves-light btn lime black-text hoverable"
+									class="waves-effect waves-light btn lime darken-4 black-text hoverable"
 								>
 									Attack
 								</button>
 							</div>
 							<div class="col s4">
+								<div class="progress">
+									<div class="determinate red" style="width: 70%"></div>
+								</div>
 								<ul>
 									<li id="enemy-hp-li">HP:</li>
 									<li id="xp-li">XP on death:</li>
@@ -128,15 +133,15 @@
 							</div>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+					<div class="modal-footer lime darken-4">
+						<a href="#!" class="modal-close waves-effect waves-green btn-flat black-text"
 							>Close</a
 						>
 					</div>
 				</div>
 
 				<!-- Modal on new char click -->
-				<div id="modal1" class="modal">
+				<div id="modal1" class="modal lime">
 					<div class="modal-content">
 						<h4>Modal Header</h4>
 						<div class="input-field">
@@ -176,7 +181,7 @@
 							<label for="textarea2">Textarea</label>
 						</div>
 					</div>
-					<div class="modal-footer">
+					<div class="modal-footer lime darken-4">
 						<a href="#!" class="modal-close waves-effect waves-green btn-flat"
 							>Create</a
 						>
