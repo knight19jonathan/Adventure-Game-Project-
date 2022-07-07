@@ -101,6 +101,109 @@
 			</section>
 		</main>
 
+		<nav>
+			<div class="nav-wrapper brown lighten-1">
+				<a href="#" class="brand-logo center lime-text" id="pageTitle"
+					>DnD Machine</a
+				>
+				<ul id="nav-mobile" class="left hide-on-med-and-down">
+					<li>
+						<button
+							data-target="modal1"
+							class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
+							id="new-character"
+						>
+							New Character
+						</button>
+						<button
+							data-target="null"
+							class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
+							id="play-music"
+						>
+							Play Music/Get random quote
+						</button>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<main class="row">
+			<aside id="character-element" class="col s12 m3">
+				<img
+					src="./assets/media/dndeightbitwarr.jpeg"
+					alt="dnd warrior character"
+					width="200px"
+				/>
+				<textarea name="#" id="bio-area" cols="30" rows="10"></textarea>
+				<div id="skills-stats">
+					<ul>
+						<li id="raceLi">Race:</li>
+						<li id="classLi">Class:</li>
+						<li id="hPLi">HP:</li>
+						<li id="atkBnsLi">Attack Bonus:</li>
+					</ul>
+				</div>
+				<div>
+					<p id="playerHpLabel">Health</p>
+					<h1 class="red darken-4" id="playerHp">100</h1>
+				</div>
+				<!-- Modal on new char click -->
+				<div id="modal1" class="modal">
+					<div class="modal-content">
+						<h4>Modal Header</h4>
+						<div class="input-field">
+							<select>
+								<option id="raceOpt0" value="" disabled selected>
+									Choose your Race
+								</option>
+								<option id="raceOpt1" value="1">Dragonborn</option>
+								<option id="raceOpt2" value="2">Dwarf</option>
+								<option id="raceOpt3" value="3">Elf</option>
+								<option id="raceOpt4" value="4">Gnome</option>
+								<option id="raceOpt5" value="5">Half-elf</option>
+								<option id="raceOpt6" value="6">Halfling</option>
+								<option id="raceOpt7" value="7">Human</option>
+								<option id="raceOpt8" value="8">Tiefling</option>
+								<option id="raceOpt9" value="9">Half-Orc</option>
+							</select>
+							<label>Race Select</label>
+						</div>
+						<div class="input-field">
+							<select>
+								<option id="classOpt0" value="" disabled selected>
+									Choose your Class
+								</option>
+								<option id="classOpt1" value="1">Fighter</option>
+								<option id="classOpt2" value="2">Rogue</option>
+								<option id="classOpt3" value="3">Wizard</option>
+							</select>
+							<label>Class Select</label>
+						</div>
+						<div class="input-field">
+							<textarea
+								id="textarea2"
+								class="materialize-textarea"
+								data-length="120"
+							></textarea>
+							<label for="textarea2">Textarea</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<a href="#!" class="modal-close waves-effect waves-green btn-flat"
+							>Create</a
+						>
+					</div>
+				</div>
+			</aside>
+			<section id="map" class="col s12 m9">
+				<img
+					src="./assets/media/27107457885_ebba66b7c1_o.jpg"
+					alt="simple map"
+				/>
+				<!--https://www.flickr.com/photos/35034348373@N01/27107457885-->
+			</section>
+		</main>
+
 		<!-- Compiled and minified JQuery -->
 		<script
 			src="https://code.jquery.com/jquery-3.6.0.min.js"
