@@ -10,14 +10,21 @@ var raceAPI = "https://www.dnd5eapi.co/api/classes/"
 var randomMonster = []
 var monsterStats = []
 
-//Get a class
-// fetch("https://www.dnd5eapi.co/api/monsters/vampire-bat") 
-//     .then(function(response){
-//         return response.json()
-//     })
-//     .then( function(data){
-//         console.log(data)
-//     });
+var hitRoll;
+var armorClass;
+var attackBonus;
+var attackBtn = document.querySelector("#attackTEST")
+
+
+
+Get a class
+fetch("https://www.dnd5eapi.co/api/monsters/vampire-bat") 
+    .then(function(response){
+        return response.json()
+    })
+    .then( function(data){
+        console.log(data)
+    });
 
 //Get a random monster
 randomMonsterGenerator = function() {
@@ -48,5 +55,24 @@ monsterStatLoad = function() {
     });
 }
 
-
 monsterStatLoad();
+
+function attackRoll(){
+
+    let attackBonus = 4
+    let armorClass = 6
+    var roll;
+    if (Math.floor(Math.random() * 20) === armorClass) { 
+        console.log("You hit!")
+    } else {
+        console.log("You missed!")
+        
+    }
+}
+
+attackBtn.addEventListener("click", function (event){
+    event.preventDefault();
+    attackRoll();
+})
+
+
