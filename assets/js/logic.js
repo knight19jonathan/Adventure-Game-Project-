@@ -17,7 +17,7 @@ var attackBtn = document.querySelector("#attackTEST")
 
 
 
-Get a class
+//Get a class
 fetch("https://www.dnd5eapi.co/api/monsters/vampire-bat") 
     .then(function(response){
         return response.json()
@@ -43,7 +43,7 @@ randomMonsterGenerator = function() {
 //pull monster stats
 monsterStatLoad = function() {
     randomMonsterGenerator();
-    fetch(`https://www.dnd5eapi.co/api/monsters/${randomMonster[0].index}`) 
+    fetch(`https://www.dnd5eapi.co/api/monsters/${randomMonster[0]}`) 
     .then(function(response){
         return response.json()
     })
