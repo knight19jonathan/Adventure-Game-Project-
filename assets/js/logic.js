@@ -15,11 +15,13 @@ var monsterStats = []
 
 //combat variables
 var hitRoll;
-var armorClass = 0;
+var armorClass;
 var attackBonus;
 var attackBtn = document.querySelector("#attackTEST")
 var attackBtn2 = document.querySelector("#attackTEST2")
 var diceRoll;
+
+
 
 
 
@@ -54,23 +56,29 @@ randomMonsterFetch = function() {
         // console.log(monsterStats)
     })
     .then( function(){
-        armomrClass = monsterStats[0].armor_class
+        armorClass = monsterStats[0].armor_class
     })
     .then( function(){
-        console.log(armomrClass)
+        console.log(armorClass)
+        //armorClass = armomrClass
+        //console.log(armorClass)
     });
+    
 })
 }
+
+
 
 //here for testing purposes only
 $(document).ready(function() {
         randomMonsterFetch();
+        console.log(randomMonster)
 })
 
 //combat functions
 function attackRoll() {
     let diceRoll = Math.ceil(Math.random() * 20)
-    let armorClass = 10
+    //let armorClass = 10
     let attackBonus = 5
     if (diceRoll + attackBonus >= armorClass) {
         console.log(diceRoll+attackBonus)
@@ -82,14 +90,20 @@ function attackRoll() {
     }
 }
 
+function diceRoll(){
+    let diceRoll = Math.ceil(Math.random() * 20)
+    console.log(diceRoll);
+}
+
 attackBtn.addEventListener("click", function (event) {
     event.preventDefault();
-    diceroll();
+    diceRoll();
 });
 
 attackBtn2.addEventListener("click", function (event) {
     event.preventDefault();
     attackRoll();
+    console.log(armorClass)
 })
 
 
