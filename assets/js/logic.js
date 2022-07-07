@@ -17,7 +17,15 @@ var monsterStats = [];
 var hitRoll;
 var armorClass = 0;
 var attackBonus;
+<<<<<<< HEAD
 var attackBtn = document.querySelector('#attackTEST');
+=======
+var attackBtn = document.querySelector("#attackTEST")
+var attackBtn2 = document.querySelector("#attackTEST2")
+var diceRoll;
+
+
+>>>>>>> ptr
 
 //buttons
 var characterGenBtn = document.querySelector('#new-character');
@@ -65,6 +73,7 @@ $(document).ready(function () {
 
 //combat functions
 function attackRoll() {
+<<<<<<< HEAD
 	let attackBonus = 4;
 	let armorClass = 6;
 	var roll;
@@ -79,6 +88,31 @@ attackBtn.addEventListener('click', function (event) {
 	event.preventDefault();
 	attackRoll();
 });
+=======
+    let diceRoll = Math.ceil(Math.random() * 20)
+    let armorClass = 10
+    let attackBonus = 5
+    if (diceRoll + attackBonus >= armorClass) {
+        console.log(diceRoll+attackBonus)
+        console.log("You hit!")
+    } else {
+        console.log(diceRoll+attackBonus)
+        console.log("You missed!")
+
+    }
+}
+
+attackBtn.addEventListener("click", function (event) {
+    event.preventDefault();
+    diceroll();
+});
+
+attackBtn2.addEventListener("click", function (event) {
+    event.preventDefault();
+    attackRoll();
+})
+
+>>>>>>> ptr
 
 // //execute on page load
 // for future, character stat load function
