@@ -31,9 +31,11 @@
             <ul id="nav-mobile" class="left hide-on-med-and-down">
                 <li>
                     <button data-target="modal1"
-                        class="waves-effect waves-light btn modal-trigger lime black-text hoverable" id="new-character">
-                        New Character
-                    </button>
+                        class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
+                        id="new-character">New Character</button>
+                    <button data-target="null"
+                        class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
+                        id="play-music">Play Music/Get random quote</button>
                 </li>
             </ul>
         </div>
@@ -43,11 +45,12 @@
         <aside id="character-element" class="col s12 m3">
             <img src="./assets/media/dndeightbitwarr.jpeg" alt="dnd warrior character" width="200px" />
             <textarea name="#" id="bio-area" cols="30" rows="10"></textarea>
-            <div id="skils-stats">
+            <div id="skills-stats">
                 <ul>
-                    <li>Strength</li>
-                    <li>Dexterity</li>
-                    <li>Intelligence</li>
+                    <li id="raceLi">Race:</li>
+                    <li id="classLi">Class:</li>
+                    <li id="hPLi">HP:</li>
+                    <li id="atkBnsLi">Attack Bonus:</li>
                 </ul>
             </div>
             <div>
@@ -60,36 +63,35 @@
                     <h4>Modal Header</h4>
                     <div class="input-field">
                         <select>
-                            <option value="" disabled selected>Choose your Race</option>
-                            <option value="1">Dragonborn</option>
-                            <option value="2">Dwarf</option>
-                            <option value="3">Elf</option>
-                            <option value="4">Gnome</option>
-                            <option value="5">Half-elf</option>
-                            <option value="6">Halfling</option>
-                            <option value="7">Human</option>
-                            <option value="8">Tiefling</option>
+                            <option id="raceOpt0" value="" disabled selected>Choose your Race</option>
+                            <option id="raceOpt1" value="1">Dragonborn</option>
+                            <option id="raceOpt2" value="2">Dwarf</option>
+                            <option id="raceOpt3" value="3">Elf</option>
+                            <option id="raceOpt4" value="4">Gnome</option>
+                            <option id="raceOpt5" value="5">Half-elf</option>
+                            <option id="raceOpt6" value="6">Halfling</option>
+                            <option id="raceOpt7" value="7">Human</option>
+                            <option id="raceOpt8" value="8">Tiefling</option>
+                            <option id="raceOpt9" value="9">Half-Orc</option>
                         </select>
-                        <label>Materialize Select</label>
+                        <label>Race Select</label>
                     </div>
                     <div class="input-field">
                         <select>
-                            <option value="" disabled selected>Choose your Race</option>
-                            <option value="1">Dragonborn</option>
-                            <option value="2">Dwarf</option>
-                            <option value="3">Elf</option>
-                            <option value="4">Gnome</option>
-                            <option value="5">Half-elf</option>
-                            <option value="6">Halfling</option>
-                            <option value="7">Human</option>
-                            <option value="8">Tiefling</option>
+                            <option id="classOpt0" value="" disabled selected>Choose your Class</option>
+                            <option id="classOpt1" value="1">Fighter</option>
+                            <option id="classOpt2" value="2">Rogue</option>
+                            <option id="classOpt3" value="3">Wizard</option>
                         </select>
-                        <label>Materialize Select</label>
+                        <label>Class Select</label>
                     </div>
-                    <p>A bunch of text</p>
+                    <div class="input-field">
+                        <textarea id="textarea2" class="materialize-textarea" data-length="120"></textarea>
+                        <label for="textarea2">Textarea</label>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Create</a>
                 </div>
             </div>
         </aside>
