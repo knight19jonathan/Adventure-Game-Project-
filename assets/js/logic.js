@@ -15,8 +15,16 @@ var monsterStats = []
 
 //combat variables
 var hitRoll;
-var armorClass = 0;
 var attackBonus;
+
+//random monster variables
+var monsterName = "";
+var monsterArmorClass = 0;
+var monsterHitPoints = 0;
+var monsterXP = 0;
+var monsterAttack = 0;
+var monsterDexterity = 0;
+
 var attackBtn = document.querySelector("#attackTEST")
 var attackBtn2 = document.querySelector("#attackTEST2")
 var diceRoll;
@@ -39,6 +47,7 @@ randomMonsterFetch = function() {
         // console.log(data)
         // console.log(Math.floor(Math.random() * 334))
         randomMonster.push(data.results[Math.floor(Math.random() * 334)].index)
+        //add in a clear 
         return randomMonster;
     })
     .then( function(){
@@ -54,10 +63,21 @@ randomMonsterFetch = function() {
         // console.log(monsterStats)
     })
     .then( function(){
-        armomrClass = monsterStats[0].armor_class
+        monsterName = monsterStats[0].name
+        monsterArmorClass = monsterStats[0].armor_class
+        monsterHitPoints = monsterStats[0].hit_points
+        monsterXP = monsterStats[0].xp
+        monsterAttack = monsterStats[0].strength
+        monsterDexterity = monsterStats[0].dexterity
+
     })
     .then( function(){
-        console.log(armomrClass)
+        console.log(monsterArmorClass)
+        console.log(monsterHitPoints)
+        console.log(monsterXP)
+        console.log(monsterAttack)
+        console.log(monsterDexterity)
+        console.log(monsterName)
     });
 })
 }
