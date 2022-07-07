@@ -13,6 +13,7 @@ var randomMonster = []
 var randomMonsterIndex = `${randomMonster}`
 var monsterStats = []
 
+
 //buttons
 var characterGenBtn = document.querySelector("#new-character");
 
@@ -33,15 +34,30 @@ classFetch = function(){
 
 //Get a race
 racesFetch = function(){
-    fetch(raceAPI) 
+
+var hitRoll;
+var armorClass;
+var attackBonus;
+var attackBtn = document.querySelector("#attackTEST")
+
+
+
+Get a class
+fetch("https://www.dnd5eapi.co/api/monsters/vampire-bat") 
+
     .then(function(response){
         return response.json()
     })
     .then( function(data){
+
         races.push(data.results)
         console.log(races)
     });
 }
+
+        console.log(data)
+    });
+
 
 //Get a random monster
     //another approach to this might be to see if we can generate a random number first, then use that to call a random monster from the API itself
@@ -89,3 +105,22 @@ monsterGenerator = function() {
     });
 }
 
+monsterStatLoad();
+
+function attackRoll(){
+
+    let attackBonus = 4
+    let armorClass = 6
+    var roll;
+    if (Math.floor(Math.random() * 20) === armorClass) { 
+        console.log("You hit!")
+    } else {
+        console.log("You missed!")
+        
+    }
+}
+
+attackBtn.addEventListener("click", function (event){
+    event.preventDefault();
+    attackRoll();
+})
