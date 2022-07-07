@@ -85,7 +85,33 @@ randomMonsterFetch = function() {
 })
 }
 
+
+//pull monster stats
+monsterStatLoad = function() {
+    randomMonsterGenerator();
+    fetch(`https://www.dnd5eapi.co/api/monsters/${randomMonster[0]}`) 
+}
 randomMonsterFetch();
+
+
+//pull monster stats - BROKEN
+monsterGenerator = function() {
+    randomMonsterFetch();
+    fetch (monsterStatApi)
+
+    .then(function(response){
+        return response.json()
+    })
+    .then( function(data){
+        // console.log(data)
+        // console.log(Math.floor(Math.random() * 334))
+        monsterStats.push(data.results)
+        console.log(monsterStats)
+    });
+}
+
+monsterStatLoad();
+
 
 //combat functions
 function attackRoll(){
@@ -104,4 +130,4 @@ function attackRoll(){
 attackBtn.addEventListener("click", function (event){
     event.preventDefault();
     attackRoll();
-})
+});
