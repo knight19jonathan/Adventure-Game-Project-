@@ -1,3 +1,6 @@
+//make materialize jquery function
+M.AutoInit();
+
 //API Variables
 var monsterAPI = "https://www.dnd5eapi.co/api/monsters/"
 var classAPI = "https://www.dnd5eapi.co/api/classes/"
