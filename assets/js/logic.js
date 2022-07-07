@@ -4,7 +4,7 @@ M.AutoInit();
 //API Variables
 var monsterAPI = "https://www.dnd5eapi.co/api/monsters/"
 var classAPI = "https://www.dnd5eapi.co/api/classes/"
-var raceAPI = "https://www.dnd5eapi.co/api/classes/"
+var raceAPI = "https://www.dnd5eapi.co/api/races/"
 
 //
 var classes = []
@@ -15,7 +15,7 @@ var monsterStats = []
 
 //combat variables
 var hitRoll;
-var armorClass;
+var armorClass = 0;
 var attackBonus;
 var attackBtn = document.querySelector("#attackTEST")
 var attackBtn2 = document.querySelector("#attackTEST2")
@@ -29,97 +29,43 @@ var characterGenBtn = document.querySelector("#new-character");
 //elements
 var title = document.querySelector("a")
 
-//execute on page load
-//classFetch
-//racesFetch
-
-//execute on combat load
-//randomMonsterFetch
-
-//Get a class
-classFetch = function () {
-    fetch(classAPI)
-        .then(function (response) {
-            return response.json()
-        })
-        .then(function (data) {
-            classes.push(data.results)
-            console.log(classes)
-        });
-}
-
-//Get a race
-racesFetch = function () {
-    fetch(raceAPI)
-        .then(function (response) {
-            return response.json()
-        })
-        .then(function (data) {
-
-            races.push(data.results)
-            console.log(races)
-        });
-}
-
 //Get a random monster
-//another approach to this might be to see if we can generate a random number first, then use that to call a random monster from the API itself
-randomMonsterFetch = function () {
+randomMonsterFetch = function() {
     fetch(monsterAPI)
-        .then(function (response) {
-            return response.json()
-        })
-        .then(function (data) {
-            // console.log(data)
-            // console.log(Math.floor(Math.random() * 334))
-            randomMonster.push(data.results[Math.floor(Math.random() * 334)].index)
-            return randomMonster;
-        })
-        .then(function () {
-            var monsterStatApi = `https://www.dnd5eapi.co/api/monsters/${randomMonster}`
-            console.log(monsterStatApi)
-            fetch(monsterStatApi)
-                .then(function (response) {
-                    return response.json()
-                })
-                .then(function (monster) {
-                    // console.log(monster);
-                    monsterStats.push(monster)
-                    console.log(monsterStats)
-                });
-        })
+    .then(function(response){
+        return response.json()
+    })
+    .then( function(data){
+        // console.log(data)
+        // console.log(Math.floor(Math.random() * 334))
+        randomMonster.push(data.results[Math.floor(Math.random() * 334)].index)
+        return randomMonster;
+    })
+    .then( function(){
+        var monsterStatApi = `https://www.dnd5eapi.co/api/monsters/${randomMonster}`
+        // console.log(monsterStatApi)
+        fetch(monsterStatApi)
+        .then(function(response){
+        return response.json()
+     })
+    .then( function(monster){
+        // console.log(monster);
+        monsterStats.push(monster)
+        // console.log(monsterStats)
+    })
+    .then( function(){
+        armomrClass = monsterStats[0].armor_class
+    })
+    .then( function(){
+        console.log(armomrClass)
+    });
+})
 }
 
-
-// //pull monster stats
-// monsterStatLoad = function() {
-//     randomMonsterGenerator();
-//     fetch(`https://www.dnd5eapi.co/api/monsters/${randomMonster[0]}`) 
-// }
-// randomMonsterFetch();
-
-
-//pull monster stats - BROKEN
-monsterGenerator = function () {
-    randomMonsterFetch();
-    fetch(monsterStatApi)
-
-        .then(function (response) {
-            return response.json()
-        })
-        .then(function (data) {
-            // console.log(data)
-            // console.log(Math.floor(Math.random() * 334))
-            monsterStats.push(data.results)
-            console.log(monsterStats)
-        });
-}
-
-//monsterStatLoad();
-
-function diceroll() {
-    let diceRoll = Math.ceil(Math.random() * 20)
-    console.log(diceRoll);
-}
+//here for testing purposes only
+$(document).ready(function() {
+        randomMonsterFetch();
+})
 
 //combat functions
 function attackRoll() {
@@ -144,5 +90,35 @@ attackBtn.addEventListener("click", function (event) {
 attackBtn2.addEventListener("click", function (event) {
     event.preventDefault();
     attackRoll();
-});
+})
 
+
+// //execute on page load
+// for future, character stat load function
+// $(document).ready(function() {
+//     classFetch();
+//     racesFetch();
+// });
+// //Get a class
+// classFetch = function(){
+//     fetch(classAPI) 
+//     .then(function(response){
+//         return response.json()
+//     })
+//     .then( function(data){
+//         classes.push(data.results)
+//         console.log(classes)
+//     });
+// }
+// //Get a race
+// racesFetch = function(){
+//     fetch(raceAPI)
+//     .then(function(response){
+//         return response.json()
+//     })
+//     .then( function(data){
+
+//         races.push(data.results)
+//         console.log(races)
+//     });
+// }
