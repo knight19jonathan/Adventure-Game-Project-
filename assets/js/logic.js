@@ -25,6 +25,13 @@ var characterGenBtn = document.querySelector("#new-character");
 //elements
 var title = document.querySelector("a")
 
+//execute on page load
+    //classFetch
+    //racesFetch
+
+//execute on combat load
+    //randomMonsterFetch
+
 //Get a class
 classFetch = function(){
     fetch(classAPI) 
@@ -81,16 +88,15 @@ randomMonsterFetch = function() {
         var monsterStatApi = `https://www.dnd5eapi.co/api/monsters/${randomMonster}`
         console.log(monsterStatApi)
         fetch(monsterStatApi)
-        return;
-})
-    .then(function(response){
+        .then(function(response){
         return response.json()
      })
     .then( function(monster){
-        console.log(monster);
-        //  var monsterStatApi = 
-        // console.log(monsterStatApi)
+        // console.log(monster);
+        monsterStats.push(monster)
+        console.log(monsterStats)
     });
+})
 }
 
 <<<<<<< HEAD
@@ -101,6 +107,7 @@ monsterStatLoad = function() {
 =======
 randomMonsterFetch();
 
+<<<<<<< HEAD
 //pull monster stats - BROKEN
 monsterGenerator = function() {
     randomMonsterFetch();
@@ -119,6 +126,8 @@ monsterGenerator = function() {
 
 monsterStatLoad();
 
+=======
+>>>>>>> 1841acf676c41940721b62dcf5f441911955cb89
 //combat functions
 function attackRoll(){
 
