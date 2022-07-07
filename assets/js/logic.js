@@ -46,21 +46,7 @@ classFetch = function(){
 
 //Get a race
 racesFetch = function(){
-<<<<<<< HEAD
-
-var hitRoll;
-var armorClass;
-var attackBonus;
-var attackBtn = document.querySelector("#attackTEST")
-
-
-
-//Get a class
-fetch("https://www.dnd5eapi.co/api/monsters/vampire-bat") 
-
-=======
     fetch(raceAPI)
->>>>>>> 8f1bcc33ce5779be2fbace55768cc32560869c29
     .then(function(response){
         return response.json()
     })
@@ -99,20 +85,20 @@ randomMonsterFetch = function() {
 })
 }
 
-<<<<<<< HEAD
+
 //pull monster stats
 monsterStatLoad = function() {
     randomMonsterGenerator();
     fetch(`https://www.dnd5eapi.co/api/monsters/${randomMonster[0]}`) 
-=======
+}
 randomMonsterFetch();
 
-<<<<<<< HEAD
+
 //pull monster stats - BROKEN
 monsterGenerator = function() {
     randomMonsterFetch();
     fetch (monsterStatApi)
->>>>>>> refs/remotes/origin/ptr
+
     .then(function(response){
         return response.json()
     })
@@ -126,8 +112,7 @@ monsterGenerator = function() {
 
 monsterStatLoad();
 
-=======
->>>>>>> 1841acf676c41940721b62dcf5f441911955cb89
+
 //combat functions
 function attackRoll(){
 
@@ -145,4 +130,4 @@ function attackRoll(){
 attackBtn.addEventListener("click", function (event){
     event.preventDefault();
     attackRoll();
-})
+});
