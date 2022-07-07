@@ -15,6 +15,10 @@ var monsterStats = []
 
 //combat variables
 var hitRoll;
+<<<<<<< HEAD
+var armorClass;
+=======
+>>>>>>> 5a58a75c6562cc657005502298ec9f8f6ec9a4cf
 var attackBonus;
 
 //random monster variables
@@ -28,6 +32,8 @@ var monsterDexterity = 0;
 var attackBtn = document.querySelector("#attackTEST")
 var attackBtn2 = document.querySelector("#attackTEST2")
 var diceRoll;
+
+
 
 
 
@@ -63,6 +69,14 @@ randomMonsterFetch = function() {
         // console.log(monsterStats)
     })
     .then( function(){
+<<<<<<< HEAD
+        armorClass = monsterStats[0].armor_class
+    })
+    .then( function(){
+        console.log(armorClass)
+        //armorClass = armomrClass
+        //console.log(armorClass)
+=======
         monsterName = monsterStats[0].name
         monsterArmorClass = monsterStats[0].armor_class
         monsterHitPoints = monsterStats[0].hit_points
@@ -78,19 +92,24 @@ randomMonsterFetch = function() {
         console.log(monsterAttack)
         console.log(monsterDexterity)
         console.log(monsterName)
+>>>>>>> 5a58a75c6562cc657005502298ec9f8f6ec9a4cf
     });
+    
 })
 }
+
+
 
 //here for testing purposes only
 $(document).ready(function() {
         randomMonsterFetch();
+        console.log(randomMonster)
 })
 
 //combat functions
 function attackRoll() {
     let diceRoll = Math.ceil(Math.random() * 20)
-    let armorClass = 10
+    //let armorClass = 10
     let attackBonus = 5
     if (diceRoll + attackBonus >= armorClass) {
         console.log(diceRoll+attackBonus)
@@ -102,14 +121,20 @@ function attackRoll() {
     }
 }
 
+function diceRoll(){
+    let diceRoll = Math.ceil(Math.random() * 20)
+    console.log(diceRoll);
+}
+
 attackBtn.addEventListener("click", function (event) {
     event.preventDefault();
-    diceroll();
+    diceRoll();
 });
 
 attackBtn2.addEventListener("click", function (event) {
     event.preventDefault();
     attackRoll();
+    console.log(armorClass)
 })
 
 
