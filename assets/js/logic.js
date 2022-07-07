@@ -1,6 +1,5 @@
 //API Variables
 var monsterAPI = "https://www.dnd5eapi.co/api/monsters/"
-var monsterStatApi = `https://www.dnd5eapi.co/api/monsters/${randomMonsterIndex}`
 var classAPI = "https://www.dnd5eapi.co/api/classes/"
 var raceAPI = "https://www.dnd5eapi.co/api/classes/"
 
@@ -52,17 +51,25 @@ randomMonsterFetch = function() {
         // console.log(data)
         // console.log(Math.floor(Math.random() * 334))
         randomMonster.push(data.results[Math.floor(Math.random() * 334)].index)
-        console.log(randomMonster);
+        return randomMonster;
+    })
+    .then( function(){
+        var monsterStatApi = `https://www.dnd5eapi.co/api/monsters/${randomMonster}`
+        console.log(monsterStatApi)
+        fetch(monsterStatApi)
+        return;
+})
+    .then(function(response){
+        return response.json()
+     })
+    .then( function(monster){
+        console.log(monster);
+        //  var monsterStatApi = 
+        // console.log(monsterStatApi)
     });
 }
+
 randomMonsterFetch();
-textChange = function(){
-    title.textContent = randomMonster
-    console.log(monsterAPI)
-}
-
-characterGenBtn.addEventListener("click", textChange)
-
 
 //pull monster stats - BROKEN
 monsterGenerator = function() {
