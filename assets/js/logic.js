@@ -329,24 +329,28 @@ attackBtn2.addEventListener('click', function (event) {
     // };
 
 
-
+    //grab input elements for characater creator
     var savCharBtn = $("#save-char-btn")
+    var nameInputEl =  $("#choose-name")
     var raceInputEl = $("#race-input")
     var classInputEl = $("#class-input")
     var bioInputEl = $("#textarea2")
-    console.log(bioInputEl)
+
+    //grab elements in character aside
+    var nameAreaLi = $("#name-li")
     var bioAreaEl = $("#bio-area")
     var raceLiEl = $("#raceLi")
     var classLiEl = $("#classLi")
     var hpLiEl = $("#hPLi")
     var attackBonusLiEl = $("#atkBnsLi")
 
-    savCharBtn.on("click", function(event){
+    savCharBtn.on("click", function(event){ // on submission of character creation, set values in the aside
         event.preventDefault()
         if (raceInputEl.val() == null || classInputEl.val() == null) {
             alert("You must enter your character information to proceed")
             return
         } else {
+            nameAreaLi.text(`Name: ${nameInputEl.val()}`)
             raceLiEl.text(`Race: ${raceInputEl.val()}`)
             classLiEl.text(`Class: ${classInputEl.val()}`)
             bioAreaEl.val(`${bioInputEl.val()}`)
