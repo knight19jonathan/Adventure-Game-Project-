@@ -46,6 +46,7 @@ var playerInit = 0;
 var monsterInit = 0; 
 var playerArmorClass = 15 // Value TBD by player armor item + player dexterity 
 var isCombat = Boolean;
+var playerXP =0; 
 
 
 //buttons
@@ -154,8 +155,14 @@ function startcombat() {
 
 
 function runCombat() {
-    if (playerHP <= 0 || monsterHitPoints <= 0) {
-        
+    if (playerHP <= 0 ) {
+        modalAttackBtn.style.display = "none"
+        console.log("You have perished!")
+    } else (monsterHitPoints <= 0) {
+        modalAttackBtn.style.display = "none"
+        console.log("The monster is slain! It will trouble you no more.")
+        playerXP = playerXP + monsterXP
+        console.log
     }
 }
 
