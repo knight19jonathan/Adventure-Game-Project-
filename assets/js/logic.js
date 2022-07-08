@@ -39,7 +39,9 @@ var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
 var playerLevel = 1;
 var attackBonus = playerLevel + playerStrength;
 var combatLog = document.querySelector('#combat-log');
-var battleboxPlayerHP = document.querySelector('#player-hp-li');
+var battleBoxPlayerHP = document.querySelector('#player-hp-li');
+var battleBoxMonsterHP = document.querySelector('#enemy-hp-li');
+var playerHpBar = document.querySelector('#player-hp-bar').style.width;
 var playerListBB = document.querySelector('#player-ul');
 var playerInit = 0;
 var monsterInit = 0;
@@ -56,6 +58,11 @@ var title = document.querySelector('a');
 //Get a random monster
 
 //
+function BattleStats() {
+	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
+	playerHpBar = `${playerHP}%`;
+	battleBoxMonsterHP.textContent = `HP: ${monsterHitPoints}`;
+}
 
 randomMonsterFetch = function () {
 	fetch(monsterAPI)
@@ -121,7 +128,7 @@ function diceRoll() {
 
 function startcombat() {
 	// let playerHP = fetch a value from local storage to equal current player health or default to current
-
+	BattleStats();
 	// combatLog.("A wild", monsterName, "appears!" )
 	let playerInit = diceRoll() + playerDexterity; //
 	console.log('PlDex:', playerDexterity);
@@ -146,6 +153,7 @@ function startcombat() {
 		return;
 	}
 }
+//render battleBox stats
 
 //combat functions
 function attackRoll() {
@@ -180,6 +188,7 @@ function attackRoll() {
         A miss!`;
 	}
 	localStorage.setItem('playerAction', JSON.stringify(combatLog.textContent));
+	BattleStats();
 }
 
 function monsterAttackRoll() {
@@ -212,6 +221,7 @@ function monsterAttackRoll() {
 		A miss!`;
 	}
 	localStorage.setItem('monsterAction', JSON.stringify(combatLog.textContent));
+	BattleStats();
 }
 
 battleStart.addEventListener('click', function (event) {
