@@ -1,216 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-			rel="stylesheet"
-		/>
-		<title>Adventure Game</title>
-		<!-- Compiled and minified CSS materialize -->
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-		/>
 
-		<!-- link css-->
-		<link rel="stylesheet" href="./assets/css/style.css" />
-	</head>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+	<title>Adventure Game</title>
+	<!-- Compiled and minified CSS materialize -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
 
-	<body class="grey darken-4">
-		<section>
-			<button id="attackTEST">Test Attack</button>
-			<p aria-placeholder="test"></p>
-	<body>
-		<section>
-			<button id="attackTEST">Roll a d20</button>
-			<button id="attackTEST2">Roll a d20</button>
-		</section>
+	<!-- link css-->
+	<link rel="stylesheet" href="./assets/css/style.css" />
+</head>
 
-		<nav>
-			<div class="nav-wrapper brown lighten-1">
-				<a href="#" class="brand-logo center lime-text" id="pageTitle"
-					>DnD Machine</a
-				>
-				<ul id="nav-mobile" class="left hide-on-med-and-down">
-					<li>
-						<button
-							data-target="modal1"
-							class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
-							id="new-character"
-						>
-							New Character
-						</button>
-						<button
-							data-target="null"
-							class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
-							id="play-music"
-						>
-							Play Music/Get random quote
-						</button>
-					</li>
-				</ul>
-			</div>
-		</nav>
+<body class="grey darken-4">
+	<section>
+		<button id="attackTEST">Test Attack</button>
+		<p aria-placeholder="test"></p>
 
-		<main class="row">
-			<aside id="character-element" class="col s12 m3">
-				<img
-					src="./assets/media/dndeightbitwarr.jpeg"
-					alt="dnd warrior character"
-					width="200px"
-				/>
-				<textarea name="#" id="bio-area" cols="30" rows="10"></textarea>
-				<div id="skills-stats">
-					<ul id="player-ul">
-						<li id="raceLi">Race:</li>
-						<li id="classLi">Class:</li>
-						<li id="hPLi">HP:</li>
-						<li id="atkBnsLi">Attack Bonus:</li>
+		<body>
+			<section>
+				<button id="attackTEST">Roll a d20</button>
+				<button id="attackTEST2">Roll a d20</button>
+			</section>
+
+			<nav>
+				<div class="nav-wrapper brown lighten-1">
+					<a href="#" class="brand-logo center lime-text" id="pageTitle">DnD Machine</a>
+					<ul id="nav-mobile" class="left hide-on-med-and-down">
+						<li>
+							<button data-target="modal1"
+								class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
+								id="new-character">
+								New Character
+							</button>
+							<button data-target="null"
+								class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
+								id="play-music">
+								Play Music/Get random quote
+							</button>
+						</li>
 					</ul>
 				</div>
-				<div>
-					<p id="playerHpLabel">Health</p>
-					<h1 class="red darken-4" id="playerHp">100</h1>
-				</div>
+			</nav>
 
-				<button
-					data-target="modal3"
-					class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
-					id="start-battle"
-				>
-					Battle
-				</button>
+			<main class="row">
+				<aside id="character-element" class="col s12 m3">
+					<img src="./assets/media/dndeightbitwarr.jpeg" alt="dnd warrior character" width="200px" />
+					<textarea name="Bio" id="bio-area" cols="30" rows="10" readonly="true"></textarea>
+					<div id="skills-stats">
+						<ul id="player-ul">
+							<li id="raceLi">Race:</li>
+							<li id="classLi">Class:</li>
+							<li id="hPLi">HP:</li>
+							<li id="atkBnsLi">Attack Bonus:</li>
+						</ul>
+					</div>
+					<div>
+						<p id="playerHpLabel">Health</p>
+						<h1 class="red darken-4" id="playerHp">100</h1>
+					</div>
 
-				<!-- Modal on new start battle click -->
-				<div id="modal3" class="modal lime">
-					<div class="modal-content">
-						<h4>Modal 3 Header</h4>
-						<div class="row">
-							<div class="col s4">
-								<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
-							</div>
-							<div class="col s4">
-								<textarea name="" id="combat-log" cols="30" rows="10"></textarea>
-							</div>
-							<div class="col s4">
-								<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
-							</div>
-						</div>
-						<div class="row justify-content-center">
-							<div class="col s4">
-								<div class="progress">
-									<div class="determinate red" style="width: 70%"></div>
+					<button data-target="modal3"
+						class="waves-effect waves-light btn modal-trigger lime black-text hoverable" id="start-battle">
+						Battle
+					</button>
+
+					<!-- Modal on new start battle click -->
+					<div id="modal3" class="modal lime">
+						<div class="modal-content">
+							<h4>Modal 3 Header</h4>
+							<div class="row">
+								<div class="col s4">
+									<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
 								</div>
-								<ul>
-									<li id="player-hp-li">HP:</li>
-									<li id="attack-bonus-li">Attack Bonus:</li>
-									<li id="player-armor-class-li">Armor Class</li>
-								</ul>
-							</div>
-							<div class="col s4">
-								<button
-									id="init-button"
-									class="waves-effect waves-light btn lime darken-4 black-text hoverable">
-									Roll Initiative
-							</button>
-								<button
-									id="attack-button"
-									class="waves-effect waves-light btn lime darken-4 black-text hoverable">
-									Attack
-								</button>
-								<p>Monster will swing back in 6 seconds.</p>
-							</div>
-							<div class="col s4">
-								<div class="progress">
-									<div class="determinate red" style="width: 70%"></div>
+								<div class="col s4">
+									<textarea name="" id="combat-log" cols="30" rows="10"></textarea>
 								</div>
-								<ul>
-									<li id="enemy-hp-li">HP:</li>
-									<li id="xp-li">XP on death:</li>
-									<li id="challenge-rating-li">Challenge Rating:</li>
-									<li id="enemy-armor-class-li">Armor Class:</li>
-								</ul>
+								<div class="col s4">
+									<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
+								</div>
+							</div>
+							<div class="row justify-content-center">
+								<div class="col s4">
+									<div class="progress">
+										<div class="determinate red" style="width: 70%"></div>
+									</div>
+									<ul>
+										<li id="player-hp-li">HP:</li>
+										<li id="attack-bonus-li">Attack Bonus:</li>
+										<li id="player-armor-class-li">Armor Class</li>
+									</ul>
+								</div>
+								<div class="col s4">
+									<button id="init-button"
+										class="waves-effect waves-light btn lime darken-4 black-text hoverable">
+										Roll Initiative
+									</button>
+									<button id="attack-button"
+										class="waves-effect waves-light btn lime darken-4 black-text hoverable">
+										Attack
+									</button>
+									<p>Monster will swing back in 6 seconds.</p>
+								</div>
+								<div class="col s4">
+									<div class="progress">
+										<div class="determinate red" style="width: 70%"></div>
+									</div>
+									<ul>
+										<li id="enemy-hp-li">HP:</li>
+										<li id="xp-li">XP on death:</li>
+										<li id="challenge-rating-li">Challenge Rating:</li>
+										<li id="enemy-armor-class-li">Armor Class:</li>
+									</ul>
+								</div>
 							</div>
 						</div>
+						<div class="modal-footer lime darken-4">
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat black-text">Close</a>
+						</div>
 					</div>
-					<div class="modal-footer lime darken-4">
-						<a href="#!" class="modal-close waves-effect waves-green btn-flat black-text"
-							>Close</a
-						>
-					</div>
-				</div>
 
-				<!-- Modal on new char click -->
-				<div id="modal1" class="modal lime">
-					<div class="modal-content">
-						<h4>Modal Header</h4>
-						<div class="input-field">
-							<select>
-								<option id="raceOpt0" value="" disabled selected>
-									Choose your Race
-								</option>
-								<option id="raceOpt1" value="1">Dragonborn</option>
-								<option id="raceOpt2" value="2">Dwarf</option>
-								<option id="raceOpt3" value="3">Elf</option>
-								<option id="raceOpt4" value="4">Gnome</option>
-								<option id="raceOpt5" value="5">Half-elf</option>
-								<option id="raceOpt6" value="6">Halfling</option>
-								<option id="raceOpt7" value="7">Human</option>
-								<option id="raceOpt8" value="8">Tiefling</option>
-								<option id="raceOpt9" value="9">Half-Orc</option>
-							</select>
-							<label>Race Select</label>
+					<!-- Modal on new char click -->
+					<div id="modal1" class="modal lime">
+						<div class="modal-content">
+							<h4>Modal Header</h4>
+							<div class="input-field">
+								<select id="race-input">
+									<option id="raceOpt0" value="" disabled selected>
+										Choose your Race
+									</option>
+									<option id="raceOpt1" value="Dragonborn">Dragonborn</option>
+									<option id="raceOpt2" value="Dwarf">Dwarf</option>
+									<option id="raceOpt3" value="Elf">Elf</option>
+									<option id="raceOpt4" value="Gnome">Gnome</option>
+									<option id="raceOpt5" value="Half-elf">Half-elf</option>
+									<option id="raceOpt6" value="Halfling">Halfling</option>
+									<option id="raceOpt7" value="Human">Human</option>
+									<option id="raceOpt8" value="Tiefling">Tiefling</option>
+									<option id="raceOpt9" value="Half-Orc">Half-Orc</option>
+								</select>
+								<label>Race Select</label>
+							</div>
+							<div class="input-field">
+								<select id="class-input">
+									<option id="classOpt0" value="" disabled selected>
+										Choose your Class
+									</option>
+									<option id="classOpt1" value="Fighter">Fighter</option>
+									<option id="classOpt2" value="Rogue">Rogue</option>
+									<option id="classOpt3" value="Wizard">Wizard</option>
+								</select>
+								<label>Class Select</label>
+							</div>
+							<div class="input-field">
+								<textarea id="textarea2" class="materialize-textarea" data-length="120"></textarea>
+								<label for="textarea2">Add Bio Here</label>
+							</div>
 						</div>
-						<div class="input-field">
-							<select>
-								<option id="classOpt0" value="" disabled selected>
-									Choose your Class
-								</option>
-								<option id="classOpt1" value="1">Fighter</option>
-								<option id="classOpt2" value="2">Rogue</option>
-								<option id="classOpt3" value="3">Wizard</option>
-							</select>
-							<label>Class Select</label>
-						</div>
-						<div class="input-field">
-							<textarea
-								id="textarea2"
-								class="materialize-textarea"
-								data-length="120"
-							></textarea>
-							<label for="textarea2">Textarea</label>
+						<div class="modal-footer lime darken-4">
+							<a id="save-char-btn" href="#!"
+								class="modal-close waves-effect waves-green btn-flat">Create</a>
 						</div>
 					</div>
-					<div class="modal-footer lime darken-4">
-						<a href="#!" class="modal-close waves-effect waves-green btn-flat"
-							>Create</a
-						>
-					</div>
-				</div>
-			</aside>
-			<section id="map" class="col s12 m9">
-				<img
-					src="./assets/media/27107457885_ebba66b7c1_o.jpg"
-					alt="simple map"
-				/>
-				<!--https://www.flickr.com/photos/35034348373@N01/27107457885-->
-			</section>
-		</main>
+				</aside>
+				<section id="map" class="col s12 m9">
+					<img src="./assets/media/27107457885_ebba66b7c1_o.jpg" alt="simple map" />
+					<!--https://www.flickr.com/photos/35034348373@N01/27107457885-->
+				</section>
+			</main>
 
-		<!-- Compiled and minified JQuery -->
-		<script
-			src="https://code.jquery.com/jquery-3.6.0.min.js"
-			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-			crossorigin="anonymous"
-		></script>
-		<!-- Compiled and minified JavaScript materialize -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-		<script src="./assets/js/logic.js"></script>
-		<script src="./assets/js/spotifyAPI.js"></script>
-	</body>
+			<!-- Compiled and minified JQuery -->
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+				integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+			<!-- Compiled and minified JavaScript materialize -->
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+			<script src="./assets/js/logic.js"></script>
+			<script src="./assets/js/spotifyAPI.js"></script>
+		</body>
 </html>

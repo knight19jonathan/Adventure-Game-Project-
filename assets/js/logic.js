@@ -37,6 +37,7 @@ var playerConstitution = Math.ceil(Math.random() * 50); //fighter 50, wizard 20,
 var playerDexterity = 3; // +14 Fighter, +8 Wizard, +22 for Rogue
 var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
 var playerLevel = 1;
+var attackBonus = playerLevel + playerStrength;
 var combatLog = document.querySelector('#combat-log');
 var battleboxPlayerHP = document.querySelector('#player-hp-li');
 var playerListBB = document.querySelector('#player-ul');
@@ -315,3 +316,28 @@ attackBtn2.addEventListener('click', function (event) {
 //                 });
 //         });
 // };
+
+var savCharBtn = $('#save-char-btn');
+var raceInputEl = $('#race-input');
+var classInputEl = $('#class-input');
+var bioInputEl = $('#textarea2');
+console.log(bioInputEl);
+var bioAreaEl = $('#bio-area');
+var raceLiEl = $('#raceLi');
+var classLiEl = $('#classLi');
+var hpLiEl = $('#hPLi');
+var attackBonusLiEl = $('#atkBnsLi');
+
+savCharBtn.on('click', function (event) {
+	event.preventDefault();
+	if (raceInputEl.val() == null || classInputEl.val() == null) {
+		alert('You must enter your character information to proceed');
+		return;
+	} else {
+		raceLiEl.text(`Race: ${raceInputEl.val()}`);
+		classLiEl.text(`Class: ${classInputEl.val()}`);
+		bioAreaEl.val(`${bioInputEl.val()}`);
+		hpLiEl.text(`HP: ${playerHP}`);
+		attackBonusLiEl.text(`Attack Bonus: ${attackBonus}`);
+	}
+});
