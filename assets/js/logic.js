@@ -44,6 +44,7 @@ var playerListBB = document.querySelector("#player-ul")
 var playerInit = 0;
 var monsterInit = 0; 
 var playerArmorClass = 15 // Value TBD by player armor item + player dexterity 
+var isCombat = Boolean;
 
 
 //buttons
@@ -128,7 +129,7 @@ function startcombat() {
     let playerInit = diceRoll() + playerDexterity // 
     console.log("PlDex:", playerDexterity)
     console.log("Player Init:" , playerInit)
- 
+  
     let monsterInit = diceRoll() + monsterDexterity
     console.log("MonsterDex:", monsterDexterity);
     console.log("Monster Init:", monsterInit);
@@ -145,10 +146,11 @@ function startcombat() {
         
         modalAttackBtn.style.display = "block"
         return;
-    }
-    
-    
+    };
 }
+
+
+
 
 
 //combat functions
@@ -210,6 +212,8 @@ function monsterAttackRoll() {
 battleStart.addEventListener('click', function (event) {
     event.preventDefault();
     randomMonsterFetch();
+    isCombat = true;
+    console.log(isCombat)
     modalAttackBtn.style.display = "none"
     
 });
