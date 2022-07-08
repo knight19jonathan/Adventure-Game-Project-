@@ -15,10 +15,6 @@ var monsterStats = []
 
 //combat variables
 var hitRoll;
-<<<<<<< HEAD
-var armorClass;
-=======
->>>>>>> 5a58a75c6562cc657005502298ec9f8f6ec9a4cf
 var attackBonus;
 
 //random monster variables
@@ -69,14 +65,6 @@ randomMonsterFetch = function() {
         // console.log(monsterStats)
     })
     .then( function(){
-<<<<<<< HEAD
-        armorClass = monsterStats[0].armor_class
-    })
-    .then( function(){
-        console.log(armorClass)
-        //armorClass = armomrClass
-        //console.log(armorClass)
-=======
         monsterName = monsterStats[0].name
         monsterArmorClass = monsterStats[0].armor_class
         monsterHitPoints = monsterStats[0].hit_points
@@ -92,7 +80,6 @@ randomMonsterFetch = function() {
         console.log(monsterAttack)
         console.log(monsterDexterity)
         console.log(monsterName)
->>>>>>> 5a58a75c6562cc657005502298ec9f8f6ec9a4cf
     });
     
 })
