@@ -36,24 +36,20 @@ var playerHP = 100;
 var playerConstitution = Math.ceil(Math.random() * 50); //fighter 50, wizard 20, Rogue 20
 var playerDexterity = 3; // +14 Fighter, +8 Wizard, +22 for Rogue
 var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
+
 var playerLevel = 1;
 var attackBonus = playerLevel + playerStrength;
 var combatLog = document.querySelector('#combat-log');
 var battleboxPlayerHP = document.querySelector('#player-hp-li');
 var playerListBB = document.querySelector('#player-ul');
 var playerInit = 0;
-<<<<<<< HEAD
 var monsterInit = 0; 
 var playerArmorClass = 15 // Value TBD by player armor item + player dexterity 
 var isCombat = Boolean;
 var playerXP =0; 
-
-=======
-var monsterInit = 0;
-var playerArmorClass = 15; // Value TBD by player armor item + player dexterity
 var savedMonsterAction = JSON.parse(localStorage.getItem('monsterAction')); // monsters latest action in local storage
 var savedPlayerAction = JSON.parse(localStorage.getItem('playerAction')); // Players latest action in local storage
->>>>>>> c67210863d46bd73fdce63b0fb3cf4b316020dbf
+
 
 //buttons
 var characterGenBtn = document.querySelector('#new-character');
@@ -128,7 +124,6 @@ function diceRoll() {
 }
 
 function startcombat() {
-<<<<<<< HEAD
     // let playerHP = fetch a value from local storage to equal current player health or default to current 
     
     
@@ -157,34 +152,6 @@ function startcombat() {
         return;
     };
 }
-=======
-	// let playerHP = fetch a value from local storage to equal current player health or default to current
->>>>>>> c67210863d46bd73fdce63b0fb3cf4b316020dbf
-
-	// combatLog.("A wild", monsterName, "appears!" )
-	let playerInit = diceRoll() + playerDexterity; //
-	console.log('PlDex:', playerDexterity);
-	console.log('Player Init:', playerInit);
-
-	let monsterInit = diceRoll() + monsterDexterity;
-	console.log('MonsterDex:', monsterDexterity);
-	console.log('Monster Init:', monsterInit);
-	modalInitBtn.style.display = 'none';
-	if (playerInit >= monsterInit) {
-		combatLog.textContent = 'You are faster than the heathen!';
-		modalAttackBtn.style.display = 'block';
-		// combatLog.textContent("You were quick to your blade!")
-		return;
-	} else monsterInit > playerInit;
-	{
-		combatLog.textContent = 'The monster strikes first!';
-		// combatLog.textContent("The monster was faster!")
-		setTimeout(monsterAttackRoll, 3000);
-
-		modalAttackBtn.style.display = 'block';
-		return;
-	}
-}
 
 function runCombat() {
     if (playerHP <= 0 ) {
@@ -204,38 +171,9 @@ function runCombat() {
 
 //combat functions
 function attackRoll() {
-<<<<<<< HEAD
-    let diceRoll = Math.ceil(Math.random() * 20);
-    //let armorClass = 10
-    // let attackBonus = playerLevel + playerStrength;
-    console.log("The fighter attacks...")
-    if (diceRoll == 20) {
-        console.log(diceRoll);
-        console.log("They we're never a match for you!")
-        playerStrength = playerStrength++
-        let damage = ((Math.ceil(Math.random() * 20) + playerStrength) * 2)
-        console.log("You dealt,", damage, " to the foe!")
-        monsterHitPoints = monsterHitPoints - damage
-        console.log(monsterName, " HP:", monsterHitPoints)
-    } else if (diceRoll == 1) {
-        console.log(diceRoll);
-        console.log("A dire failure! You loose faith!")
-        playerStrength = playerStrength--
-    } else if (diceRoll + attackBonus >= monsterArmorClass) {
-        console.log("Hit roll:", diceRoll + attackBonus);
-        console.log('A hit!');
-        let damage = Math.ceil(Math.random() * 20) + playerStrength
-        console.log("You dealt,", damage, " to the foe!")
-        monsterHitPoints = monsterHitPoints - damage
-        console.log(monsterName, " HP:", monsterHitPoints)
-    } else {
-        console.log("Hit roll:", diceRoll + attackBonus);
-        console.log('A miss!');
-    }
-=======
 	let diceRoll = Math.ceil(Math.random() * 20);
 	//let armorClass = 10
-	let attackBonus = playerLevel + playerStrength;
+
 
 	if (diceRoll == 20) {
 		console.log(diceRoll);
@@ -264,7 +202,6 @@ function attackRoll() {
         A miss!`;
 	}
 	localStorage.setItem('playerAction', JSON.stringify(combatLog.textContent));
->>>>>>> ptr
 }
 
 function monsterAttackRoll() {
@@ -300,18 +237,12 @@ function monsterAttackRoll() {
 }
 
 battleStart.addEventListener('click', function (event) {
-<<<<<<< HEAD
     event.preventDefault();
     randomMonsterFetch();
     isCombat = true;
     console.log(isCombat)
     modalAttackBtn.style.display = "none"
     
-=======
-	event.preventDefault();
-	randomMonsterFetch();
-	modalAttackBtn.style.display = 'none';
->>>>>>> c67210863d46bd73fdce63b0fb3cf4b316020dbf
 });
 
 modalInitBtn.addEventListener('click', function (event) {
