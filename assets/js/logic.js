@@ -141,7 +141,7 @@ function startcombat() {
         modalAttackBtn.style.display = "block"
         // combatLog.textContent("You were quick to your blade!")
         runCombat();
-        return;
+        
     } else (monsterInit > playerInit) ;{ 
         console.log("The monster strikes first!")
         // combatLog.textContent("The monster was faster!")
@@ -149,21 +149,25 @@ function startcombat() {
         runCombat();
         
         modalAttackBtn.style.display = "block"
-        return;
+        
     };
 }
 
 function runCombat() {
     if (playerHP <= 0 ) {
-        modalAttackBtn.style.display = "none"
+        modalAttackBtn.style.display = "none" // not getting rid of attack button
         console.log("You have perished!")
-    } else (monsterHitPoints <= 0) {
-        modalAttackBtn.style.display = "none"
+    } else if (monsterHitPoints <= 0) {
+        modalAttackBtn.style.display = "none" // not getting rid of attack button
         console.log("The monster is slain! It will trouble you no more.")
         playerXP = playerXP + monsterXP
         console.log
-    }
-}
+    } else {
+		console.log("continue combat")
+	}; 
+
+	}
+
 
 
 
@@ -241,6 +245,7 @@ battleStart.addEventListener('click', function (event) {
     randomMonsterFetch();
     isCombat = true;
     console.log(isCombat)
+	modalInitBtn.style.display = "block"
     modalAttackBtn.style.display = "none"
     
 });
