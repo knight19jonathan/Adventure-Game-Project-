@@ -66,7 +66,7 @@
 				/>
 				<textarea name="#" id="bio-area" cols="30" rows="10"></textarea>
 				<div id="skills-stats">
-					<ul>
+					<ul id="player-ul">
 						<li id="raceLi">Race:</li>
 						<li id="classLi">Class:</li>
 						<li id="hPLi">HP:</li>
@@ -95,7 +95,7 @@
 								<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
 							</div>
 							<div class="col s4">
-								<textarea name="" id="" cols="30" rows="10"></textarea>
+								<textarea name="" id="combat-log" cols="30" rows="10"></textarea>
 							</div>
 							<div class="col s4">
 								<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
@@ -114,11 +114,16 @@
 							</div>
 							<div class="col s4">
 								<button
+									id="init-button"
+									class="waves-effect waves-light btn lime darken-4 black-text hoverable">
+									Roll Initiative
+							</button>
+								<button
 									id="attack-button"
-									class="waves-effect waves-light btn lime darken-4 black-text hoverable"
-								>
+									class="waves-effect waves-light btn lime darken-4 black-text hoverable">
 									Attack
 								</button>
+								<p>Monster will swing back in 6 seconds.</p>
 							</div>
 							<div class="col s4">
 								<div class="progress">
