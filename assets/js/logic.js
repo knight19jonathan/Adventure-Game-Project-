@@ -141,6 +141,7 @@ function diceRoll() {
 function startcombat() {
 	// let playerHP = fetch a value from local storage to equal current player health or default to current
 	BattleStats();
+	setTimeout(combatLog.textContent = `A wild ${monsterName} appears!`, 100);
 	// combatLog.("A wild", monsterName, "appears!" )
 	let playerInit = diceRoll() + playerDexterity; //
 	console.log('PlDex:', playerDexterity);
@@ -149,18 +150,20 @@ function startcombat() {
 	let monsterInit = diceRoll() + monsterDexterity;
 	console.log('MonsterDex:', monsterDexterity);
 	console.log('Monster Init:', monsterInit);
+	combatLog.textContent = `You jump into the fight and roll a ${playerInit} and the attacker replies ${monsterInit}`;
 	modalInitBtn.style.display = 'none';
 	if (playerInit >= monsterInit) {
+		combatLog.textContent = `You're faster than your foe and attack!`;
 		console.log('You are faster than the heathen!');
 		modalAttackBtn.style.display = 'block';
 		// combatLog.textContent("You were quick to your blade!")
 		runCombat();
 		//return;
 	} else monsterInit > playerInit;
-	{
+	{	combatLog.textContent = `The heathen is faster than you and attacks!`;
 		console.log('The monster strikes first!');
 		// combatLog.textContent("The monster was faster!")
-		monsterAttackRoll();
+		setTimeout(monsterAttackRoll(), 1000);
 		runCombat();
 
 		modalAttackBtn.style.display = 'block';
@@ -182,6 +185,7 @@ function runCombat() {
         modalAttackBtn.style.display = "none" // not getting rid of attack button
         console.log("The monster is slain! It will trouble you no more.")
         playerXP = playerXP + monsterXP
+		combatLog.textContent = `You have slain the ${monsterName}! You gain ${monsterXP} XP! Close this window to continue.`
         console.log("You gained", playerXP, "XP!")
     } else {
 		console.log("continue combat")
@@ -269,6 +273,7 @@ battleStart.addEventListener('click', function (event) {
     console.log(isCombat)
 	modalInitBtn.style.display = "block"
     modalAttackBtn.style.display = "none"
+	
     
 });
 
