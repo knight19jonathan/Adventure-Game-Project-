@@ -25,7 +25,6 @@ var monsterXP = 0;
 var monsterAttack = 0;
 var monsterDexterity = 0;
 
-
 var attackBtn = document.querySelector('#attackTEST');
 var attackBtn2 = document.querySelector('#attackTEST2');
 var diceRoll;
@@ -44,7 +43,6 @@ var playerListBB = document.querySelector("#player-ul")
 var playerInit = 0;
 var monsterInit = 0; 
 var playerArmorClass = 15 // Value TBD by player armor item + player dexterity 
-
 
 //buttons
 var characterGenBtn = document.querySelector('#new-character');
