@@ -139,15 +139,24 @@ function startcombat() {
         console.log("You are faster than the heathen!")
         modalAttackBtn.style.display = "block"
         // combatLog.textContent("You were quick to your blade!")
+        runCombat();
         return;
     } else (monsterInit > playerInit) ;{ 
         console.log("The monster strikes first!")
         // combatLog.textContent("The monster was faster!")
         monsterAttackRoll();
+        runCombat();
         
         modalAttackBtn.style.display = "block"
         return;
     };
+}
+
+
+function runCombat() {
+    if (playerHP <= 0 || monsterHitPoints <= 0) {
+        
+    }
 }
 
 
@@ -163,13 +172,15 @@ function attackRoll() {
     if (diceRoll == 20) {
         console.log(diceRoll);
         console.log("They we're never a match for you!")
+        playerStrength = playerStrength++
         let damage = ((Math.ceil(Math.random() * 20) + playerStrength) * 2)
         console.log("You dealt,", damage, " to the foe!")
         monsterHitPoints = monsterHitPoints - damage
         console.log(monsterName, " HP:", monsterHitPoints)
     } else if (diceRoll == 1) {
         console.log(diceRoll);
-        console.log("A dire failure!")
+        console.log("A dire failure! You loose faith!")
+        playerStrength = playerStrength--
     } else if (diceRoll + attackBonus >= monsterArmorClass) {
         console.log("Hit roll:", diceRoll + attackBonus);
         console.log('A hit!');
