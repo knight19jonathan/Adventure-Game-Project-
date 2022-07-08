@@ -140,7 +140,7 @@ function startcombat() {
 	{
 		combatLog.textContent = 'The monster strikes first!';
 		// combatLog.textContent("The monster was faster!")
-		monsterAttackRoll();
+		setTimeout(monsterAttackRoll, 3000);
 
 		modalAttackBtn.style.display = 'block';
 		return;
