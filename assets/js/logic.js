@@ -54,48 +54,7 @@ var title = document.querySelector('a');
 
 //Get a random monster
 
-randomMonsterFetch = function () {
-    fetch(monsterAPI)
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {
-            // console.log(data)
-            // console.log(Math.floor(Math.random() * 334))
-            randomMonster.push(data.results[Math.floor(Math.random() * 334)].index);
-            //add in a clear
-            return randomMonster;
-        })
-        .then(function () {
-            var monsterStatApi = `https://www.dnd5eapi.co/api/monsters/${randomMonster}`;
-            // console.log(monsterStatApi)
-            fetch(monsterStatApi)
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (monster) {
-                    // console.log(monster);
-                    monsterStats.push(monster);
-                    // console.log(monsterStats)
-                })
-                .then(function () {
-                    monsterName = monsterStats[0].name;
-                    monsterArmorClass = monsterStats[0].armor_class;
-                    monsterHitPoints = monsterStats[0].hit_points;
-                    monsterXP = monsterStats[0].xp;
-                    monsterAttack = monsterStats[0].strength;
-                    monsterDexterity = monsterStats[0].dexterity;
-                })
-                .then(function () {
-                    console.log(monsterArmorClass);
-                    console.log(monsterHitPoints);
-                    console.log(monsterXP);
-                    console.log(monsterAttack);
-                    console.log(monsterDexterity);
-                    console.log(monsterName);
-                });
-        });
-};
+// 
 
 randomMonsterFetch = function () {
     fetch(monsterAPI)
@@ -309,3 +268,46 @@ attackBtn2.addEventListener('click', function (event) {
 //         console.log(races)
 //     });
 // }
+
+//randomMonsterFetch = function () {
+    //     fetch(monsterAPI)
+    //         .then(function (response) {
+    //             return response.json();
+    //         })
+    //         .then(function (data) {
+    //             // console.log(data)
+    //             // console.log(Math.floor(Math.random() * 334))
+    //             randomMonster.push(data.results[Math.floor(Math.random() * 334)].index);
+    //             //add in a clear
+    //             return randomMonster;
+    //         })
+    //         .then(function () {
+    //             var monsterStatApi = `https://www.dnd5eapi.co/api/monsters/${randomMonster}`;
+    //             // console.log(monsterStatApi)
+    //             fetch(monsterStatApi)
+    //                 .then(function (response) {
+    //                     return response.json();
+    //                 })
+    //                 .then(function (monster) {
+    //                     // console.log(monster);
+    //                     monsterStats.push(monster);
+    //                     // console.log(monsterStats)
+    //                 })
+    //                 .then(function () {
+    //                     monsterName = monsterStats[0].name;
+    //                     monsterArmorClass = monsterStats[0].armor_class;
+    //                     monsterHitPoints = monsterStats[0].hit_points;
+    //                     monsterXP = monsterStats[0].xp;
+    //                     monsterAttack = monsterStats[0].strength;
+    //                     monsterDexterity = monsterStats[0].dexterity;
+    //                 })
+    //                 .then(function () {
+    //                     console.log(monsterArmorClass);
+    //                     console.log(monsterHitPoints);
+    //                     console.log(monsterXP);
+    //                     console.log(monsterAttack);
+    //                     console.log(monsterDexterity);
+    //                     console.log(monsterName);
+    //                 });
+    //         });
+    // };
