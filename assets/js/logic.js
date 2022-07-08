@@ -156,13 +156,8 @@ function runCombat() {
     if (playerHP <= 0 ) {
         modalAttackBtn.style.display = "none" // not getting rid of attack button
         console.log("You have perished!")
-<<<<<<< HEAD
     } else if (monsterHitPoints <= 0) {
         modalAttackBtn.style.display = "none" // not getting rid of attack button
-=======
-    } else (monsterHitPoints <= 0); {
-        modalAttackBtn.style.display = "none"
->>>>>>> ptr
         console.log("The monster is slain! It will trouble you no more.")
         playerXP = playerXP + monsterXP
         console.log
