@@ -131,13 +131,13 @@ function startcombat() {
 	console.log('Monster Init:', monsterInit);
 	modalInitBtn.style.display = 'none';
 	if (playerInit >= monsterInit) {
-		console.log('You are faster than the heathen!');
+		combatLog.textContent = 'You are faster than the heathen!';
 		modalAttackBtn.style.display = 'block';
 		// combatLog.textContent("You were quick to your blade!")
 		return;
 	} else monsterInit > playerInit;
 	{
-		console.log('The monster strikes first!');
+		combatLog.textContent = 'The monster strikes first!';
 		// combatLog.textContent("The monster was faster!")
 		monsterAttackRoll();
 
@@ -158,8 +158,7 @@ function attackRoll() {
 
 		monsterHitPoints = monsterHitPoints - damage;
 		console.log(monsterName, ' HP:', monsterHitPoints);
-		combatLog.textContent = `${savedMonsterAction}
-        The fighter attacks...
+		combatLog.textContent = `The fighter attacks...
         They we're never a match for you!
         You dealt  ${damage}  to the foe!`;
 	} else if (diceRoll == 1) {
@@ -170,14 +169,12 @@ function attackRoll() {
 
 		monsterHitPoints = monsterHitPoints - damage;
 		console.log(monsterName, ' HP:', monsterHitPoints);
-		combatLog.textContent = `${savedMonsterAction}
-        The fighter attacks...
+		combatLog.textContent = `The fighter attacks...
         Hit roll: ${diceRoll} + ${attackBonus}
         A hit!
         You dealt ${damage} to the foe!`;
 	} else {
-		combatLog.textContent = `${savedMonsterAction}
-        The fighter attacks...
+		combatLog.textContent = `The fighter attacks...
         Hit roll: ${diceRoll} + ${attackBonus}
         A miss!`;
 	}
@@ -186,14 +183,13 @@ function attackRoll() {
 
 function monsterAttackRoll() {
 	let monAtkRoll = diceRoll();
-	console.log('');
+
 	if (monAtkRoll == 20 && monAtkRoll > playerArmorClass) {
 		let damage = (Math.ceil(Math.random() * 20) + playerStrength) * 1.5;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
-		combatLog.textContent = `${savedPlayerAction}
-        The monster attacks...
+		combatLog.textContent = `The monster attacks...
         Nat20!😎 ${monAtkRoll}
         It dealt ${damage}  to you!!! YIKES!
 		You stagger from a hideous blow, strength fails and fear grips your heart!`;
@@ -205,14 +201,12 @@ function monsterAttackRoll() {
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
-		combatLog.textContent = `${savedPlayerAction}
-        The monster attacks...
+		combatLog.textContent = `The monster attacks...
         Hit Roll: ${monAtkRoll} + ${monsterAttack}
         A hit!
         It dealt ${damage} to you!`;
 	} else {
-		combatLog.textContent = `${savedPlayerAction}
-        The monster attacks...
+		combatLog.textContent = `The monster attacks...
         Miss Roll: ${monAtkRoll} + ${monsterAttack}
 		A miss!`;
 	}
