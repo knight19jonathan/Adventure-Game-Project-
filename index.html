@@ -50,9 +50,11 @@
 			<main class="row">
 				<aside id="character-element" class="col s12 m3">
 					<img src="./assets/media/dndeightbitwarr.jpeg" alt="dnd warrior character" width="200px" />
-					<textarea name="Bio" id="bio-area" cols="30" rows="10" readonly="true"></textarea>
 					<div id="skills-stats">
 						<ul id="player-ul">
+							<li id="name-li">Name:</li>
+							<label for="Bio">Bio</label>
+							<textarea name="Bio" id="bio-area" cols="30" rows="10"></textarea>
 							<li id="raceLi">Race:</li>
 							<li id="classLi">Class:</li>
 							<li id="hPLi">HP:</li>
@@ -127,7 +129,12 @@
 					<!-- Modal on new char click -->
 					<div id="modal1" class="modal lime">
 						<div class="modal-content">
-							<h4>Modal Header</h4>
+							<h4>Character Creator</h4>
+							<div class="input-field">
+								<input id="choose-name" type="text" class="validate">
+								<label>Choose Name</label>
+
+							</div>
 							<div class="input-field">
 								<select id="race-input">
 									<option id="raceOpt0" value="" disabled selected>
