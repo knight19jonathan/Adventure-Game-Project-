@@ -46,7 +46,7 @@ var monsterInit = 0;
 var playerArmorClass = 15; // Value TBD by player armor item + player dexterity
 var savedMonsterAction = JSON.parse(localStorage.getItem('monsterAction')); // monsters latest action in local storage
 var savedPlayerAction = JSON.parse(localStorage.getItem('playerAction')); // Players latest action in local storage
-
+var playerHpBar = document.querySelector('#');
 //buttons
 var characterGenBtn = document.querySelector('#new-character');
 
