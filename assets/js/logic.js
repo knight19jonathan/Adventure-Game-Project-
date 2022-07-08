@@ -125,7 +125,7 @@ function startcombat() {
     // let playerHP = fetch a value from local storage to equal current player health or default to current 
     
     
-    // combatLog.("A wild", monsterName, "appears!" )
+    //combatLog.textContent("A wild", monsterName, "appears!" )
     let playerInit = diceRoll() + playerDexterity // 
     console.log("PlDex:", playerDexterity)
     console.log("Player Init:" , playerInit)
@@ -137,12 +137,12 @@ function startcombat() {
     if (playerInit >= monsterInit) {
         console.log("You are faster than the heathen!")
         modalAttackBtn.style.display = "block"
-        // combatLog.textContent("You were quick to your blade!")
+        combatLog.textContent = "You were quick to your blade!" 
         runCombat();
         
     } else (monsterInit > playerInit) ;{ 
         console.log("The monster strikes first!")
-        // combatLog.textContent("The monster was faster!")
+        combatLog.textContent = "The monster was faster!" 
         monsterAttackRoll();
         runCombat();
         
@@ -155,11 +155,16 @@ function runCombat() {
     if (playerHP <= 0 ) {
         modalAttackBtn.style.display = "none" // not getting rid of attack button
         console.log("You have perished!")
+		combatLog.textContent = `You have perished! You were killed by a ${monsterName}`
+
+		// clear character local storage would you like to play again?
+
+
     } else if (monsterHitPoints <= 0) {
         modalAttackBtn.style.display = "none" // not getting rid of attack button
         console.log("The monster is slain! It will trouble you no more.")
         playerXP = playerXP + monsterXP
-        console.log
+        console.log("You gained", playerXP, "XP!")
     } else {
 		console.log("continue combat")
 	}; 
@@ -193,15 +198,18 @@ function attackRoll() {
 		let damage = Math.ceil(Math.random() * 20) + playerStrength;
 
 		monsterHitPoints = monsterHitPoints - damage;
+		console.log("You dealt", damage, "damage to the foe!");
 		console.log(monsterName, ' HP:', monsterHitPoints);
 		combatLog.textContent = `The fighter attacks...
         Hit roll: ${diceRoll} + ${attackBonus}
         A hit!
         You dealt ${damage} to the foe!`;
+		
 	} else {
 		combatLog.textContent = `The fighter attacks...
         Hit roll: ${diceRoll} + ${attackBonus}
         A miss!`;
+		console.log('A miss!');
 	}
 	localStorage.setItem('playerAction', JSON.stringify(combatLog.textContent));
 }
@@ -234,6 +242,7 @@ function monsterAttackRoll() {
 		combatLog.textContent = `The monster attacks...
         Miss Roll: ${monAtkRoll} + ${monsterAttack}
 		A miss!`;
+		console.log('Miss!', monAtkRoll);
 	}
 	localStorage.setItem('monsterAction', JSON.stringify(combatLog.textContent));
 }
@@ -257,8 +266,15 @@ modalAttackBtn.addEventListener('click', function (event) {
 	event.preventDefault();
 	attackRoll();
 	modalAttackBtn.style.display = 'none';
-	setTimeout(monsterAttackRoll, 6000);
-	setTimeout((modalAttackBtn.style.display = 'block'), 6001);
+	if (monsterHitPoints > 0) {
+	setTimeout(monsterAttackRoll, 1000);
+	setTimeout((modalAttackBtn.style.display = 'block'), 1001);}
+	else if (playerHP <=0) {
+		modalAttackBtn.style.display = 'none';
+		runCombat(); 
+		console.log("You have died!");
+	} else {
+		runCombat();}
 });
 
 attackBtn.addEventListener('click', function (event) {
