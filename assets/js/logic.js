@@ -9,9 +9,9 @@ var raceAPI = 'https://www.dnd5eapi.co/api/races/';
 //
 var classes = [];
 var races = [];
-var randomMonster = [];
+var randomMonster;
 var randomMonsterIndex = `${randomMonster}`;
-var monsterStats = [];
+var monsterStats;
 
 //combat variables
 var hitRoll;
@@ -60,7 +60,6 @@ var title = document.querySelector('a');
 //Get a random monster
 
 //
-
 randomMonsterFetch = function () {
 	fetch(monsterAPI)
 		.then(function (response) {
@@ -69,7 +68,7 @@ randomMonsterFetch = function () {
 		.then(function (data) {
 			// console.log(data)
 			// console.log(Math.floor(Math.random() * 334))
-			randomMonster.push(data.results[Math.floor(Math.random() * 334)].index);
+			randomMonster = data.results[Math.floor(Math.random() * 334)].index;
 			//add in a clear
 			return randomMonster;
 		})
@@ -82,21 +81,21 @@ randomMonsterFetch = function () {
 				})
 				.then(function (monster) {
 					// console.log(monster);
-					monsterStats.push(monster);
+					monsterStats = monster;
 					// console.log(monsterStats)
 				})
 				.then(function () {
-					monsterName = monsterStats[0].name;
-					monsterArmorClass = monsterStats[0].armor_class;
-					monsterHitPoints = monsterStats[0].hit_points;
-					monsterXP = monsterStats[0].xp;
-					monsterAttack = monsterStats[0].actions[0].attack_bonus;
+					monsterName = monsterStats.name;
+					monsterArmorClass = monsterStats.armor_class;
+					monsterHitPoints = monsterStats.hit_points;
+					monsterXP = monsterStats.xp;
+					monsterAttack = monsterStats.actions[0].attack_bonus;
 					if (monsterAttack == null) {
 						monsterAttack = Math.ceil(Math.random() * 6) + -1;
 						console.log(monsterAttack);
 					} // works for everthing but 'sea horse need to splice it from monsters array
-					monsterDexterity = monsterStats[0].dexterity;
-					monsterStrength = monsterStats[0].strength;
+					monsterDexterity = monsterStats.dexterity;
+					monsterStrength = monsterStats.strength;
 				})
 				.then(function () {
 					console.log('Monster AC:', monsterArmorClass);
@@ -157,7 +156,7 @@ function runCombat() {
     if (playerHP <= 0 ) {
         modalAttackBtn.style.display = "none"
         console.log("You have perished!")
-    } else (monsterHitPoints <= 0) {
+    } else (monsterHitPoints <= 0); {
         modalAttackBtn.style.display = "none"
         console.log("The monster is slain! It will trouble you no more.")
         playerXP = playerXP + monsterXP
