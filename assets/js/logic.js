@@ -9,9 +9,9 @@ var raceAPI = 'https://www.dnd5eapi.co/api/races/';
 //
 var classes = [];
 var races = [];
-var randomMonster = [];
+var randomMonster;
 var randomMonsterIndex = `${randomMonster}`;
-var monsterStats = [];
+var monsterStats;
 
 //combat variables
 var hitRoll;
@@ -36,6 +36,7 @@ var playerHP = 100;
 var playerConstitution = Math.ceil(Math.random() * 50); //fighter 50, wizard 20, Rogue 20
 var playerDexterity = 3; // +14 Fighter, +8 Wizard, +22 for Rogue
 var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
+
 var playerLevel = 1;
 var attackBonus = playerLevel + playerStrength;
 var combatLog = document.querySelector('#combat-log');
@@ -52,9 +53,10 @@ var playerListBB = document.querySelector('#player-ul');
 var playerInit = 0;
 var monsterInit = 0;
 var playerArmorClass = 15; // Value TBD by player armor item + player dexterity
+var isCombat = Boolean;
+var playerXP = 0;
 var savedMonsterAction = JSON.parse(localStorage.getItem('monsterAction')); // monsters latest action in local storage
 var savedPlayerAction = JSON.parse(localStorage.getItem('playerAction')); // Players latest action in local storage
-
 //buttons
 var characterGenBtn = document.querySelector('#new-character');
 
@@ -82,7 +84,7 @@ randomMonsterFetch = function () {
 		.then(function (data) {
 			// console.log(data)
 			// console.log(Math.floor(Math.random() * 334))
-			randomMonster.push(data.results[Math.floor(Math.random() * 334)].index);
+			randomMonster = data.results[Math.floor(Math.random() * 334)].index;
 			//add in a clear
 			return randomMonster;
 		})
@@ -95,21 +97,21 @@ randomMonsterFetch = function () {
 				})
 				.then(function (monster) {
 					// console.log(monster);
-					monsterStats.push(monster);
+					monsterStats = monster;
 					// console.log(monsterStats)
 				})
 				.then(function () {
-					monsterName = monsterStats[0].name;
-					monsterArmorClass = monsterStats[0].armor_class;
-					monsterHitPoints = monsterStats[0].hit_points;
-					monsterXP = monsterStats[0].xp;
-					monsterAttack = monsterStats[0].actions[0].attack_bonus;
+					monsterName = monsterStats.name;
+					monsterArmorClass = monsterStats.armor_class;
+					monsterHitPoints = monsterStats.hit_points;
+					monsterXP = monsterStats.xp;
+					monsterAttack = monsterStats.actions[0].attack_bonus;
 					if (monsterAttack == null) {
 						monsterAttack = Math.ceil(Math.random() * 6) + -1;
 						console.log(monsterAttack);
 					} // works for everthing but 'sea horse need to splice it from monsters array
-					monsterDexterity = monsterStats[0].dexterity;
-					monsterStrength = monsterStats[0].strength;
+					monsterDexterity = monsterStats.dexterity;
+					monsterStrength = monsterStats.strength;
 				})
 				.then(function () {
 					console.log('Monster AC:', monsterArmorClass);
@@ -149,15 +151,17 @@ function startcombat() {
 	console.log('Monster Init:', monsterInit);
 	modalInitBtn.style.display = 'none';
 	if (playerInit >= monsterInit) {
-		combatLog.textContent = 'You are faster than the heathen!';
+		console.log('You are faster than the heathen!');
 		modalAttackBtn.style.display = 'block';
 		// combatLog.textContent("You were quick to your blade!")
+		runCombat();
 		return;
 	} else monsterInit > playerInit;
 	{
-		combatLog.textContent = 'The monster strikes first!';
+		console.log('The monster strikes first!');
 		// combatLog.textContent("The monster was faster!")
-		setTimeout(monsterAttackRoll, 3000);
+		monsterAttackRoll();
+		runCombat();
 
 		modalAttackBtn.style.display = 'block';
 		return;
@@ -165,11 +169,23 @@ function startcombat() {
 }
 //render battleBox stats
 
+function runCombat() {
+	if (playerHP <= 0) {
+		modalAttackBtn.style.display = 'none';
+		console.log('You have perished!');
+	} else monsterHitPoints <= 0;
+	{
+		modalAttackBtn.style.display = 'none';
+		console.log('The monster is slain! It will trouble you no more.');
+		playerXP = playerXP + monsterXP;
+		console.log;
+	}
+}
+
 //combat functions
 function attackRoll() {
 	let diceRoll = Math.ceil(Math.random() * 20);
 	//let armorClass = 10
-	let attackBonus = playerLevel + playerStrength;
 
 	if (diceRoll == 20) {
 		console.log(diceRoll);
@@ -237,6 +253,8 @@ function monsterAttackRoll() {
 battleStart.addEventListener('click', function (event) {
 	event.preventDefault();
 	randomMonsterFetch();
+	isCombat = true;
+	console.log(isCombat);
 	modalAttackBtn.style.display = 'none';
 });
 
