@@ -50,7 +50,6 @@ var playerXP =0;
 var savedMonsterAction = JSON.parse(localStorage.getItem('monsterAction')); // monsters latest action in local storage
 var savedPlayerAction = JSON.parse(localStorage.getItem('playerAction')); // Players latest action in local storage
 
-
 //buttons
 var characterGenBtn = document.querySelector('#new-character');
 
