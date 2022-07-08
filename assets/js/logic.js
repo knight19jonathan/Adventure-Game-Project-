@@ -39,9 +39,15 @@ var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
 var playerLevel = 1;
 var attackBonus = playerLevel + playerStrength;
 var combatLog = document.querySelector('#combat-log');
+// battleBox variables
 var battleBoxPlayerHP = document.querySelector('#player-hp-li');
+var battleBoxPlayerAC = document.querySelector('#player-armor-class-li');
 var battleBoxMonsterHP = document.querySelector('#enemy-hp-li');
-var playerHpBar = document.querySelector('#player-hp-bar').style.width;
+var battleBoxMonsterName = document.querySelector('#enemy-name-li');
+var battleBoxMonsterAC = document.querySelector('#enemy-armor-class-li');
+var playerHpBar = document.querySelector('#player-hp-bar');
+var battleBoxAttackBonus = document.querySelector('#attack-bonus-li');
+//
 var playerListBB = document.querySelector('#player-ul');
 var playerInit = 0;
 var monsterInit = 0;
@@ -60,8 +66,12 @@ var title = document.querySelector('a');
 //
 function BattleStats() {
 	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
-	playerHpBar = `${playerHP}%`;
+	battleBoxAttackBonus.textContent = `Attack Bonus: ${attackBonus}`;
+	playerHpBar.style.width = `${playerHP}%`;
+	battleBoxPlayerAC.textContent = `Armor Class: ${playerArmorClass}`;
+	battleBoxMonsterName.textContent = `${monsterName}`;
 	battleBoxMonsterHP.textContent = `HP: ${monsterHitPoints}`;
+	battleBoxMonsterAC.textContent = `Armor Class: ${monsterArmorClass}`;
 }
 
 randomMonsterFetch = function () {
