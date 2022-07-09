@@ -12,6 +12,9 @@ header {
 #new-character {
 	margin-bottom: 10px;
 }
+#init-button {
+	display: none;
+}
 #character-element {
 	margin-top: 30px;
 }

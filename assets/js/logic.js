@@ -154,6 +154,7 @@ function randomMonsterFetch() {
 						monsterStrength = monsterStats.strength;
 						logMonsterStats()
 						combatLog.textContent = `A wild ${monsterName} appears!`
+						modalInitBtn.style.display = "block"
 					}
 				});
 		});
@@ -299,10 +300,8 @@ battleStart.addEventListener('click', function (event) {
 	randomMonsterFetch();
 	isCombat = true;
 	console.log(isCombat)
-	modalInitBtn.style.display = "block"
+	// modalInitBtn.style.display = "block"
 	modalAttackBtn.style.display = "none"
-
-
 });
 
 modalInitBtn.addEventListener('click', function (event) {
