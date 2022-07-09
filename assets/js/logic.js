@@ -1,6 +1,11 @@
 //make materialize jquery function
 M.AutoInit();
 
+//functions to run on page load
+$(document).ready(function(){
+	loadSavedCharacters();
+})
+
 //API Variables
 var monsterAPI = 'https://www.dnd5eapi.co/api/monsters/';
 var classAPI = 'https://www.dnd5eapi.co/api/classes/';
@@ -30,17 +35,11 @@ var modalAttackBtn = document.querySelector('#attack-button');
 var modalInitBtn = document.querySelector('#init-button');
 
 //character stats variables
-var savedPlayers = [{}]
-var currentPlayerStats = [{
-	Name: `${playerName}`,
-	Race: `${playerRace}`,
-	Class: `${playerClass}`,
-	XP: "100",
-}];
 var playerName = ''
 var playerClass = ''
 var playerRace = ''
 var playerHP = 100;
+var playerBio = ''
 	//possible function for stat incrementation playerStrength = 4(base class attribute) + XP/100(this is the level)
 var playerConstitution = Math.ceil(Math.random() * 50); //fighter 50, wizard 20, Rogue 20
 var playerDexterity = 3; // +14 Fighter, +8 Wizard, +22 for Rogue
@@ -73,6 +72,7 @@ var savedMonsterAction = JSON.parse(localStorage.getItem('monsterAction')); // m
 var savedPlayerAction = JSON.parse(localStorage.getItem('playerAction')); // Players latest action in local storage
 //buttons
 var characterGenBtn = document.querySelector('#new-character');
+var continueBtn = document.querySelector('#continue-btn');
 
 //elements
 var title = document.querySelector('a');
@@ -92,6 +92,17 @@ var classLiEl = $('#classLi');
 var hpLiEl = $('#hPLi');
 var attackBonusLiEl = $('#atkBnsLi');
 
+//local storage arrays
+var savedPlayers = [{}]
+var loadedPlayerStats;
+var currentPlayerStats = [{
+	Name: `${playerName}`,
+	Race: `${playerRace}`,
+	Class: `${playerClass}`,
+	XP: `${playerXP}`,
+	HP: `${playerHP}`,
+	Bio: `${playerBio}`
+}];
 //Get a random monster
 
 //
@@ -219,7 +230,6 @@ function runCombat() {
 
 	}
 
-
 //combat functions
 function attackRoll() {
 	let roll = diceRoll();
@@ -336,17 +346,80 @@ closeBattle.addEventListener('click', function (event) {
 	hpLiEl.text(`HP:${playerHP}`)
 	if (playerHP == 0) {
 		playerXP = 0;
-		console.log("Player Xp has been reset to 0:", playerXP);	}
+		console.log("Player Xp has been reset to 0:", playerXP);
+		localStorage.clear()
+	}
+	// else {
+	// 	savePlayer();
+	// }
 });
 //local storage player stat functions
 
-savePlayer = () =>{
-
+//local storage functions
+//saves character to local storage
+function savePlayer(){
+	saveToCurrentStats();
+	localStorage.setItem("playerStats", JSON.stringify(currentPlayerStats))
+	displayCurrentPlayerStats();
 }
 
-loadPlayer = () =>{
-	
+//loads character from local storage
+function loadPlayer(){
+	loadedPlayerStats = JSON.parse(localStorage.getItem("playerStats"))
+	console.log(loadedPlayerStats)
+	currentPlayerStats = loadedPlayerStats
+	displayCurrentPlayerStats();
 }
+
+//displays continue button on the page
+function loadSavedCharacters(){
+	if (localStorage.length !==0 ){
+		continueBtn.style.display = 'inline-block'
+	}
+}
+
+//continue button event listener
+continueBtn.addEventListener('click', function (event) {
+	event.preventDefault();
+	loadPlayer();
+})
+
+savCharBtn.on('click', function (event) {
+	// on submission of character creation, set values in the aside
+	event.preventDefault();
+	if (raceInputEl.val() == null || classInputEl.val() == null) {
+		alert('You must enter your character information to proceed');
+		return;
+	} else {
+		// sets global variables for created character
+		playerName = nameInputEl.val();
+		playerRace = raceInputEl.val();
+		playerClass = classInputEl.val();
+		playerBio = bioInputEl.val();
+		//saves to character array for localStorage
+		savePlayer();
+	}
+});
+
+//updates player stats to saveToCurrentStats
+function saveToCurrentStats (){
+	currentPlayerStats[0].Name = playerName
+	currentPlayerStats[0].Race = playerRace
+	currentPlayerStats[0].Class = playerClass
+	currentPlayerStats[0].XP = playerXP
+	currentPlayerStats[0].HP = playerHP
+	currentPlayerStats[0].Bio = playerBio
+}
+//displays currentPlayerStats
+function displayCurrentPlayerStats (){
+	nameAreaLi.text(`Name: ${currentPlayerStats[0].Name}`);
+	raceLiEl.text(`Race: ${currentPlayerStats[0].Race}`);
+	classLiEl.text(`Class: ${currentPlayerStats[0].Class}`);
+	bioAreaEl.val(`${currentPlayerStats[0].Bio}`);
+	hpLiEl.text(`HP: ${currentPlayerStats[0].HP}`);
+	attackBonusLiEl.text(`Attack Bonus: ${attackBonus}`);
+}
+
 
 // //execute on page load
 // for future, character stat load function
@@ -423,18 +496,3 @@ loadPlayer = () =>{
 
 
 
-savCharBtn.on('click', function (event) {
-	// on submission of character creation, set values in the aside
-	event.preventDefault();
-	if (raceInputEl.val() == null || classInputEl.val() == null || nameInputEl.val() == null) {
-		alert('You must enter your character information to proceed');
-		return;
-	} else {
-		nameAreaLi.text(`Name: ${nameInputEl.val()}`);
-		raceLiEl.text(`Race: ${raceInputEl.val()}`);
-		classLiEl.text(`Class: ${classInputEl.val()}`);
-		bioAreaEl.val(`${bioInputEl.val()}`);
-		hpLiEl.text(`HP: ${playerHP}`);
-		attackBonusLiEl.text(`Attack Bonus: ${attackBonus}`);
-	}
-});
