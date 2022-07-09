@@ -225,7 +225,7 @@ function attackRoll() {
 
 	if (diceRoll == 20) {
 		console.log(diceRoll);
-		let damage = (Math.ceil(Math.random() * 20) + playerStrength) * 2;
+		let damage = (diceroll() + playerStrength) * 2;
 
 		monsterHitPoints = monsterHitPoints - damage;
 		console.log(monsterName, ' HP:', monsterHitPoints);
@@ -236,7 +236,7 @@ function attackRoll() {
 		console.log(diceRoll);
 		console.log('A dire failure!');
 	} else if (diceRoll + attackBonus >= monsterArmorClass) {
-		let damage = Math.ceil(Math.random() * 20) + playerStrength;
+		let damage = diceroll() + playerStrength;
 
 		monsterHitPoints = monsterHitPoints - damage;
 		console.log("You dealt", damage, "damage to the foe!");
@@ -260,7 +260,7 @@ function monsterAttackRoll() {
 	let monAtkRoll = diceRoll();
 
 	if (monAtkRoll == 20 && monAtkRoll > playerArmorClass) {
-		let damage = (Math.ceil(Math.random() * 20) + playerStrength) * 2;
+		let damage = (diceroll() + playerStrength) * 2;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
@@ -272,7 +272,7 @@ function monsterAttackRoll() {
 		console.log('Nat 1!lol😂', monAtkRoll);
 		console.log('A dire failure!');
 	} else if (monAtkRoll + monsterAttack >= playerArmorClass) {
-		let damage = Math.ceil(Math.random() * 20) + playerStrength;
+		let damage = diceroll() + playerStrength;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
