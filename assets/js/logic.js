@@ -30,15 +30,33 @@ var attackBtn2 = document.querySelector('#attackTEST2');
 var diceRoll;
 var modalAttackBtn = document.querySelector('#attack-button');
 var modalInitBtn = document.querySelector('#init-button');
-// combat script items
-var battleStart = document.querySelector('#start-battle');
+
+//character stats variables
+var savedPlayers = [{}]
+var currentPlayerStats = [{
+	Name: `${playerName}`,
+	Race: `${playerRace}`,
+	Class: `${playerClass}`,
+	XP: "100",
+}];
+var playerName = ''
+var playerClass = ''
+var playerRace = ''
 var playerHP = 100;
+	//possible function for stat incrementation playerStrength = 4(base class attribute) + XP/100(this is the level)
 var playerConstitution = Math.ceil(Math.random() * 50); //fighter 50, wizard 20, Rogue 20
 var playerDexterity = 3; // +14 Fighter, +8 Wizard, +22 for Rogue
 var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
+<<<<<<< HEAD
 var closeBattle = document.querySelector('#battleClose');
 
+=======
+>>>>>>> ptr
 var playerLevel = 1;
+var playerXP =0; 
+
+// combat script items
+var battleStart = document.querySelector('#start-battle');
 var attackBonus = playerLevel + playerStrength;
 var combatLog = document.querySelector('#combat-log');
 // battleBox variables
@@ -142,11 +160,6 @@ randomMonsterFetch = function () {
 		});
 };
 
-//here for testing purposes only
-// $(document).ready(function () {
-//     randomMonsterFetch();
-//     console.log(randomMonster);
-// });
 
 function diceRoll() {
 	let diceRoll = Math.ceil(Math.random() * 20);
@@ -324,6 +337,7 @@ attackBtn2.addEventListener('click', function (event) {
 	console.log(monsterArmorClass);
 });
 
+<<<<<<< HEAD
 closeBattle.addEventListener('click', function (event) {
 	event.preventDefault();
 	modalInitBtn.style.display = "none"
@@ -341,6 +355,17 @@ closeBattle.addEventListener('click', function (event) {
 		playerXP = 0;
 		console.log("Player Xp has been reset to 0:", playerXP);	}
 });
+=======
+//local storage player stat functions
+
+savePlayer = () =>{
+
+}
+
+loadPlayer = () =>{
+	
+}
+>>>>>>> ptr
 
 // //execute on page load
 // for future, character stat load function
