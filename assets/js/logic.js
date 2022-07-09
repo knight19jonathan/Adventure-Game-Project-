@@ -128,8 +128,6 @@ randomMonsterFetch = function () {
 					// console.log(monster);
 					monsterStats = monster;
 					// console.log(monsterStats)
-				})
-				.then(function () {
 					monsterName = monsterStats.name;
 					monsterArmorClass = monsterStats.armor_class;
 					monsterHitPoints = monsterStats.hit_points;
@@ -141,8 +139,6 @@ randomMonsterFetch = function () {
 					} // works for everthing but 'sea horse need to splice it from monsters array
 					monsterDexterity = monsterStats.dexterity;
 					monsterStrength = monsterStats.strength;
-				})
-				.then(function () {
 					console.log('Monster AC:', monsterArmorClass);
 					console.log('Monster HP:', monsterHitPoints);
 					console.log('Monster XP:', monsterXP);
