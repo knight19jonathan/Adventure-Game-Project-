@@ -154,9 +154,7 @@ function randomMonsterFetch() {
 						monsterStrength = monsterStats.strength;
 						logMonsterStats()
 						combatLog.textContent = `A wild ${monsterName} appears!`
-
 					}
-					// console.log(monsterStats)
 				});
 		});
 };
@@ -171,7 +169,6 @@ function diceRoll() { // get a random number between 1 and 20
 function startcombat() {
 	// let playerHP = fetch a value from local storage to equal current player health or default to current
 	BattleStats();
-	setTimeout(function () { combatLog.textContent = `A wild ${monsterName} appears!` }, 100);
 	// combatLog.("A wild", monsterName, "appears!" )
 	let playerInit = diceRoll() + playerDexterity; //
 	console.log('PlDex:', playerDexterity);
