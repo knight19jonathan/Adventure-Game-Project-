@@ -115,7 +115,7 @@ function logMonsterStats() { //console log monster info
 	console.log('Monster Name:', monsterName);
 }
 
-randomMonsterFetch = function () {
+function randomMonsterFetch() {
 	fetch(monsterAPI)
 		.then(function (response) {
 			return response.json();
@@ -152,8 +152,8 @@ randomMonsterFetch = function () {
 						} // works for everthing but 'sea horse need to splice it from monsters array
 						monsterDexterity = monsterStats.dexterity;
 						monsterStrength = monsterStats.strength;
-						combatLog.textContent = `A wild ${monsterName} appears!`
 						logMonsterStats()
+						combatLog.textContent = `A wild ${monsterName} appears!`
 
 					}
 					// console.log(monsterStats)
