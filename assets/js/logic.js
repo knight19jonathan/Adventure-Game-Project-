@@ -343,15 +343,7 @@ closeBattle.addEventListener('click', function (event) {
 	console.log("You have left the battle!");
 	console.log("Current Player XP", playerXP);
 	console.log("Current Player HP", playerHP);
-<<<<<<< HEAD
-	let monsterStatApi = [];
-	monsterStatApi.repalce(monsterStatApi);
-	hpLiEl.textContent = `${playerHP}`
-	playerHp.textContent = `${playerHP}`
-	savePlayer();
-=======
 	hpLiEl.text(`HP:${playerHP}`)
->>>>>>> ptr
 	if (playerHP == 0) {
 		playerXP = 0;
 		console.log("Player Xp has been reset to 0:", playerXP);
@@ -361,10 +353,7 @@ closeBattle.addEventListener('click', function (event) {
 	// 	savePlayer();
 	// }
 });
-<<<<<<< HEAD
-=======
 //local storage player stat functions
->>>>>>> ptr
 
 //local storage functions
 //saves character to local storage
@@ -388,7 +377,6 @@ function loadSavedCharacters(){
 		continueBtn.style.display = 'inline-block'
 	}
 }
-<<<<<<< HEAD
 
 //continue button event listener
 continueBtn.addEventListener('click', function (event) {
@@ -432,8 +420,6 @@ function displayCurrentPlayerStats (){
 	attackBonusLiEl.text(`Attack Bonus: ${attackBonus}`);
 }
 
-=======
->>>>>>> ptr
 
 // //execute on page load
 // for future, character stat load function
@@ -510,21 +496,3 @@ function displayCurrentPlayerStats (){
 
 
 
-<<<<<<< HEAD
-=======
-savCharBtn.on('click', function (event) {
-	// on submission of character creation, set values in the aside
-	event.preventDefault();
-	if (raceInputEl.val() == null || classInputEl.val() == null || nameInputEl.val() == null) {
-		alert('You must enter your character information to proceed');
-		return;
-	} else {
-		nameAreaLi.text(`Name: ${nameInputEl.val()}`);
-		raceLiEl.text(`Race: ${raceInputEl.val()}`);
-		classLiEl.text(`Class: ${classInputEl.val()}`);
-		bioAreaEl.val(`${bioInputEl.val()}`);
-		hpLiEl.text(`HP: ${playerHP}`);
-		attackBonusLiEl.text(`Attack Bonus: ${attackBonus}`);
-	}
-});
->>>>>>> ptr
