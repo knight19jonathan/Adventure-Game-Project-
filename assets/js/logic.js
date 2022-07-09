@@ -30,8 +30,6 @@ var monsterXP = 0;
 var monsterAttack = 0;
 var monsterDexterity = 0;
 
-var attackBtn = document.querySelector('#attackTEST');
-var attackBtn2 = document.querySelector('#attackTEST2');
 var diceRoll;
 var modalAttackBtn = document.querySelector('#attack-button');
 var modalInitBtn = document.querySelector('#init-button');
@@ -108,7 +106,7 @@ var currentPlayerStats = [{
 //Get a random monster
 
 //
-function BattleStats() {
+function BattleStats() {  //set content of text boxes in battle modal
 	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
 	battleBoxAttackBonus.textContent = `Attack Bonus: ${attackBonus}`;
 	playerHpBar.style.width = `${playerHP}%`;
@@ -140,36 +138,38 @@ randomMonsterFetch = function () {
 				.then(function (monster) {
 					// console.log(monster);
 					monsterStats = monster;
-					// console.log(monsterStats)
-				})
-				.then(function () {
-					monsterName = monsterStats.name;
-					monsterArmorClass = monsterStats.armor_class;
-					monsterHitPoints = monsterStats.hit_points;
-					monsterXP = monsterStats.xp;
-					monsterAttack = monsterStats.actions[0].attack_bonus;
-					if (monsterAttack == null) {
-						monsterAttack = Math.ceil(Math.random() * 6) + -1;
-						console.log(monsterAttack);
-					} // works for everthing but 'sea horse need to splice it from monsters array
-					monsterDexterity = monsterStats.dexterity;
-					monsterStrength = monsterStats.strength;
-				})
-				.then(function () {
-					console.log('Monster AC:', monsterArmorClass);
-					console.log('Monster HP:', monsterHitPoints);
-					console.log('Monster XP:', monsterXP);
-					console.log('Monster Atk:', monsterAttack);
+					if (monsterStats.challenge_rating > 2) {  //set monster level cap
+						randomMonsterFetch()
+					} else {
+						//assign monster stats to variables
+						monsterName = monsterStats.name; 
+						monsterArmorClass = monsterStats.armor_class;
+						monsterHitPoints = monsterStats.hit_points;
+						monsterXP = monsterStats.xp;
+						monsterAttack = monsterStats.actions[0].attack_bonus;
+						if (monsterAttack == null) {
+							monsterAttack = Math.ceil(Math.random() * 6) + -1;
+							console.log(monsterAttack);
+						} // works for everthing but 'sea horse need to splice it from monsters array
+						monsterDexterity = monsterStats.dexterity;
+						monsterStrength = monsterStats.strength;
+						console.log('Monster AC:', monsterArmorClass);
+						console.log('Monster HP:', monsterHitPoints);
+						console.log('Monster XP:', monsterXP);
+						console.log('Monster Atk:', monsterAttack);
+	
+						console.log('Monster Dex:', monsterDexterity);
+						console.log('Monster Str:', monsterStrength);
+						console.log('Monster Name:', monsterName);
 
-					console.log('Monster Dex:', monsterDexterity);
-					console.log('Monster Str:', monsterStrength);
-					console.log('Monster Name:', monsterName);
+					}
+					// console.log(monsterStats)
 				});
 		});
 };
 
 
-function diceRoll() {
+function diceRoll() { // get a random number between 1 and 20
 	let diceRoll = Math.ceil(Math.random() * 20);
 	//console.log(diceRoll);
 	return diceRoll;
@@ -178,7 +178,7 @@ function diceRoll() {
 function startcombat() {
 	// let playerHP = fetch a value from local storage to equal current player health or default to current
 	BattleStats();
-	setTimeout(combatLog.textContent = `A wild ${monsterName} appears!`, 100);
+	setTimeout(function(){combatLog.textContent = `A wild ${monsterName} appears!`}, 100);
 	// combatLog.("A wild", monsterName, "appears!" )
 	let playerInit = diceRoll() + playerDexterity; //
 	console.log('PlDex:', playerDexterity);
@@ -232,35 +232,35 @@ function runCombat() {
 
 //combat functions
 function attackRoll() {
-	let diceRoll = Math.ceil(Math.random() * 20);
+	let roll = diceRoll();
 	//let armorClass = 10
 
-	if (diceRoll == 20) {
-		console.log(diceRoll);
-		let damage = (Math.ceil(Math.random() * 20) + playerStrength) * 2;
+	if (roll == 20) {
+		console.log(roll);
+		let damage = (diceRoll() + playerStrength) * 2;
 
 		monsterHitPoints = monsterHitPoints - damage;
 		console.log(monsterName, ' HP:', monsterHitPoints);
 		combatLog.textContent = `The fighter attacks...
         They we're never a match for you!
         You dealt  ${damage}  to the foe!`;
-	} else if (diceRoll == 1) {
-		console.log(diceRoll);
+	} else if (roll == 1) {
+		console.log(roll);
 		console.log('A dire failure!');
-	} else if (diceRoll + attackBonus >= monsterArmorClass) {
-		let damage = Math.ceil(Math.random() * 20) + playerStrength;
+	} else if (roll + attackBonus >= monsterArmorClass) {
+		let damage = diceRoll() + playerStrength;
 
 		monsterHitPoints = monsterHitPoints - damage;
 		console.log("You dealt", damage, "damage to the foe!");
 		console.log(monsterName, ' HP:', monsterHitPoints);
 		combatLog.textContent = `The fighter attacks...
-        Hit roll: ${diceRoll} + ${attackBonus}
+        Hit roll: ${roll} + ${attackBonus}
         A hit!
         You dealt ${damage} to the foe!`;
 		
 	} else {
 		combatLog.textContent = `The fighter attacks...
-        Hit roll: ${diceRoll} + ${attackBonus}
+        Hit roll: ${roll} + ${attackBonus}
         A miss!`;
 		console.log('A miss!');
 	}
@@ -272,7 +272,7 @@ function monsterAttackRoll() {
 	let monAtkRoll = diceRoll();
 
 	if (monAtkRoll == 20 && monAtkRoll > playerArmorClass) {
-		let damage = (Math.ceil(Math.random() * 20) + playerStrength) * 2;
+		let damage = (diceRoll() + playerStrength) * 2;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
@@ -284,7 +284,7 @@ function monsterAttackRoll() {
 		console.log('Nat 1!lol😂', monAtkRoll);
 		console.log('A dire failure!');
 	} else if (monAtkRoll + monsterAttack >= playerArmorClass) {
-		let damage = Math.ceil(Math.random() * 20) + playerStrength;
+		let damage = diceRoll() + playerStrength;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
@@ -333,16 +333,6 @@ modalAttackBtn.addEventListener('click', function (event) {
 		runCombat();}
 });
 
-attackBtn.addEventListener('click', function (event) {
-	event.preventDefault();
-	diceRoll();
-});
-
-attackBtn2.addEventListener('click', function (event) {
-	event.preventDefault();
-	attackRoll();
-	console.log(monsterArmorClass);
-});
 
 closeBattle.addEventListener('click', function (event) {
 	event.preventDefault();
@@ -353,11 +343,15 @@ closeBattle.addEventListener('click', function (event) {
 	console.log("You have left the battle!");
 	console.log("Current Player XP", playerXP);
 	console.log("Current Player HP", playerHP);
+<<<<<<< HEAD
 	let monsterStatApi = [];
 	monsterStatApi.repalce(monsterStatApi);
 	hpLiEl.textContent = `${playerHP}`
 	playerHp.textContent = `${playerHP}`
 	savePlayer();
+=======
+	hpLiEl.text(`HP:${playerHP}`)
+>>>>>>> ptr
 	if (playerHP == 0) {
 		playerXP = 0;
 		console.log("Player Xp has been reset to 0:", playerXP);
@@ -367,6 +361,10 @@ closeBattle.addEventListener('click', function (event) {
 	// 	savePlayer();
 	// }
 });
+<<<<<<< HEAD
+=======
+//local storage player stat functions
+>>>>>>> ptr
 
 //local storage functions
 //saves character to local storage
@@ -390,6 +388,7 @@ function loadSavedCharacters(){
 		continueBtn.style.display = 'inline-block'
 	}
 }
+<<<<<<< HEAD
 
 //continue button event listener
 continueBtn.addEventListener('click', function (event) {
@@ -433,6 +432,8 @@ function displayCurrentPlayerStats (){
 	attackBonusLiEl.text(`Attack Bonus: ${attackBonus}`);
 }
 
+=======
+>>>>>>> ptr
 
 // //execute on page load
 // for future, character stat load function
@@ -509,3 +510,21 @@ function displayCurrentPlayerStats (){
 
 
 
+<<<<<<< HEAD
+=======
+savCharBtn.on('click', function (event) {
+	// on submission of character creation, set values in the aside
+	event.preventDefault();
+	if (raceInputEl.val() == null || classInputEl.val() == null || nameInputEl.val() == null) {
+		alert('You must enter your character information to proceed');
+		return;
+	} else {
+		nameAreaLi.text(`Name: ${nameInputEl.val()}`);
+		raceLiEl.text(`Race: ${raceInputEl.val()}`);
+		classLiEl.text(`Class: ${classInputEl.val()}`);
+		bioAreaEl.val(`${bioInputEl.val()}`);
+		hpLiEl.text(`HP: ${playerHP}`);
+		attackBonusLiEl.text(`Attack Bonus: ${attackBonus}`);
+	}
+});
+>>>>>>> ptr
