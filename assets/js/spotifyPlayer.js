@@ -53,9 +53,10 @@
 // autoplay = () => {
 //     playBtn.click();
 // }
+let playBtn;
 
-// setTimeout(() => {
-//     var playBtn = document.querySelector("#main > div > div > div.ai.au.ah.av > div.ah.aw.ax.ay.az.b0.b1.b2 > div > div > button");
-//     // autoplay();
-//     console.log(response.status)
-// }, 3000)
+setTimeout(getPlayBtnID, 3000);
+
+function getPlayBtnID(){
+    playBtn = document.querySelector("#main > div > div > div.ai.au.ah.av > div.ah.aw.ax.ay.az.b0.b1.b2 > div > div > button");
+}
