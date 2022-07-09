@@ -47,11 +47,8 @@ var playerHP = 100;
 var playerConstitution = Math.ceil(Math.random() * 50); //fighter 50, wizard 20, Rogue 20
 var playerDexterity = 3; // +14 Fighter, +8 Wizard, +22 for Rogue
 var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
-<<<<<<< HEAD
 var closeBattle = document.querySelector('#battleClose');
 
-=======
->>>>>>> ptr
 var playerLevel = 1;
 var playerXP =0; 
 
@@ -337,7 +334,6 @@ attackBtn2.addEventListener('click', function (event) {
 	console.log(monsterArmorClass);
 });
 
-<<<<<<< HEAD
 closeBattle.addEventListener('click', function (event) {
 	event.preventDefault();
 	modalInitBtn.style.display = "none"
@@ -355,17 +351,9 @@ closeBattle.addEventListener('click', function (event) {
 		playerXP = 0;
 		console.log("Player Xp has been reset to 0:", playerXP);	}
 });
-=======
 //local storage player stat functions
 
-savePlayer = () =>{
 
-}
-
-loadPlayer = () =>{
-	
-}
->>>>>>> ptr
 
 // //execute on page load
 // for future, character stat load function
