@@ -331,10 +331,7 @@ closeBattle.addEventListener('click', function (event) {
 	console.log("You have left the battle!");
 	console.log("Current Player XP", playerXP);
 	console.log("Current Player HP", playerHP);
-	let monsterStatApi = [];
-	monsterStatApi.repalce(monsterStatApi);
-	hpLiEl.textContent = `${playerHP}`
-	playerHp.textContent = `${playerHP}`
+	hpLiEl.text(`HP:${playerHP}`)
 	if (playerHP == 0) {
 		playerXP = 0;
 		console.log("Player Xp has been reset to 0:", playerXP);	}
