@@ -427,7 +427,7 @@ loadPlayer = () =>{
 savCharBtn.on('click', function (event) {
 	// on submission of character creation, set values in the aside
 	event.preventDefault();
-	if (raceInputEl.val() == null || classInputEl.val() == null) {
+	if (raceInputEl.val() == null || classInputEl.val() == null || nameInputEl.val() == null) {
 		alert('You must enter your character information to proceed');
 		return;
 	} else {
