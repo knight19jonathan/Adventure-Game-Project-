@@ -1,13 +1,16 @@
 * {
 	font-family: 'Press Start 2P', cursive;
 }
-
-#new-character {
-	margin-left: 30px;
+button {
 	font-family: 'Press Start 2P', cursive;
 }
-#play-music {
-	font-family: 'Press Start 2P', cursive;
+
+header {
+	height: fit-content;
+}
+
+#new-character {
+	margin-bottom: 10px;
 }
 #character-element {
 	margin-top: 30px;
@@ -24,6 +27,12 @@
 	color: white;
 }
 
+#bio-area {
+	font-family: 'Press Start 2P', cursive;
+	color: white;
+	font-size: .5em;
+}
+
 #skills-stats {
 	color: white;
 }
@@ -32,4 +41,10 @@
 }
 #player-hp-bar {
 	width: 100%;
+}
+
+#start-battle {
+	font-size: 2em;
+	height: 3em;
+	font-family: 'Press Start 2P', cursive;
 }
