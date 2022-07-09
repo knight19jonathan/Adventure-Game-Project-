@@ -25,8 +25,6 @@ var monsterXP = 0;
 var monsterAttack = 0;
 var monsterDexterity = 0;
 
-var attackBtn = document.querySelector('#attackTEST');
-var attackBtn2 = document.querySelector('#attackTEST2');
 var diceRoll;
 var modalAttackBtn = document.querySelector('#attack-button');
 var modalInitBtn = document.querySelector('#init-button');
@@ -47,11 +45,8 @@ var playerHP = 100;
 var playerConstitution = Math.ceil(Math.random() * 50); //fighter 50, wizard 20, Rogue 20
 var playerDexterity = 3; // +14 Fighter, +8 Wizard, +22 for Rogue
 var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
-<<<<<<< HEAD
 var closeBattle = document.querySelector('#battleClose');
 
-=======
->>>>>>> ptr
 var playerLevel = 1;
 var playerXP =0; 
 
@@ -230,7 +225,7 @@ function attackRoll() {
 
 	if (diceRoll == 20) {
 		console.log(diceRoll);
-		let damage = (Math.ceil(Math.random() * 20) + playerStrength) * 2;
+		let damage = (diceroll() + playerStrength) * 2;
 
 		monsterHitPoints = monsterHitPoints - damage;
 		console.log(monsterName, ' HP:', monsterHitPoints);
@@ -241,7 +236,7 @@ function attackRoll() {
 		console.log(diceRoll);
 		console.log('A dire failure!');
 	} else if (diceRoll + attackBonus >= monsterArmorClass) {
-		let damage = Math.ceil(Math.random() * 20) + playerStrength;
+		let damage = diceroll() + playerStrength;
 
 		monsterHitPoints = monsterHitPoints - damage;
 		console.log("You dealt", damage, "damage to the foe!");
@@ -265,7 +260,7 @@ function monsterAttackRoll() {
 	let monAtkRoll = diceRoll();
 
 	if (monAtkRoll == 20 && monAtkRoll > playerArmorClass) {
-		let damage = (Math.ceil(Math.random() * 20) + playerStrength) * 2;
+		let damage = (diceroll() + playerStrength) * 2;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
@@ -277,7 +272,7 @@ function monsterAttackRoll() {
 		console.log('Nat 1!lol😂', monAtkRoll);
 		console.log('A dire failure!');
 	} else if (monAtkRoll + monsterAttack >= playerArmorClass) {
-		let damage = Math.ceil(Math.random() * 20) + playerStrength;
+		let damage = diceroll() + playerStrength;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
@@ -326,18 +321,7 @@ modalAttackBtn.addEventListener('click', function (event) {
 		runCombat();}
 });
 
-attackBtn.addEventListener('click', function (event) {
-	event.preventDefault();
-	diceRoll();
-});
 
-attackBtn2.addEventListener('click', function (event) {
-	event.preventDefault();
-	attackRoll();
-	console.log(monsterArmorClass);
-});
-
-<<<<<<< HEAD
 closeBattle.addEventListener('click', function (event) {
 	event.preventDefault();
 	modalInitBtn.style.display = "none"
@@ -355,7 +339,6 @@ closeBattle.addEventListener('click', function (event) {
 		playerXP = 0;
 		console.log("Player Xp has been reset to 0:", playerXP);	}
 });
-=======
 //local storage player stat functions
 
 savePlayer = () =>{
@@ -365,7 +348,6 @@ savePlayer = () =>{
 loadPlayer = () =>{
 	
 }
->>>>>>> ptr
 
 // //execute on page load
 // for future, character stat load function

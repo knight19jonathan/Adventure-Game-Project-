@@ -18,37 +18,21 @@
 
 <body class="grey darken-4">
 	<section>
-		<button id="attackTEST">Test Attack</button>
-		<p aria-placeholder="test"></p>
 
 		<body>
-			<section>
-				<button id="attackTEST">Roll a d20</button>
-				<button id="attackTEST2">Roll a d20</button>
-			</section>
-
 			<nav>
 				<div class="nav-wrapper brown lighten-1">
 					<a href="#" class="brand-logo center lime-text" id="pageTitle">DnD Machine</a>
-					<ul id="nav-mobile" class="left hide-on-med-and-down">
-						<li>
-							<button data-target="modal1"
-								class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
-								id="new-character">
-								New Character
-							</button>
-							<button data-target="null"
-								class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
-								id="play-music">
-								Play Music/Get random quote
-							</button>
-						</li>
-					</ul>
 				</div>
 			</nav>
 
 			<main class="row">
-				<aside id="character-element" class="col s12 m3">
+				<aside id="character-element" class="col s12 m12 l3">
+					<button data-target="modal1"
+						class="waves-effect waves-light btn modal-trigger lime black-text hoverable col s12"
+						id="new-character">
+						New Character
+					</button>
 					<img src="./assets/media/dndeightbitwarr.jpeg" alt="dnd warrior character" width="200px" />
 					<div id="skills-stats">
 						<ul id="player-ul">
@@ -66,28 +50,13 @@
 						<h1 class="red darken-4" id="playerHp">100</h1>
 					</div>
 
-					<button data-target="modal3"
-						class="waves-effect waves-light btn modal-trigger lime black-text hoverable" id="start-battle">
-						Battle
-					</button>
-
 					<!-- Modal on new start battle click -->
 					<div id="modal3" class="modal lime">
 						<div class="modal-content">
 							<h4>Modal 3 Header</h4>
-							<div class="row">
-								<div class="col s4">
+							<div class="row center-align">
+								<div class="col  s12 m4">
 									<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
-								</div>
-								<div class="col s4">
-									<div name="" id="combat-log" cols="30" rows="10"></div>
-								</div>
-								<div class="col s4">
-									<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
-								</div>
-							</div>
-							<div class="row justify-content-center">
-								<div class="col s4">
 									<div class="progress">
 										<div id="player-hp-bar" class="determinate red"></div>
 									</div>
@@ -97,7 +66,8 @@
 										<li id="player-armor-class-li">Armor Class</li>
 									</ul>
 								</div>
-								<div class="col s4">
+								<div class="col s12 m4">
+									<div name="" id="combat-log" cols="30" rows="10"></div>
 									<button id="init-button"
 										class="waves-effect waves-light btn lime darken-4 black-text hoverable">
 										Roll Initiative
@@ -108,7 +78,8 @@
 									</button>
 									<p>Monster will swing back in 6 seconds.</p>
 								</div>
-								<div class="col s4">
+								<div class="col s12 m4">
+									<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
 									<div class="progress">
 										<div id="enemy-hp-bar" class="determinate red" style="width: 100%"></div>
 									</div>
@@ -121,12 +92,18 @@
 									</ul>
 								</div>
 							</div>
-						</div>
-						<div class="modal-footer lime darken-4">
-							<a href="#!" class="modal-close waves-effect waves-green btn-flat black-text" id="battleClose">Close</a>
+
 						</div>
 					</div>
-					<iframe id="spotifyWindow" style="border-radius:12px" src="https://open.spotify.com/embed/track/2qeESyQyH7MRHCBotCQsNq?si=e42a597aaebe4fc1?utm_source=generator" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+					<div class="modal-footer lime darken-4">
+						<a href="#!" class="modal-close waves-effect waves-green btn-flat black-text"
+							id="battleClose">Close</a>
+					</div>
+					</div>
+					<iframe id="spotifyWindow" style="border-radius:12px"
+						src="https://open.spotify.com/embed/track/2qeESyQyH7MRHCBotCQsNq?si=e42a597aaebe4fc1?utm_source=generator"
+						width="100%" height="380" frameBorder="0" allowfullscreen=""
+						allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
 					<!-- Modal on new char click -->
 					<div id="modal1" class="modal lime">
 						<div class="modal-content">
@@ -175,17 +152,28 @@
 						</div>
 					</div>
 				</aside>
-				<section id="map" class="col s12 m9">
-					<img src="./assets/media/27107457885_ebba66b7c1_o.jpg" alt="simple map" />
+				<section id="map" class="col m12 l9 center-align">
+					<div class="row center-align">
+
+						<button data-target="modal3"
+							class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
+							id="start-battle">
+							Battle
+						</button>
+					</div>
+					<img class="responsive-img" src="./assets/media/27107457885_ebba66b7c1_o.jpg" alt="simple map" />
 					<!--https://www.flickr.com/photos/35034348373@N01/27107457885-->
 				</section>
+				<br>
+				<section class="row center-align" id="quote-section">
+					<h5 class="center lime-text" id="quote-text"></h5>
+					<button class="waves-effect waves-light btn lime black-text hoverable" id="lotr-quote-btn">
+						Get LOTR Quote
+					</button>
+				</section>
 			</main>
-			<section class="row center-align" id="quote-section">
-				<h5 class="center lime-text" id="quote-text"></h5>
-				<button class="waves-effect waves-light btn lime black-text hoverable" id="lotr-quote-btn">
-					Get LOTR Quote
-				</button>
-			</section>
+
+			<footer> placeholder </footer>
 
 			<!-- Compiled and minified JQuery -->
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -193,12 +181,12 @@
 			<!-- Compiled and minified JavaScript materialize -->
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 			<script src="./assets/js/logic.js"></script>
-<<<<<<< HEAD
-			<script async src="./assets/js/spotifyPlayer.js"></script>
-=======
+			<script async src="./assets/js/spotifyPlayer.js">
+			</script>
+
 			<script src="./assets/js/lotrgen.js"></script>
-			<script src="./assets/js/spotifyAPI.js"></script>
->>>>>>> ptr
+			<script src="./assets/js/spotifyPlayer.js"></script>
+
 		</body>
 
 </html>
