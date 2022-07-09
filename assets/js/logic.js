@@ -36,6 +36,7 @@ var playerHP = 100;
 var playerConstitution = Math.ceil(Math.random() * 50); //fighter 50, wizard 20, Rogue 20
 var playerDexterity = 3; // +14 Fighter, +8 Wizard, +22 for Rogue
 var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
+var closeBattle = document.querySelector('#battleClose');
 
 var playerLevel = 1;
 var attackBonus = playerLevel + playerStrength;
@@ -62,6 +63,21 @@ var characterGenBtn = document.querySelector('#new-character');
 
 //elements
 var title = document.querySelector('a');
+
+//grab input elements for characater creator
+var savCharBtn = $('#save-char-btn');
+var nameInputEl = $('#choose-name');
+var raceInputEl = $('#race-input');
+var classInputEl = $('#class-input');
+var bioInputEl = $('#textarea2');
+
+//grab elements in character aside
+var nameAreaLi = $('#name-li');
+var bioAreaEl = $('#bio-area');
+var raceLiEl = $('#raceLi');
+var classLiEl = $('#classLi');
+var hpLiEl = $('#hPLi');
+var attackBonusLiEl = $('#atkBnsLi');
 
 //Get a random monster
 
@@ -134,7 +150,7 @@ randomMonsterFetch = function () {
 
 function diceRoll() {
 	let diceRoll = Math.ceil(Math.random() * 20);
-	console.log(diceRoll);
+	//console.log(diceRoll);
 	return diceRoll;
 }
 
@@ -236,7 +252,7 @@ function monsterAttackRoll() {
 	let monAtkRoll = diceRoll();
 
 	if (monAtkRoll == 20 && monAtkRoll > playerArmorClass) {
-		let damage = (Math.ceil(Math.random() * 20) + playerStrength) * 1.5;
+		let damage = (Math.ceil(Math.random() * 20) + playerStrength) * 2;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
@@ -260,7 +276,7 @@ function monsterAttackRoll() {
 		combatLog.textContent = `The monster attacks...
         Miss Roll: ${monAtkRoll} + ${monsterAttack}
 		A miss!`;
-		console.log('Miss!', monAtkRoll);
+		console.log('Miss!', monAtkRoll + monsterAttack);
 	}
 	localStorage.setItem('monsterAction', JSON.stringify(combatLog.textContent));
 	BattleStats();
@@ -306,6 +322,24 @@ attackBtn2.addEventListener('click', function (event) {
 	event.preventDefault();
 	attackRoll();
 	console.log(monsterArmorClass);
+});
+
+closeBattle.addEventListener('click', function (event) {
+	event.preventDefault();
+	modalInitBtn.style.display = "none"
+	modalAttackBtn.style.display = "none"
+	isCombat = false;
+	console.log(isCombat)
+	console.log("You have left the battle!");
+	console.log("Current Player XP", playerXP);
+	console.log("Current Player HP", playerHP);
+	let monsterStatApi = [];
+	monsterStatApi.repalce(monsterStatApi);
+	hpLiEl.textContent = `${playerHP}`
+	playerHp.textContent = `${playerHP}`
+	if (playerHP == 0) {
+		playerXP = 0;
+		console.log("Player Xp has been reset to 0:", playerXP);	}
 });
 
 // //execute on page load
@@ -381,20 +415,7 @@ attackBtn2.addEventListener('click', function (event) {
 //         });
 // };
 
-//grab input elements for characater creator
-var savCharBtn = $('#save-char-btn');
-var nameInputEl = $('#choose-name');
-var raceInputEl = $('#race-input');
-var classInputEl = $('#class-input');
-var bioInputEl = $('#textarea2');
 
-//grab elements in character aside
-var nameAreaLi = $('#name-li');
-var bioAreaEl = $('#bio-area');
-var raceLiEl = $('#raceLi');
-var classLiEl = $('#classLi');
-var hpLiEl = $('#hPLi');
-var attackBonusLiEl = $('#atkBnsLi');
 
 savCharBtn.on('click', function (event) {
 	// on submission of character creation, set values in the aside
