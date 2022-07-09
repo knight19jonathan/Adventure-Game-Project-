@@ -30,3 +30,6 @@
 #combatLog {
 	height: 300px;
 }
+#player-hp-bar {
+	width: 100%;
+}
