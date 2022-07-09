@@ -25,8 +25,6 @@ var monsterXP = 0;
 var monsterAttack = 0;
 var monsterDexterity = 0;
 
-var attackBtn = document.querySelector('#attackTEST');
-var attackBtn2 = document.querySelector('#attackTEST2');
 var diceRoll;
 var modalAttackBtn = document.querySelector('#attack-button');
 var modalInitBtn = document.querySelector('#init-button');
