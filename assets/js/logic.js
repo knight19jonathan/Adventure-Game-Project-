@@ -127,26 +127,31 @@ randomMonsterFetch = function () {
 				.then(function (monster) {
 					// console.log(monster);
 					monsterStats = monster;
-					// console.log(monsterStats)
-					monsterName = monsterStats.name;
-					monsterArmorClass = monsterStats.armor_class;
-					monsterHitPoints = monsterStats.hit_points;
-					monsterXP = monsterStats.xp;
-					monsterAttack = monsterStats.actions[0].attack_bonus;
-					if (monsterAttack == null) {
-						monsterAttack = Math.ceil(Math.random() * 6) + -1;
-						console.log(monsterAttack);
-					} // works for everthing but 'sea horse need to splice it from monsters array
-					monsterDexterity = monsterStats.dexterity;
-					monsterStrength = monsterStats.strength;
-					console.log('Monster AC:', monsterArmorClass);
-					console.log('Monster HP:', monsterHitPoints);
-					console.log('Monster XP:', monsterXP);
-					console.log('Monster Atk:', monsterAttack);
+					if (monsterStats.challenge_rating > 2) {
+						randomMonsterFetch()
+					} else {
+						monsterName = monsterStats.name;
+						monsterArmorClass = monsterStats.armor_class;
+						monsterHitPoints = monsterStats.hit_points;
+						monsterXP = monsterStats.xp;
+						monsterAttack = monsterStats.actions[0].attack_bonus;
+						if (monsterAttack == null) {
+							monsterAttack = Math.ceil(Math.random() * 6) + -1;
+							console.log(monsterAttack);
+						} // works for everthing but 'sea horse need to splice it from monsters array
+						monsterDexterity = monsterStats.dexterity;
+						monsterStrength = monsterStats.strength;
+						console.log('Monster AC:', monsterArmorClass);
+						console.log('Monster HP:', monsterHitPoints);
+						console.log('Monster XP:', monsterXP);
+						console.log('Monster Atk:', monsterAttack);
+	
+						console.log('Monster Dex:', monsterDexterity);
+						console.log('Monster Str:', monsterStrength);
+						console.log('Monster Name:', monsterName);
 
-					console.log('Monster Dex:', monsterDexterity);
-					console.log('Monster Str:', monsterStrength);
-					console.log('Monster Name:', monsterName);
+					}
+					// console.log(monsterStats)
 				});
 		});
 };
