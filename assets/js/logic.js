@@ -95,7 +95,7 @@ var attackBonusLiEl = $('#atkBnsLi');
 //Get a random monster
 
 //
-function BattleStats() {
+function BattleStats() {  //set content of text boxes in battle modal
 	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
 	battleBoxAttackBonus.textContent = `Attack Bonus: ${attackBonus}`;
 	playerHpBar.style.width = `${playerHP}%`;
@@ -127,10 +127,11 @@ randomMonsterFetch = function () {
 				.then(function (monster) {
 					// console.log(monster);
 					monsterStats = monster;
-					if (monsterStats.challenge_rating > 2) {
+					if (monsterStats.challenge_rating > 2) {  //set monster level cap
 						randomMonsterFetch()
 					} else {
-						monsterName = monsterStats.name;
+						//assign monster stats to variables
+						monsterName = monsterStats.name; 
 						monsterArmorClass = monsterStats.armor_class;
 						monsterHitPoints = monsterStats.hit_points;
 						monsterXP = monsterStats.xp;
@@ -157,7 +158,7 @@ randomMonsterFetch = function () {
 };
 
 
-function diceRoll() {
+function diceRoll() { // get a random number between 1 and 20
 	let diceRoll = Math.ceil(Math.random() * 20);
 	//console.log(diceRoll);
 	return diceRoll;
