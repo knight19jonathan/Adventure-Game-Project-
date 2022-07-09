@@ -211,23 +211,30 @@ function startcombat() {
 
 function runCombat() {
     if (playerHP <= 0 ) {
-        modalAttackBtn.style.display = "none" // not getting rid of attack button
+        
         console.log("You have perished!")
 		combatLog.textContent = `You have perished! You were killed by a ${monsterName}`
-
+		modalAttackBtn.style.display = 'none';
 		// clear character local storage would you like to play again?
-
+		playerDeath(); //call function to reset character stats
 
     } else if (monsterHitPoints <= 0) {
-        modalAttackBtn.style.display = "none" // not getting rid of attack button
+        
         console.log("The monster is slain! It will trouble you no more.")
         playerXP = playerXP + monsterXP
 		combatLog.textContent = `You have slain the ${monsterName}! You gain ${monsterXP} XP! Close this window to continue.`
         console.log("You gained", playerXP, "XP!")
     } else {
-		console.log("continue combat")
+		console.log("still in combat")
+		//combatLog.textContent = `You are still alive somehow!`
 	}; 
 
+	}
+
+function playerDeath() {
+		localStorage.clear;
+		saveToCurrentStats();
+		displayCurrentPlayerStats();
 	}
 
 //combat functions
@@ -244,9 +251,11 @@ function attackRoll() {
 		combatLog.textContent = `The fighter attacks...
         They we're never a match for you!
         You dealt  ${damage}  to the foe!`;
+		runCombat()
 	} else if (roll == 1) {
 		console.log(roll);
 		console.log('A dire failure!');
+		runCombat()
 	} else if (roll + attackBonus >= monsterArmorClass) {
 		let damage = diceRoll() + playerStrength;
 
@@ -257,12 +266,14 @@ function attackRoll() {
         Hit roll: ${roll} + ${attackBonus}
         A hit!
         You dealt ${damage} to the foe!`;
+		runCombat()
 		
 	} else {
 		combatLog.textContent = `The fighter attacks...
         Hit roll: ${roll} + ${attackBonus}
         A miss!`;
 		console.log('A miss!');
+		runCombat()
 	}
 	localStorage.setItem('playerAction', JSON.stringify(combatLog.textContent));
 	BattleStats();
@@ -272,7 +283,7 @@ function monsterAttackRoll() {
 	let monAtkRoll = diceRoll();
 
 	if (monAtkRoll == 20 && monAtkRoll > playerArmorClass) {
-		let damage = (diceRoll() + playerStrength) * 2;
+		let damage = (diceRoll() + monsterStrength) * 2;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
@@ -280,11 +291,13 @@ function monsterAttackRoll() {
         Nat20!😎 ${monAtkRoll}
         It dealt ${damage}  to you!!! YIKES!
 		You stagger from a hideous blow, strength fails and fear grips your heart!`;
+		runCombat()
 	} else if (monAtkRoll == 1) {
 		console.log('Nat 1!lol😂', monAtkRoll);
 		console.log('A dire failure!');
+		runCombat()
 	} else if (monAtkRoll + monsterAttack >= playerArmorClass) {
-		let damage = diceRoll() + playerStrength;
+		let damage = diceRoll() + monsterStrength;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
@@ -292,11 +305,13 @@ function monsterAttackRoll() {
         Hit Roll: ${monAtkRoll} + ${monsterAttack}
         A hit!
         It dealt ${damage} to you!`;
+		runCombat()
 	} else {
 		combatLog.textContent = `The monster attacks...
         Miss Roll: ${monAtkRoll} + ${monsterAttack}
 		A miss!`;
 		console.log('Miss!', monAtkRoll + monsterAttack);
+		runCombat()
 	}
 	localStorage.setItem('monsterAction', JSON.stringify(combatLog.textContent));
 	BattleStats();
@@ -309,8 +324,6 @@ battleStart.addEventListener('click', function (event) {
     console.log(isCombat)
 	modalInitBtn.style.display = "block"
     modalAttackBtn.style.display = "none"
-	
-    
 });
 
 modalInitBtn.addEventListener('click', function (event) {
