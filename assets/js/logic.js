@@ -2,9 +2,9 @@
 M.AutoInit();
 
 //functions to run on page load
-$(document).ready(function(){
+$(document).ready(function () {
 	loadSavedCharacters();
-})
+});
 
 //API Variables
 var monsterAPI = 'https://www.dnd5eapi.co/api/monsters/';
@@ -29,18 +29,19 @@ var monsterHitPoints = 0;
 var monsterXP = 0;
 var monsterAttack = 0;
 var monsterDexterity = 0;
+var monsterPerHp;
 
 var diceRoll;
 var modalAttackBtn = document.querySelector('#attack-button');
 var modalInitBtn = document.querySelector('#init-button');
 
 //character stats variables
-var playerName = ''
-var playerClass = ''
-var playerRace = ''
+var playerName = '';
+var playerClass = '';
+var playerRace = '';
 var playerHP = 100;
-var playerBio = ''
-	//possible function for stat incrementation playerStrength = 4(base class attribute) + XP/100(this is the level)
+var playerBio = '';
+//possible function for stat incrementation playerStrength = 4(base class attribute) + XP/100(this is the level)
 var playerConstitution = Math.ceil(Math.random() * 50); //fighter 50, wizard 20, Rogue 20
 var playerDexterity = 3; // +14 Fighter, +8 Wizard, +22 for Rogue
 var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
@@ -60,6 +61,7 @@ var battleBoxMonsterHP = document.querySelector('#enemy-hp-li');
 var battleBoxMonsterName = document.querySelector('#enemy-name-li');
 var battleBoxMonsterAC = document.querySelector('#enemy-armor-class-li');
 var playerHpBar = document.querySelector('#player-hp-bar');
+var monsterHpBar = document.querySelector('#enemy-hp-bar');
 var battleBoxAttackBonus = document.querySelector('#attack-bonus-li');
 //
 var playerListBB = document.querySelector('#player-ul');
@@ -93,30 +95,39 @@ var hpLiEl = $('#hPLi');
 var attackBonusLiEl = $('#atkBnsLi');
 
 //local storage arrays
-var savedPlayers = [{}]
+var savedPlayers = [{}];
 var loadedPlayerStats;
-var currentPlayerStats = [{
-	Name: `${playerName}`,
-	Race: `${playerRace}`,
-	Class: `${playerClass}`,
-	XP: `${playerXP}`,
-	HP: `${playerHP}`,
-	Bio: `${playerBio}`
-}];
+var currentPlayerStats = [
+	{
+		Name: `${playerName}`,
+		Race: `${playerRace}`,
+		Class: `${playerClass}`,
+		XP: `${playerXP}`,
+		HP: `${playerHP}`,
+		Bio: `${playerBio}`,
+	},
+];
 //Get a random monster
 
 //
-function BattleStats() {  //set content of text boxes in battle modal
+function BattleStats() {
+	//set content of text boxes in battle modal
 	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
 	battleBoxAttackBonus.textContent = `Attack Bonus: ${attackBonus}`;
 	playerHpBar.style.width = `${playerHP}%`;
+	monsterHpBar.style.width = `${monsterPerHp}%`;
 	battleBoxPlayerAC.textContent = `Armor Class: ${playerArmorClass}`;
 	battleBoxMonsterName.textContent = `${monsterName}`;
 	battleBoxMonsterHP.textContent = `HP: ${monsterHitPoints}`;
 	battleBoxMonsterAC.textContent = `Armor Class: ${monsterArmorClass}`;
 }
+function monsterPercent() {
+	monsterPerHp = (100 * monsterHitPoints) / monsterMaxHp;
+	return monsterPerHp;
+}
 
-function logMonsterStats() { //console log monster info
+function logMonsterStats() {
+	//console log monster info
 	console.log('Monster AC:', monsterArmorClass);
 	console.log('Monster HP:', monsterHitPoints);
 	console.log('Monster XP:', monsterXP);
@@ -148,13 +159,15 @@ function randomMonsterFetch() {
 				.then(function (monster) {
 					// console.log(monster);
 					monsterStats = monster;
-					if (monsterStats.challenge_rating > 2) {  //set monster level cap
-						randomMonsterFetch()
+					if (monsterStats.challenge_rating > 2) {
+						//set monster level cap
+						randomMonsterFetch();
 					} else {
 						//assign monster stats to variables
 						monsterName = monsterStats.name;
 						monsterArmorClass = monsterStats.armor_class;
 						monsterHitPoints = monsterStats.hit_points;
+						monsterMaxHp = monsterStats.hit_points;
 						monsterXP = monsterStats.xp;
 						monsterAttack = monsterStats.actions[0].attack_bonus;
 						if (monsterAttack == null) {
@@ -163,16 +176,16 @@ function randomMonsterFetch() {
 						} // works for everthing but 'sea horse need to splice it from monsters array
 						monsterDexterity = monsterStats.dexterity;
 						monsterStrength = monsterStats.strength;
-						logMonsterStats()
-						combatLog.textContent = `A wild ${monsterName} appears!`
-						modalInitBtn.style.display = "block"
+						logMonsterStats();
+						combatLog.textContent = `A wild ${monsterName} appears!`;
+						modalInitBtn.style.display = 'block';
 					}
 				});
 		});
-};
+}
 
-
-function diceRoll() { // get a random number between 1 and 20
+function diceRoll() {
+	// get a random number between 1 and 20
 	let diceRoll = Math.ceil(Math.random() * 20);
 	//console.log(diceRoll);
 	return diceRoll;
@@ -181,6 +194,7 @@ function diceRoll() { // get a random number between 1 and 20
 function startcombat() {
 	// let playerHP = fetch a value from local storage to equal current player health or default to current
 	BattleStats();
+
 	// combatLog.("A wild", monsterName, "appears!" )
 	let playerInit = diceRoll() + playerDexterity; //
 	console.log('PlDex:', playerDexterity);
@@ -191,7 +205,7 @@ function startcombat() {
 	console.log('Monster Init:', monsterInit);
 	combatLog.textContent = `You jump into the fight and roll a ${playerInit} and the attacker replies with a ${monsterInit}`;
 	modalInitBtn.style.display = 'none';
-	setTimeout(function(){
+	setTimeout(function () {
 		if (playerInit >= monsterInit) {
 			combatLog.textContent = `You're faster than your foe and attack!`;
 			console.log('You are faster than the heathen!');
@@ -206,41 +220,37 @@ function startcombat() {
 			// combatLog.textContent("The monster was faster!")
 			setTimeout(monsterAttackRoll(), 1000);
 			runCombat();
-	
+
 			modalAttackBtn.style.display = 'block';
 			//return;
 		}
-	}, 3000)
+	}, 3000);
 }
 //render battleBox stats
 
 function runCombat() {
-    if (playerHP <= 0 ) {
-        
-        console.log("You have perished!")
-		combatLog.textContent = `You have perished! You were killed by a ${monsterName}`
+	if (playerHP <= 0) {
+		console.log('You have perished!');
+		combatLog.textContent = `You have perished! You were killed by a ${monsterName}`;
 		modalAttackBtn.style.display = 'none';
 		// clear character local storage would you like to play again?
 		playerDeath(); //call function to reset character stats
-
 	} else if (monsterHitPoints <= 0) {
-		console.log("The monster is slain! It will trouble you no more.")
-		playerXP = playerXP + monsterXP
-		combatLog.textContent = `You have slain the ${monsterName}! You gain ${monsterXP} XP! Close this window to continue.`
-		console.log("You gained", playerXP, "XP!")
-		modalAttackBtn.style.display = "none" // not getting rid of attack button
-
+		console.log('The monster is slain! It will trouble you no more.');
+		playerXP = playerXP + monsterXP;
+		combatLog.textContent = `You have slain the ${monsterName}! You gain ${monsterXP} XP! Close this window to continue.`;
+		console.log('You gained', playerXP, 'XP!');
+		modalAttackBtn.style.display = 'none'; // not getting rid of attack button
 	} else {
-		console.log("continue combat")
-	};
-
+		console.log('continue combat');
+	}
 }
 
 function playerDeath() {
-		localStorage.clear;
-		saveToCurrentStats();
-		displayCurrentPlayerStats();
-	}
+	localStorage.clear;
+	saveToCurrentStats();
+	displayCurrentPlayerStats();
+}
 
 //combat functions
 function attackRoll() {
@@ -256,31 +266,31 @@ function attackRoll() {
 		combatLog.textContent = `The fighter attacks...
         They we're never a match for you!
         You dealt  ${damage}  to the foe!`;
-		runCombat()
+		runCombat();
 	} else if (roll == 1) {
 		console.log(roll);
 		console.log('A dire failure!');
-		runCombat()
+		runCombat();
 	} else if (roll + attackBonus >= monsterArmorClass) {
 		let damage = diceRoll() + playerStrength;
 
 		monsterHitPoints = monsterHitPoints - damage;
-		console.log("You dealt", damage, "damage to the foe!");
+		console.log('You dealt', damage, 'damage to the foe!');
 		console.log(monsterName, ' HP:', monsterHitPoints);
 		combatLog.textContent = `The fighter attacks...
         Hit roll: ${roll} + ${attackBonus}
         A hit!
         You dealt ${damage} to the foe!`;
-		runCombat()
-		
+		runCombat();
 	} else {
 		combatLog.textContent = `The fighter attacks...
         Hit roll: ${roll} + ${attackBonus}
         A miss!`;
 		console.log('A miss!');
-		runCombat()
+		runCombat();
 	}
 	localStorage.setItem('playerAction', JSON.stringify(combatLog.textContent));
+	monsterPercent();
 	BattleStats();
 }
 
@@ -296,11 +306,11 @@ function monsterAttackRoll() {
         Nat20!😎 ${monAtkRoll}
         It dealt ${damage}  to you!!! YIKES!
 		You stagger from a hideous blow, strength fails and fear grips your heart!`;
-		runCombat()
+		runCombat();
 	} else if (monAtkRoll == 1) {
 		console.log('Nat 1!lol😂', monAtkRoll);
 		console.log('A dire failure!');
-		runCombat()
+		runCombat();
 	} else if (monAtkRoll + monsterAttack >= playerArmorClass) {
 		let damage = diceRoll() + monsterStrength;
 
@@ -310,13 +320,13 @@ function monsterAttackRoll() {
         Hit Roll: ${monAtkRoll} + ${monsterAttack}
         A hit!
         It dealt ${damage} to you!`;
-		runCombat()
+		runCombat();
 	} else {
 		combatLog.textContent = `The monster attacks...
         Miss Roll: ${monAtkRoll} + ${monsterAttack}
 		A miss!`;
 		console.log('Miss!', monAtkRoll + monsterAttack);
-		runCombat()
+		runCombat();
 	}
 	localStorage.setItem('monsterAction', JSON.stringify(combatLog.textContent));
 	BattleStats();
@@ -326,9 +336,9 @@ battleStart.addEventListener('click', function (event) {
 	event.preventDefault();
 	randomMonsterFetch();
 	isCombat = true;
-	console.log(isCombat)
+	console.log(isCombat);
 	// modalInitBtn.style.display = "block"
-	modalAttackBtn.style.display = "none"
+	modalAttackBtn.style.display = 'none';
 });
 
 modalInitBtn.addEventListener('click', function (event) {
@@ -343,31 +353,29 @@ modalAttackBtn.addEventListener('click', function (event) {
 	if (monsterHitPoints > 0) {
 		setTimeout(monsterAttackRoll, 1000);
 		setTimeout((modalAttackBtn.style.display = 'block'), 1001);
-	}
-	else if (playerHP <= 0) {
+	} else if (playerHP <= 0) {
 		modalAttackBtn.style.display = 'none';
 		runCombat();
-		console.log("You have died!");
+		console.log('You have died!');
 	} else {
 		runCombat();
 	}
 });
 
-
 closeBattle.addEventListener('click', function (event) {
 	event.preventDefault();
-	modalInitBtn.style.display = "none"
-	modalAttackBtn.style.display = "none"
+	modalInitBtn.style.display = 'none';
+	modalAttackBtn.style.display = 'none';
 	isCombat = false;
-	console.log(isCombat)
-	console.log("You have left the battle!");
-	console.log("Current Player XP", playerXP);
-	console.log("Current Player HP", playerHP);
-	hpLiEl.text(`HP:${playerHP}`)
+	console.log(isCombat);
+	console.log('You have left the battle!');
+	console.log('Current Player XP', playerXP);
+	console.log('Current Player HP', playerHP);
+	hpLiEl.text(`HP:${playerHP}`);
 	if (playerHP == 0) {
 		playerXP = 0;
-		console.log("Player Xp has been reset to 0:", playerXP);
-		localStorage.clear()
+		console.log('Player Xp has been reset to 0:', playerXP);
+		localStorage.clear();
 	}
 	// else {
 	// 	savePlayer();
@@ -377,24 +385,24 @@ closeBattle.addEventListener('click', function (event) {
 
 //local storage functions
 //saves character to local storage
-function savePlayer(){
+function savePlayer() {
 	saveToCurrentStats();
-	localStorage.setItem("playerStats", JSON.stringify(currentPlayerStats))
+	localStorage.setItem('playerStats', JSON.stringify(currentPlayerStats));
 	displayCurrentPlayerStats();
 }
 
 //loads character from local storage
-function loadPlayer(){
-	loadedPlayerStats = JSON.parse(localStorage.getItem("playerStats"))
-	console.log(loadedPlayerStats)
-	currentPlayerStats = loadedPlayerStats
+function loadPlayer() {
+	loadedPlayerStats = JSON.parse(localStorage.getItem('playerStats'));
+	console.log(loadedPlayerStats);
+	currentPlayerStats = loadedPlayerStats;
 	displayCurrentPlayerStats();
 }
 
 //displays continue button on the page
-function loadSavedCharacters(){
-	if (localStorage.length !==0 ){
-		continueBtn.style.display = 'inline-block'
+function loadSavedCharacters() {
+	if (localStorage.length !== 0) {
+		continueBtn.style.display = 'inline-block';
 	}
 }
 
@@ -402,7 +410,7 @@ function loadSavedCharacters(){
 continueBtn.addEventListener('click', function (event) {
 	event.preventDefault();
 	loadPlayer();
-})
+});
 
 savCharBtn.on('click', function (event) {
 	// on submission of character creation, set values in the aside
@@ -422,16 +430,16 @@ savCharBtn.on('click', function (event) {
 });
 
 //updates player stats to saveToCurrentStats
-function saveToCurrentStats (){
-	currentPlayerStats[0].Name = playerName
-	currentPlayerStats[0].Race = playerRace
-	currentPlayerStats[0].Class = playerClass
-	currentPlayerStats[0].XP = playerXP
-	currentPlayerStats[0].HP = playerHP
-	currentPlayerStats[0].Bio = playerBio
+function saveToCurrentStats() {
+	currentPlayerStats[0].Name = playerName;
+	currentPlayerStats[0].Race = playerRace;
+	currentPlayerStats[0].Class = playerClass;
+	currentPlayerStats[0].XP = playerXP;
+	currentPlayerStats[0].HP = playerHP;
+	currentPlayerStats[0].Bio = playerBio;
 }
 //displays currentPlayerStats
-function displayCurrentPlayerStats (){
+function displayCurrentPlayerStats() {
 	nameAreaLi.text(`Name: ${currentPlayerStats[0].Name}`);
 	raceLiEl.text(`Race: ${currentPlayerStats[0].Race}`);
 	classLiEl.text(`Class: ${currentPlayerStats[0].Class}`);
@@ -439,7 +447,6 @@ function displayCurrentPlayerStats (){
 	hpLiEl.text(`HP: ${currentPlayerStats[0].HP}`);
 	attackBonusLiEl.text(`Attack Bonus: ${attackBonus}`);
 }
-
 
 // //execute on page load
 // for future, character stat load function
@@ -513,6 +520,3 @@ function displayCurrentPlayerStats (){
 //                 });
 //         });
 // };
-
-
-
