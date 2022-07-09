@@ -321,16 +321,6 @@ modalAttackBtn.addEventListener('click', function (event) {
 		runCombat();}
 });
 
-attackBtn.addEventListener('click', function (event) {
-	event.preventDefault();
-	diceRoll();
-});
-
-attackBtn2.addEventListener('click', function (event) {
-	event.preventDefault();
-	attackRoll();
-	console.log(monsterArmorClass);
-});
 
 closeBattle.addEventListener('click', function (event) {
 	event.preventDefault();
