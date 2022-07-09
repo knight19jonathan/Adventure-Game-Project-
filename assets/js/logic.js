@@ -165,7 +165,7 @@ function diceRoll() {
 function startcombat() {
 	// let playerHP = fetch a value from local storage to equal current player health or default to current
 	BattleStats();
-	setTimeout(combatLog.textContent = `A wild ${monsterName} appears!`, 100);
+	setTimeout(function(){combatLog.textContent = `A wild ${monsterName} appears!`}, 100);
 	// combatLog.("A wild", monsterName, "appears!" )
 	let playerInit = diceRoll() + playerDexterity; //
 	console.log('PlDex:', playerDexterity);
@@ -220,35 +220,35 @@ function runCombat() {
 
 //combat functions
 function attackRoll() {
-	let diceRoll = Math.ceil(Math.random() * 20);
+	let roll = diceRoll();
 	//let armorClass = 10
 
-	if (diceRoll == 20) {
-		console.log(diceRoll);
-		let damage = (diceroll() + playerStrength) * 2;
+	if (roll == 20) {
+		console.log(roll);
+		let damage = (diceRoll() + playerStrength) * 2;
 
 		monsterHitPoints = monsterHitPoints - damage;
 		console.log(monsterName, ' HP:', monsterHitPoints);
 		combatLog.textContent = `The fighter attacks...
         They we're never a match for you!
         You dealt  ${damage}  to the foe!`;
-	} else if (diceRoll == 1) {
-		console.log(diceRoll);
+	} else if (roll == 1) {
+		console.log(roll);
 		console.log('A dire failure!');
-	} else if (diceRoll + attackBonus >= monsterArmorClass) {
-		let damage = diceroll() + playerStrength;
+	} else if (roll + attackBonus >= monsterArmorClass) {
+		let damage = diceRoll() + playerStrength;
 
 		monsterHitPoints = monsterHitPoints - damage;
 		console.log("You dealt", damage, "damage to the foe!");
 		console.log(monsterName, ' HP:', monsterHitPoints);
 		combatLog.textContent = `The fighter attacks...
-        Hit roll: ${diceRoll} + ${attackBonus}
+        Hit roll: ${roll} + ${attackBonus}
         A hit!
         You dealt ${damage} to the foe!`;
 		
 	} else {
 		combatLog.textContent = `The fighter attacks...
-        Hit roll: ${diceRoll} + ${attackBonus}
+        Hit roll: ${roll} + ${attackBonus}
         A miss!`;
 		console.log('A miss!');
 	}
@@ -260,7 +260,7 @@ function monsterAttackRoll() {
 	let monAtkRoll = diceRoll();
 
 	if (monAtkRoll == 20 && monAtkRoll > playerArmorClass) {
-		let damage = (diceroll() + playerStrength) * 2;
+		let damage = (diceRoll() + playerStrength) * 2;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
@@ -272,7 +272,7 @@ function monsterAttackRoll() {
 		console.log('Nat 1!lol😂', monAtkRoll);
 		console.log('A dire failure!');
 	} else if (monAtkRoll + monsterAttack >= playerArmorClass) {
-		let damage = diceroll() + playerStrength;
+		let damage = diceRoll() + playerStrength;
 
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
