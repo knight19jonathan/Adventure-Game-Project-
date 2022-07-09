@@ -189,26 +189,28 @@ function startcombat() {
 	let monsterInit = diceRoll() + monsterDexterity;
 	console.log('MonsterDex:', monsterDexterity);
 	console.log('Monster Init:', monsterInit);
-	combatLog.textContent = `You jump into the fight and roll a ${playerInit} and the attacker replies ${monsterInit}`;
+	combatLog.textContent = `You jump into the fight and roll a ${playerInit} and the attacker replies with a ${monsterInit}`;
 	modalInitBtn.style.display = 'none';
-	if (playerInit >= monsterInit) {
-		combatLog.textContent = `You're faster than your foe and attack!`;
-		console.log('You are faster than the heathen!');
-		modalAttackBtn.style.display = 'block';
-		// combatLog.textContent("You were quick to your blade!")
-		runCombat();
-		//return;
-	} else monsterInit > playerInit;
-	{
-		combatLog.textContent = `The heathen is faster than you and attacks!`;
-		console.log('The monster strikes first!');
-		// combatLog.textContent("The monster was faster!")
-		setTimeout(monsterAttackRoll(), 1000);
-		runCombat();
-
-		modalAttackBtn.style.display = 'block';
-		//return;
-	}
+	setTimeout(function(){
+		if (playerInit >= monsterInit) {
+			combatLog.textContent = `You're faster than your foe and attack!`;
+			console.log('You are faster than the heathen!');
+			modalAttackBtn.style.display = 'block';
+			// combatLog.textContent("You were quick to your blade!")
+			runCombat();
+			//return;
+		} else monsterInit > playerInit;
+		{
+			combatLog.textContent = `The heathen is faster than you and attacks!`;
+			console.log('The monster strikes first!');
+			// combatLog.textContent("The monster was faster!")
+			setTimeout(monsterAttackRoll(), 1000);
+			runCombat();
+	
+			modalAttackBtn.style.display = 'block';
+			//return;
+		}
+	}, 3000)
 }
 //render battleBox stats
 
