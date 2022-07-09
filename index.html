@@ -23,25 +23,15 @@
 			<nav>
 				<div class="nav-wrapper brown lighten-1">
 					<a href="#" class="brand-logo center lime-text" id="pageTitle">DnD Machine</a>
-					<ul id="nav-mobile" class="left hide-on-med-and-down">
-						<li>
-							<button data-target="modal1"
-								class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
-								id="new-character">
-								New Character
-							</button>
-							<button data-target="null"
-								class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
-								id="play-music">
-								Play Music/Get random quote
-							</button>
-						</li>
-					</ul>
 				</div>
 			</nav>
 
 			<main class="row">
 				<aside id="character-element" class="col s12 m3">
+					<button data-target="modal1"
+						class="waves-effect waves-light btn modal-trigger lime black-text hoverable col s12" id="new-character">
+						New Character
+					</button>
 					<img src="./assets/media/dndeightbitwarr.jpeg" alt="dnd warrior character" width="200px" />
 					<div id="skills-stats">
 						<ul id="player-ul">
@@ -58,11 +48,6 @@
 						<p id="playerHpLabel">Health</p>
 						<h1 class="red darken-4" id="playerHp">100</h1>
 					</div>
-
-					<button data-target="modal3"
-						class="waves-effect waves-light btn modal-trigger lime black-text hoverable" id="start-battle">
-						Battle
-					</button>
 
 					<!-- Modal on new start battle click -->
 					<div id="modal3" class="modal lime">
@@ -172,11 +157,20 @@
 						</div>
 					</div>
 				</aside>
-				<section id="map" class="col s12 m9">
-					<img src="./assets/media/27107457885_ebba66b7c1_o.jpg" alt="simple map" />
+				<section id="map" class="col s12 m9 center-align">
+					<div class="row center-align">
+
+						<button data-target="modal3"
+							class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
+							id="start-battle">
+							Battle
+						</button>
+					</div>
+					<img class="responsive-img" src="./assets/media/27107457885_ebba66b7c1_o.jpg" alt="simple map" />
 					<!--https://www.flickr.com/photos/35034348373@N01/27107457885-->
 				</section>
 			</main>
+			<br>
 			<section class="row center-align" id="quote-section">
 				<h5 class="center lime-text" id="quote-text"></h5>
 				<button class="waves-effect waves-light btn lime black-text hoverable" id="lotr-quote-btn">
@@ -184,18 +178,20 @@
 				</button>
 			</section>
 
+			<footer> placeholder </footer>
+
 			<!-- Compiled and minified JQuery -->
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 				integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 			<!-- Compiled and minified JavaScript materialize -->
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 			<script src="./assets/js/logic.js"></script>
-			<<<<<<< HEAD <script async src="./assets/js/spotifyPlayer.js">
-				</script>
-				=======
-				<script src="./assets/js/lotrgen.js"></script>
-				<script src="./assets/js/spotifyAPI.js"></script>
-				>>>>>>> ptr
+			<script async src="./assets/js/spotifyPlayer.js">
+			</script>
+
+			<script src="./assets/js/lotrgen.js"></script>
+			<script src="./assets/js/spotifyAPI.js"></script>
+
 		</body>
 
 </html>
