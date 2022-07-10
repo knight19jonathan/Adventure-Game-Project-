@@ -353,7 +353,7 @@ function monsterAttackRoll() {
 		setTimeout(runCombat(), 2500);
 	} else if (monAtkRoll == 1) {
 		let damage = diceRoll();
-		combatLog.textContent = `The creature is defenestrated for ${damage} in wounds to itself!`;
+		combatLog.textContent = `The creature attacks wildly, injuring itself for ${damage}!`;
 		console.log('Nat 1!lol😂', monAtkRoll);
 		console.log('A dire failure!');
 		monsterHitPoints = monsterHitPoints - damage
