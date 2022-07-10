@@ -80,6 +80,7 @@ var modalInitBtn = document.querySelector('#init-button');
 var modalFleeBtn = document.querySelector('#flee-button');
 var modalMagicBtn = document.querySelector('#magic-button');
 var modalSneakBtn = document.querySelector('#sneak-button');
+var modalSneakAttackBtn = document.querySelector('#sneak-attack-button');
 
 //classes
 //var classChoice = document.getElementById("#class-input");
@@ -443,6 +444,17 @@ function fleeBattle() {
 		console.log('A dire failure!', roll);
 		combatLog.textContent = `Running eh? You spineless cretin you've left yourself wide open!!`;
 		setTimeout(monsterAttackRoll(), 2500);
+
+	} else if (sneaking == true) {
+		console.log("You sneak away! You're a sneaky one!", fleeRoll);
+		combatLog.textContent = `You distract your for easily and and slip away in the shadows of the forest leaving them wondering if you ever really there. Click Close to continue on your journey! You're getting a little better at giving your foe the slip!`;
+		playerXP = playerXP + Math.Ceil(monsterXP/10);
+		modalAttackBtn.style.display = 'none';
+		modalFleeBtn.style.display = 'none';
+		modalMagicBtn.style.display = 'none';
+		modalSneakBtn.style.display = 'none';
+		modalSneakAttackBtn.style.display = 'none';
+		closeBattle.style.display = 'inline-block';
 	} else if (fleeRoll + playerDexterity >= monsterDexterity) {
 		console.log("Success,", fleeRoll)
 		combatLog.textContent = "You run panting away from the foe, leaving them to their own devices! After all, you're a coward but a living one! Click Close to continue on your journey!";
@@ -475,9 +487,24 @@ function evalClass(){
 	}
 }
 
+function sneak(){
+	let sneakRoll = diceRoll() + playerDexterity;
+	if (sneakRoll >= monsterDexterity) {
+		sneaking = true;
+		console.log("Sneak success!", sneakRoll);
+		combatLog.textContent = `You sneak away from the foe, leaving them to their own devices! After all, you're a coward but a living one! Click Close to continue on your journey!`;
+		modalAttackBtn.style.display = 'none';
+		modalFleeBtn.style.display = 'inline-block';
+		modalMagicBtn.style.display = 'none';
+		modalSneakBtn.style.display = 'none';
+		modalSneakAttackBtn.style.display = 'inline-block';
+		isCombat=false;
+	}
+}
+
 function castMagic(){
 	let spellRoll = diceRoll();
-	spellSlots--;
+	spellSlots = spellSlots - 1;
 	if (spellRoll == 20) {
 		monsterHitPoints = 0;
 		combatLog.textContent = `You cast a spell!
@@ -509,6 +536,22 @@ function spellSlotManager(){
 		modalMagicBtn.style.display = 'none';
 	}
 }
+
+modalSneakAttackBtn.addEventListener('click', function(event){
+	event.preventDefault();
+	combatLog.textContent = `You sneak attack!`;
+	sneakAttack();
+	modalSneakAttackBtn.style.display = 'none';
+});
+
+modalSneakBtn.addEventListener('click', function(event){
+	event.preventDefault();
+	combatLog.textContent = `You try to sneak away!`;
+	sneak();
+	modalSneakBtn.style.display = 'none';
+});
+
+
 modalFleeBtn.addEventListener('click', function (event){
 	event.preventDefault();
 	combatLog.textContent = `Attempting to run eh?! Good luck!`;
@@ -536,6 +579,7 @@ battleStart.addEventListener('click', function (event) {
 	modalFleeBtn.style.display = "none"
 	modalMagicBtn.style.display = "none"
 	modalSneakBtn.style.display = "none"
+	modalSneakAttackBtn.style.display = "none"
 	closeBattle.style.display = "none"
 	let fleeCounter = 0;
 	console.log(fleeCounter);
