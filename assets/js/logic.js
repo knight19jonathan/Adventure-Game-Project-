@@ -1,6 +1,12 @@
 //make materialize jquery function
 M.AutoInit();
 
+$(document).ready(function () {
+	$('.modal').modal({
+		dismissible: false //modal cannot be dismissed without clicking the right butt
+	});
+});
+
 //functions to run on page load
 $(document).ready(function () {
 	loadSavedCharacters();
