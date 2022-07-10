@@ -203,19 +203,15 @@ function startcombat() {
 	// let playerHP = fetch a value from local storage to equal current player health or default to current
 	BattleStats();
 	isCombat = true;
-	
 	let playerInit = diceRoll() + playerDexterity; // get player initiative roll
 	console.log('PlDex:', playerDexterity);
 	console.log('Player Init:', playerInit);
-
 	let monsterInit = diceRoll() + monsterDexterity; // get enemy initiative roll
 	console.log('MonsterDex:', monsterDexterity);
 	console.log('Monster Init:', monsterInit);
-
 	combatLog.textContent = `You jump into the fight and roll a ${playerInit} and the attacker replies with a ${monsterInit}`;
 	modalInitBtn.style.display = 'none';
 	modalAttackBtn.style.display = 'none';
-
 	setTimeout(function (){  //delay if logic so that the player has time to read
 		if (playerInit >= monsterInit) {  //if player wins, allow battle to proceed, if player loses initiative, then have monster attack once
 			combatLog.textContent = `You're faster than your foe and attack!`
