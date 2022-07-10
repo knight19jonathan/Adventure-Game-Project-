@@ -113,6 +113,13 @@ var currentPlayerStats = [{
 
 //
 function BattleStats() {  //set content of text boxes in battle modal
+	if (playerHP < 0) { //player hp will never be displayed as less than 0
+		playerHP = 0
+	}
+	if (monsterHitPoints < 0){//monster hp will never be displayed as less than 0
+		monsterHitPoints = 0
+	}
+
 	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
 	battleBoxAttackBonus.textContent = `Attack Bonus: ${attackBonus}`;
 	playerHpBar.style.width = `${playerHP}%`;
@@ -202,7 +209,7 @@ function startcombat() {
 	modalInitBtn.style.display = 'none';
 	modalAttackBtn.style.display = 'none';
 
-	setTimeout(function (){
+	setTimeout(function (){  //delay if logic so that the player has time to read
 		if (playerInit >= monsterInit) {
 			combatLog.textContent = `You're faster than your foe and attack!`
 			console.log('You are faster than the heathen!');
@@ -215,7 +222,6 @@ function startcombat() {
 			combatLog.textContent = `The heathen is faster than you and attacks!`
 			console.log('The monster strikes first!');
 			setTimeout(monsterAttackRoll, 3000);
-	
 			//return;
 		}
 	}, 2000)
@@ -336,7 +342,7 @@ function attackRoll() {
 
 function monsterAttackRoll() {
 	let monAtkRoll = diceRoll();
-	combatLog.textContent = `The monster attacks...`;
+	// combatLog.textContent = `The monster attacks...`;
 	if (monAtkRoll == 20 && monAtkRoll > playerArmorClass) {
 		let damage = (diceRoll() + monsterStrength) * 2;
 
