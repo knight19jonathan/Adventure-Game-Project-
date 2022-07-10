@@ -82,7 +82,7 @@ var modalMagicBtn = document.querySelector('#magic-button');
 var modalSneakBtn = document.querySelector('#sneak-button');
 
 //classes
-var classChoice = document.getElementById("#class-input");
+//var classChoice = document.getElementById("#class-input");
 var spellSlots = 0;
 
 
@@ -203,7 +203,7 @@ function startcombat() {
 	// let playerHP = fetch a value from local storage to equal current player health or default to current
 	BattleStats();
 	isCombat = true;
-
+	
 	let playerInit = diceRoll() + playerDexterity; // get player initiative roll
 	console.log('PlDex:', playerDexterity);
 	console.log('Player Init:', playerInit);
@@ -221,6 +221,7 @@ function startcombat() {
 			combatLog.textContent = `You're faster than your foe and attack!`
 			console.log('You are faster than the heathen!');
 			modalFleeBtn.style.display = "inline-block"; //display flee button
+			evalClass();
 			setTimeout(runCombat(), 3000); 
 			//return;
 		} else (playerInit < monsterInit); {
@@ -236,6 +237,7 @@ function startcombat() {
 function runCombat() {
 	BattleStats();
 	spellSlotManager();
+	evalClass();
 	if (fleeCounter > 2) {
 		modalFleeBtn.style.display = "none";};
     if (playerHP <= 0 ) {
@@ -433,8 +435,6 @@ function fleeBattle() {
 	modalFleeBtn.style.display = 'none';
 	modalMagicBtn.style.display = 'none';
 	modalSneakBtn.style.display = 'none';
-
-
 	if (fleeRoll == 20) {
 		console.log("Crit success:", fleeRoll);
 		combatLog.textContent = `You got away clean, leaving your enemy grasping nothing but your afterimage! Click Close to continue on your journey!`;
@@ -467,13 +467,13 @@ function fleeBattle() {
 }
 
 function evalClass(){
-	if (classChoice.value == 'Wizard'){
+	if (playerClass == 'Wizard'){
 		let spellSlots = (3+playerLevel);
 		console.log("Wizard has", spellSlots, "spell slots");
 		modalMagicBtn.style.display = 'inline-block';
 		//document.createElement('li')
 		//trying to append new li to battle modal player stats ul with # of spell slots
-	} else if (classChoice.value == 'Rogue'){
+	} else if (playerClass == 'Rogue'){
 		modalSneakBtn.style.display = 'inline-block';
 	} else {
 		return;
@@ -518,6 +518,12 @@ modalFleeBtn.addEventListener('click', function (event){
 	event.preventDefault();
 	combatLog.textContent = `Attempting to run eh?! Good luck!`;
 	setTimeout(fleeBattle(), 2500);
+});
+
+modalMagicBtn.addEventListener('click', function (event){
+	event.preventDefault();
+	combatLog.textContent = `Attempting to cast a spell eh?!`;
+	setTimeout(castMagic(), 2500);
 });
 
 battleStart.addEventListener('click', function (event) {
