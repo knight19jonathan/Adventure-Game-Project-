@@ -167,7 +167,7 @@ function randomMonsterFetch() { //Get a random monster
 				.then(function (monster) {
 					// console.log(monster);
 					monsterStats = monster;
-					if (monsterStats.challenge_rating > 15) {  //set monster level cap
+					if (monsterStats.challenge_rating > playerLevel+3) {  //set monster level cap related to playerlevel
 						randomMonsterFetch()
 					} else {
 						//assign monster stats to variables
