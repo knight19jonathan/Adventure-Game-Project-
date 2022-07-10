@@ -33,7 +33,7 @@
 						id="new-character">
 						New Character
 					</button>
-					<img src="./assets/media/dndeightbitwarr.jpeg" alt="dnd warrior character" width="200px" />
+					<img src="./assets/media/dndeightbitwarr.jpeg" id="main-sprite" alt="dnd warrior character" width="200px" />
 					<div id="skills-stats">
 						<ul id="player-ul">
 							<li id="name-li">Name:</li>
@@ -56,7 +56,7 @@
 							<h4>Modal 3 Header</h4>
 							<div class="row center-align">
 								<div class="col  s12 m4">
-									<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
+									<img src="./assets/media/8bitwizard.jpeg" id="player-sprite" alt=" 8 bit wizard" />
 									<div class="progress">
 										<div id="player-hp-bar" class="determinate red"></div>
 									</div>
@@ -76,10 +76,10 @@
 										class="waves-effect waves-light btn lime darken-4 black-text hoverable">
 										Attack
 									</button>
-									<p>Monster will swing back in 6 seconds.</p>
+									<p>"The monster always swings back pace yourself hero until you drop it dead." ~ The Voices</p>
 								</div>
 								<div class="col s12 m4">
-									<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
+									<img src="./assets/media/8bitwizard.jpeg" id="monster-sprite" alt=" 8 bit wizard" />
 									<div class="progress">
 										<div id="enemy-hp-bar" class="determinate red" style="width: 100%"></div>
 									</div>
@@ -95,8 +95,10 @@
 
 						</div>
 						<div class="modal-footer lime darken-4">
-							<a href="#!" class="modal-close waves-effect waves-green btn-flat black-text"
-								id="battleClose">Close</a>
+							<button class="waves-effect waves-green btn-flat black-text" id="magic-button">✨ Cast A Spell ✨</button>
+							<button class="waves-effect waves-green btn-flat black-text" id="sneak-button">🐱‍👤~~ Sneak ~~🐱‍👤</button>
+							<button class="waves-effect waves-green btn-flat black-text" id="flee-button">Flee!</button>
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat black-text" id="battleClose">Close</a>
 						</div>
 					</div>
 					</div>
