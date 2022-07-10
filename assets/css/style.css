@@ -1,0 +1,53 @@
+* {
+	font-family: 'Press Start 2P', cursive;
+}
+button {
+	font-family: 'Press Start 2P', cursive;
+}
+
+header {
+	height: fit-content;
+}
+
+#new-character {
+	margin-bottom: 10px;
+}
+#init-button {
+	display: none;
+}
+#character-element {
+	margin-top: 30px;
+}
+#map {
+	margin-top: 30px;
+}
+#playerHp {
+	margin: 0;
+}
+#playerHpLabel {
+	margin: 0;
+	font-weight: bolder;
+	color: white;
+}
+
+#bio-area {
+	font-family: 'Press Start 2P', cursive;
+	color: white;
+	font-size: .5em;
+}
+
+#skills-stats {
+	color: white;
+}
+#combatLog {
+	height: 300px;
+}
+#player-hp-bar {
+	width: 100%;
+}
+
+#start-battle {
+	font-size: 2em;
+	height: 3em;
+	font-family: 'Press Start 2P', cursive;
+}
