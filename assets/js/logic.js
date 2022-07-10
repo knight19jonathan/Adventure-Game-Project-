@@ -36,22 +36,23 @@ var diceRoll;
 var fleeCounter = 0;
 
 //character stats variables
-var playerName = ''
-var playerClass = ''
-var playerRace = ''
-var playerHP = 100;
-var playerBio = ''
-//possible function for stat incrementation playerStrength = 4(base class attribute) + XP/100(this is the level)
+var playerName = '';
+var playerClass = '';
+var playerRace = '';
+var playerHP;
+var playerBio = '';
+	//possible function for stat incrementation playerStrength = 4(base class attribute) + XP/100(this is the level)
 var playerConstitution = Math.ceil(Math.random() * 50); //fighter 50, wizard 20, Rogue 20
 var playerDexterity = 3; // +14 Fighter, +8 Wizard, +22 for Rogue
 var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
 var closeBattle = document.querySelector('#battleClose');
 
-var playerLevel = 1;
+var playerLevel;
+var playerXP; 
 
 // combat script items
 var battleStart = document.querySelector('#start-battle');
-var attackBonus = playerLevel + playerStrength;
+var attackBonus;
 var combatLog = document.querySelector('#combat-log');
 // battleBox variables
 var battleBoxPlayerHP = document.querySelector('#player-hp-li');
@@ -558,6 +559,7 @@ modalAttackBtn.addEventListener('click', function (event) {
 
 closeBattle.addEventListener('click', function (event) {
 	event.preventDefault();
+	savePlayer();
 	modalInitBtn.style.display = "none"
 	modalAttackBtn.style.display = "none"
 	isCombat = false;
@@ -572,6 +574,21 @@ closeBattle.addEventListener('click', function (event) {
 	// }
 });
 
+//loads character from local storage
+function loadPlayer(){
+	loadedPlayerStats = JSON.parse(localStorage.getItem("playerStats"))
+	console.log(loadedPlayerStats)
+	currentPlayerStats = loadedPlayerStats
+	displayCurrentPlayerStats();
+	currentPlayerStatSet();
+}
+
+//displays continue button on the page
+function loadSavedCharacters(){
+	if (localStorage.length !==0 ){
+		continueBtn.style.display = 'inline-block'
+	}
+}
 
 //continue button event listener
 continueBtn.addEventListener('click', function (event) {
@@ -591,14 +608,48 @@ savCharBtn.on('click', function (event) {
 		playerRace = raceInputEl.val();
 		playerClass = classInputEl.val();
 		playerBio = bioInputEl.val();
+		playerHP = 100;
+		playerXP = 100;
+		attackBonus = 
 		//saves to character array for localStorage
 		savePlayer();
+		levelFunction();
 	}
 });
 
+//updates player stats to saveToCurrentStats
+function saveToCurrentStats (){
+	currentPlayerStats[0].Name = playerName
+	currentPlayerStats[0].Race = playerRace
+	currentPlayerStats[0].Class = playerClass
+	currentPlayerStats[0].XP = playerXP
+	currentPlayerStats[0].HP = playerHP
+	currentPlayerStats[0].Bio = playerBio
+}
+//displays currentPlayerStats
+function displayCurrentPlayerStats (){
+	nameAreaLi.text(`Name: ${currentPlayerStats[0].Name}`);
+	raceLiEl.text(`Race: ${currentPlayerStats[0].Race}`);
+	classLiEl.text(`Class: ${currentPlayerStats[0].Class}`);
+	bioAreaEl.val(`${currentPlayerStats[0].Bio}`);
+	hpLiEl.text(`HP: ${currentPlayerStats[0].HP}`);
+	attackBonusLiEl.text(`Attack Bonus: ${attackBonus}`);
+	levelFunction();
+}
 
+//sets global variables to saved character stats on character load
+function currentPlayerStatSet (){
+	playerName = currentPlayerStats[0].Name
+	playerRace = currentPlayerStats[0].Race
+	playerClass = currentPlayerStats[0].Class
+	playerXP = currentPlayerStats[0].XP
+	playerHP = currentPlayerStats[0].HP
+	playerBio = currentPlayerStats[0].Bio
+}
 
-
-
-
-
+function levelFunction (){
+	playerLevel=Math.floor(playerXP/100);
+	playerDexterity=playerLevel+3
+	playerStrength=playerLevel+4
+	attackBonus = playerLevel + playerStrength;
+}
