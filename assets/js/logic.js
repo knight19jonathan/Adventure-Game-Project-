@@ -161,7 +161,7 @@ function randomMonsterFetch() { //Get a random monster
 				.then(function (monster) {
 					// console.log(monster);
 					monsterStats = monster;
-					if (monsterStats.challenge_rating > 40) {  //set monster level cap
+					if (monsterStats.challenge_rating > 15) {  //set monster level cap
 						randomMonsterFetch()
 					} else {
 						//assign monster stats to variables
@@ -211,7 +211,7 @@ function startcombat() {
 	modalAttackBtn.style.display = 'none';
 
 	setTimeout(function (){  //delay if logic so that the player has time to read
-		if (playerInit >= monsterInit) {  //if player wins, allow battle to proceed, if player loses initiative, then haave monster attack once
+		if (playerInit >= monsterInit) {  //if player wins, allow battle to proceed, if player loses initiative, then have monster attack once
 			combatLog.textContent = `You're faster than your foe and attack!`
 			console.log('You are faster than the heathen!');
 			modalFleeBtn.style.display = "inline-block"; //display flee button
@@ -224,6 +224,7 @@ function startcombat() {
 		}
 	}, 2000)
 }
+
 //render battleBox stats
 
 function runCombat() {
