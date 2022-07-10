@@ -109,17 +109,17 @@ var currentPlayerStats = [{
 	HP: `${playerHP}`,
 	Bio: `${playerBio}`
 }];
-//Get a random monster
+
 
 //
 function BattleStats() {  //set content of text boxes in battle modal
+
 	if (playerHP < 0) { //player hp will never be displayed as less than 0
 		playerHP = 0
 	}
 	if (monsterHitPoints < 0){//monster hp will never be displayed as less than 0
 		monsterHitPoints = 0
 	}
-
 	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
 	battleBoxAttackBonus.textContent = `Attack Bonus: ${attackBonus}`;
 	playerHpBar.style.width = `${playerHP}%`;
@@ -129,7 +129,7 @@ function BattleStats() {  //set content of text boxes in battle modal
 	enemyHpBar.style.width = `${(monsterHitPoints / monsterHpMax) * 100}%`;
 	battleBoxMonsterAC.textContent = `Armor Class: ${monsterArmorClass}`;
 }
-function logMonster() {
+function logMonster() { //console logg monster info
 	console.log('Monster AC:', monsterArmorClass);
 	console.log('Monster HP:', monsterHitPoints);
 	console.log('Monster XP:', monsterXP);
@@ -139,7 +139,7 @@ function logMonster() {
 	console.log('Monster Name:', monsterName);
 }
 
-randomMonsterFetch = function () {
+function randomMonsterFetch() { //Get a random monster
 	fetch(monsterAPI)
 		.then(function (response) {
 			return response.json();
@@ -198,11 +198,11 @@ function startcombat() {
 	BattleStats();
 	isCombat = true;
 
-	let playerInit = diceRoll() + playerDexterity; //
+	let playerInit = diceRoll() + playerDexterity; // get player initiative roll
 	console.log('PlDex:', playerDexterity);
 	console.log('Player Init:', playerInit);
 
-	let monsterInit = diceRoll() + monsterDexterity;
+	let monsterInit = diceRoll() + monsterDexterity; // get enemy initiative roll
 	console.log('MonsterDex:', monsterDexterity);
 	console.log('Monster Init:', monsterInit);
 
@@ -211,27 +211,24 @@ function startcombat() {
 	modalAttackBtn.style.display = 'none';
 
 	setTimeout(function (){  //delay if logic so that the player has time to read
-		if (playerInit >= monsterInit) {
+		if (playerInit >= monsterInit) {  //if player wins, allow battle to proceed, if player loses initiative, then haave monster attack once
 			combatLog.textContent = `You're faster than your foe and attack!`
 			console.log('You are faster than the heathen!');
-			//modalAttackBtn.style.display = 'block';
-			// combatLog.textContent("You were quick to your blade!")
-			modalFleeBtn.style.display = "inline-block";
-			setTimeout(runCombat(), 3000);
+			modalFleeBtn.style.display = "inline-block"; //display flee button
+			setTimeout(runCombat(), 3000); 
 			//return;
 		} else (playerInit < monsterInit); {
 			combatLog.textContent = `The heathen is faster than you and attacks!`
 			console.log('The monster strikes first!');
 			setTimeout(monsterAttackRoll, 3000);
-			//return;
 		}
 	}, 2000)
 }
 //render battleBox stats
 
 function runCombat() {
-	BattleStats();
-	if (fleeCounter > 2) {
+	BattleStats(); //update info on page
+	if (fleeCounter > 2) { //limit number of times to flee
 		modalFleeBtn.style.display = "none";
 	};
 	if (playerHP <= 0) {
