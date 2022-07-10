@@ -29,6 +29,7 @@ var monsterHitPoints = 0;
 var monsterXP = 0;
 var monsterAttack = 0;
 var monsterDexterity = 0;
+var monsterHpMax = 0;
 
 var diceRoll;
 
@@ -60,6 +61,7 @@ var battleBoxMonsterName = document.querySelector('#enemy-name-li');
 var battleBoxMonsterAC = document.querySelector('#enemy-armor-class-li');
 var playerHpBar = document.querySelector('#player-hp-bar');
 var battleBoxAttackBonus = document.querySelector('#attack-bonus-li');
+var enemyHpBar = document.querySelector('#enemy-hp-bar');
 
 var playerListBB = document.querySelector('#player-ul');
 var playerInit = 0;
@@ -117,6 +119,7 @@ function BattleStats() {  //set content of text boxes in battle modal
 	battleBoxPlayerAC.textContent = `Armor Class: ${playerArmorClass}`;
 	battleBoxMonsterName.textContent = `${monsterName}`;
 	battleBoxMonsterHP.textContent = `HP: ${monsterHitPoints}`;
+	enemyHpBar.style.width = `${(monsterHitPoints/monsterHpMax)*100}%`;
 	battleBoxMonsterAC.textContent = `Armor Class: ${monsterArmorClass}`;
 }
 
@@ -149,6 +152,7 @@ randomMonsterFetch = function () {
 						monsterName = monsterStats.name; 
 						monsterArmorClass = monsterStats.armor_class;
 						monsterHitPoints = monsterStats.hit_points;
+						monsterHpMax = monsterStats.hit_points;
 						monsterXP = monsterStats.xp;
 						monsterAttack = monsterStats.actions[0].attack_bonus;
 						if (monsterAttack == null) {
@@ -215,10 +219,12 @@ function startcombat() {
 //render battleBox stats
 
 function runCombat() {
+	BattleStats();
 	if (fleeCounter > 2) {
 		modalFleeBtn.style.display = "none";};
     if (playerHP <= 0 ) {
         isCombat = false;
+		playerHpBar.style.width = `${0}%`;
         console.log("You have perished!");
 		combatLog.textContent = `You have perished! You were killed by a ${monsterName}. Click the close button to create a new character and try again!`;
 		modalAttackBtn.style.display = 'none';
@@ -231,6 +237,7 @@ function runCombat() {
 		
     } else if (monsterHitPoints <= 0) {
         isCombat = false;
+		enemyHpBar.style.width = `${0}%`;
         console.log("The monster is slain! It will trouble you no more.");
         playerXP = playerXP + monsterXP;
 		combatLog.textContent = `You have slain the ${monsterName}! You gain ${monsterXP} XP! Close this window to continue.`;
@@ -239,8 +246,8 @@ function runCombat() {
 		modalAttackBtn.style.display = 'none';
 		modalFleeBtn.style.display = 'none';
 		closeBattle.style.display="inline-block";
-		const playerSpriteImg = document.getElementById("monster-sprite");
-		playerSpriteImg.src = "./assets/media/skeleton.png";
+		const monsterSpriteImg = document.getElementById("monster-sprite");
+		monsterSpriteImg.src = "./assets/media/skeleton.png";
 
     } else {
 		isCombat = true;
@@ -261,16 +268,19 @@ function evalFleeCount() {
 }
 
 function playerDeath() {
+	if (playerHP <= 0) {
 		//hpLiEl.textContent(`HP:${playerHP}`);
 		playerXP = 0;
 		console.log("Player Xp has been reset to 0:", playerXP);
 		localStorage.clear;
 		saveToCurrentStats();
 		displayCurrentPlayerStats();
-		hpLiEl.textContent(`HP:${playerHP}`);
+		hpLiEl.textContent = `0`;
 		const mainSpriteImg = document.getElementById("main-sprite");
 		mainSpriteImg.src = "./assets/media/deathmark.png";
-		
+	} else {
+		return;
+	}
 	}
 
 //combat functions
@@ -441,6 +451,9 @@ modalFleeBtn.addEventListener('click', function (event){
 battleStart.addEventListener('click', function (event) {
 	combatLog.textContent = `It's too quiet here... SCREEEE!`;
     event.preventDefault();
+	const monsterSpriteImg = document.getElementById("monster-sprite");
+		monsterSpriteImg.src = "./assets/media/8bitwizard.jpeg";
+	enemyHpBar.style.width = `${100}%`;
     randomMonsterFetch();
     isCombat = true;
     console.log(isCombat);
