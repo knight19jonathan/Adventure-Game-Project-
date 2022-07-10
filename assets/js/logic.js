@@ -364,11 +364,11 @@ function monsterAttackRoll() {
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
 		combatLog.textContent = `The monster attacks...
-        ... dealing a savage blow, ${monAtkRoll + monsterAttack} to hit, and hurts you for ${damage} to your HP!`;
+        ... dealing a savage blow, ${monAtkRoll + monsterAttack} to hit, and deals ${damage} damage to your HP!`;
 		setTimeout(runCombat(), 2500);
 	} else {
 		combatLog.textContent = `The monster attacks...
-        rolls a, ${monAtkRoll + monsterAttack}, a miss!`;
+        and rolls ${monAtkRoll + monsterAttack}, a miss!`;
 		console.log('Miss!', monAtkRoll + monsterAttack);
 		setTimeout(runCombat(), 2500);
 	}
