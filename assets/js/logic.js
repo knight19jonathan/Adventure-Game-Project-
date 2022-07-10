@@ -1,6 +1,12 @@
 //make materialize jquery function
 M.AutoInit();
 
+$(document).ready(function () {
+	$('.modal').modal({
+		dismissible: false, //modal cannot be dismissed without clicking the right butt
+	});
+});
+
 //functions to run on page load
 $(document).ready(function () {
 	loadSavedCharacters();
@@ -27,6 +33,7 @@ var monsterName = '';
 var monsterArmorClass = 0;
 var monsterHitPoints = 0;
 var monsterXP = 0;
+var monsterCR = 0;
 var monsterAttack = 0;
 var monsterDexterity = 0;
 var monsterHpMax = 0;
@@ -67,6 +74,8 @@ var battleBoxMonsterAC = document.querySelector('#enemy-armor-class-li');
 var playerHpBar = document.querySelector('#player-hp-bar');
 var battleBoxAttackBonus = document.querySelector('#attack-bonus-li');
 var enemyHpBar = document.querySelector('#enemy-hp-bar');
+var enemyCRLi = $('#challenge-rating-li');
+var enemyXPLi = $('#enemy-xp-li');
 
 var playerListBB = document.querySelector('#player-ul');
 var playerInit = 0;
@@ -141,12 +150,15 @@ function BattleStats() {
 	battleBoxMonsterHP.textContent = `HP: ${monsterHitPoints}`;
 	enemyHpBar.style.width = `${(monsterHitPoints / monsterHpMax) * 100}%`;
 	battleBoxMonsterAC.textContent = `Armor Class: ${monsterArmorClass}`;
+	enemyCRLi.text(`CR: ${monsterCR}`);
+	enemyXPLi.text(`XP value: ${monsterXP}`);
 }
 function logMonster() {
 	//console logg monster info
 	console.log('Monster AC:', monsterArmorClass);
 	console.log('Monster HP:', monsterHitPoints);
 	console.log('Monster XP:', monsterXP);
+	console.log('Monster CR:', monsterCR);
 	console.log('Monster Atk:', monsterAttack);
 	console.log('Monster Dex:', monsterDexterity);
 	console.log('Monster Str:', monsterStrength);
@@ -176,8 +188,8 @@ function randomMonsterFetch() {
 				.then(function (monster) {
 					// console.log(monster);
 					monsterStats = monster;
-					if (monsterStats.challenge_rating > 15) {
-						//set monster level cap
+					if (monsterStats.challenge_rating > playerLevel + 3) {
+						//set monster level cap related to playerlevel
 						randomMonsterFetch();
 					} else {
 						//assign monster stats to variables
@@ -186,6 +198,7 @@ function randomMonsterFetch() {
 						monsterHitPoints = monsterStats.hit_points;
 						monsterHpMax = monsterStats.hit_points;
 						monsterXP = monsterStats.xp;
+						monsterCR = monsterStats.challenge_rating;
 						monsterAttack = monsterStats.actions[0].attack_bonus;
 						if (monsterAttack == null) {
 							monsterAttack = Math.ceil(Math.random() * 6) + -1;
@@ -236,8 +249,7 @@ function startcombat() {
 			evalClass();
 			setTimeout(runCombat(), 3000);
 			//return;
-		} else playerInit < monsterInit;
-		{
+		} else {
 			combatLog.textContent = `The heathen is faster than you and attacks!`;
 			console.log('The monster strikes first!');
 			setTimeout(monsterAttackRoll, 3000);
@@ -570,7 +582,7 @@ modalAttackBtn.addEventListener('click', function (event) {
 	attackRoll();
 	modalAttackBtn.style.display = 'none';
 	if (isCombat === true) {
-		setTimeout(monsterAttackRoll, 4000);
+		setTimeout(monsterAttackRoll, 3000);
 	}
 });
 

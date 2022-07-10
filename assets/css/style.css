@@ -15,6 +15,9 @@ header {
 #new-character {
 	margin-bottom: 10px;
 }
+#continue-btn {
+	margin-bottom: 10px;
+}
 #init-button {
 	display: none;
 }
@@ -81,7 +84,7 @@ header {
 	position: relative;
 
 	width: 1000px;
-	vertical-align: top;
+
 	display: block;
 }
 
