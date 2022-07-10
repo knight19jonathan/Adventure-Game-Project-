@@ -283,9 +283,8 @@ function playerDeath() {
 		//hpLiEl.textContent(`HP:${playerHP}`);
 		playerXP = 0;
 		console.log("Player Xp has been reset to 0:", playerXP);
-		localStorage.clear;
-		saveToCurrentStats();
-		displayCurrentPlayerStats();
+		localStorage.clear ();
+		savePlayer();
 		hpLiEl.textContent = `0`;
 		const mainSpriteImg = document.getElementById("main-sprite");
 		mainSpriteImg.src = "./assets/media/deathmark.png";
