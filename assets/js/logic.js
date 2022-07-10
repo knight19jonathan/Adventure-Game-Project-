@@ -171,6 +171,7 @@ randomMonsterFetch = function () {
 						monsterDexterity = monsterStats.dexterity;
 						monsterStrength = monsterStats.strength;
 						logMonster()
+						BattleStats()
 						modalInitBtn.style.display = "block"
 					}
 				});
@@ -197,25 +198,28 @@ function startcombat() {
 	console.log('MonsterDex:', monsterDexterity);
 	console.log('Monster Init:', monsterInit);
 
-	combatLog.textContent = `You jump into the fight and roll a ${playerInit} and the attacker replies ${monsterInit}`;
+	combatLog.textContent = `You jump into the fight and roll a ${playerInit} and the attacker replies with a ${monsterInit}`;
 	modalInitBtn.style.display = 'none';
 	modalAttackBtn.style.display = 'none';
 
-	if (playerInit >= monsterInit) {
-		//setTimeout(combatLog.textContent = `You're faster than your foe and attack!`, 2500); wont work since combatLog is not a functtion 
-		console.log('You are faster than the heathen!');
-		//modalAttackBtn.style.display = 'block';
-		// combatLog.textContent("You were quick to your blade!")
-		modalFleeBtn.style.display = "inline-block";
-		setTimeout(runCombat(), 3000);
-		//return;
-	} else (playerInit < monsterInit); {
-		//setTimeout(combatLog.textContent = `The heathen is faster than you and attacks!`, 2500); wont work since combatLog is not a functtion 
-		console.log('The monster strikes first!');
-		setTimeout(monsterAttackRoll, 3000);
+	setTimeout(function (){
+		if (playerInit >= monsterInit) {
+			combatLog.textContent = `You're faster than your foe and attack!`
+			console.log('You are faster than the heathen!');
+			//modalAttackBtn.style.display = 'block';
+			// combatLog.textContent("You were quick to your blade!")
+			modalFleeBtn.style.display = "inline-block";
+			setTimeout(runCombat(), 3000);
+			//return;
+		} else (playerInit < monsterInit); {
+			combatLog.textContent = `The heathen is faster than you and attacks!`
+			console.log('The monster strikes first!');
+			setTimeout(monsterAttackRoll, 3000);
+	
+			//return;
+		}
+	}, 2000)
 
-		//return;
-	}
 }
 //render battleBox stats
 
