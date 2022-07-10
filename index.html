@@ -33,7 +33,8 @@
 						id="new-character">
 						New Character
 					</button>
-					<button data-target="modal1"
+					<!-- data-target="modal1" -->
+					<button 
 						class="waves-effect waves-light btn lime black-text hoverable col s12"
 						id="continue-btn" style="display:none">
 						Continue
@@ -58,10 +59,10 @@
 					<!-- Modal on new start battle click -->
 					<div id="modal3" class="modal lime">
 						<div class="modal-content">
-							<h4>Modal 3 Header</h4>
+							<h4>Fight or Flee!</h4>
 							<div class="row center-align">
 								<div class="col  s12 m4">
-									<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
+									<img src="./assets/media/8bitwizard.jpeg" id="player-sprite" alt=" 8 bit wizard" />
 									<div class="progress">
 										<div id="player-hp-bar" class="determinate red"></div>
 									</div>
@@ -71,7 +72,7 @@
 										<li id="player-armor-class-li">Armor Class</li>
 									</ul>
 								</div>
-								<div class="col s12 m4">
+								<div class="col s12 m4 left-align">
 									<div name="" id="combat-log" cols="30" rows="10"></div>
 									<button id="init-button"
 										class="waves-effect waves-light btn lime darken-4 black-text hoverable">
@@ -81,10 +82,11 @@
 										class="waves-effect waves-light btn lime darken-4 black-text hoverable">
 										Attack
 									</button>
-									<p>Monster will swing back in 6 seconds.</p>
+									<p>"The monster always swings back. Pace yourself hero lest you drop dead."</p>
+									<p>~ The Voices</p>
 								</div>
 								<div class="col s12 m4">
-									<img src="./assets/media/8bitwizard.jpeg" alt=" 8 bit wizard" />
+									<img src="./assets/media/8bitwizard.jpeg" id="monster-sprite" alt=" 8 bit wizard" />
 									<div class="progress">
 										<div id="enemy-hp-bar" class="determinate red" style="width: 100%"></div>
 									</div>
@@ -100,8 +102,10 @@
 
 						</div>
 						<div class="modal-footer lime darken-4">
-							<a href="#!" class="modal-close waves-effect waves-green btn-flat black-text"
-								id="battleClose">Close</a>
+							<button class="waves-effect waves-green btn-flat black-text" id="magic-button">✨ Cast A Spell ✨</button>
+							<button class="waves-effect waves-green btn-flat black-text" id="sneak-button">🐱‍👤~~ Sneak ~~🐱‍👤</button>
+							<button class="waves-effect waves-green btn-flat black-text" id="flee-button">Flee!</button>
+							<a href="#!" class="modal-close waves-effect waves-green btn-flat black-text" id="battleClose">Close</a>
 						</div>
 					</div>
 					</div>
@@ -182,6 +186,7 @@
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 				integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 			<!-- Compiled and minified JavaScript materialize -->
+			
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 			<script src="./assets/js/logic.js"></script>
 			<script async src="./assets/js/spotifyPlayer.js">
