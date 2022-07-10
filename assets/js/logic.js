@@ -81,6 +81,11 @@ var modalFleeBtn = document.querySelector('#flee-button');
 var modalMagicBtn = document.querySelector('#magic-button');
 var modalSneakBtn = document.querySelector('#sneak-button');
 
+//classes
+//var classChoice = document.getElementById("#class-input");
+var spellSlots = 0;
+
+
 //elements
 var title = document.querySelector('a');
 
@@ -198,7 +203,7 @@ function startcombat() {
 	// let playerHP = fetch a value from local storage to equal current player health or default to current
 	BattleStats();
 	isCombat = true;
-
+	
 	let playerInit = diceRoll() + playerDexterity; // get player initiative roll
 	console.log('PlDex:', playerDexterity);
 	console.log('Player Init:', playerInit);
@@ -216,6 +221,7 @@ function startcombat() {
 			combatLog.textContent = `You're faster than your foe and attack!`
 			console.log('You are faster than the heathen!');
 			modalFleeBtn.style.display = "inline-block"; //display flee button
+			evalClass();
 			setTimeout(runCombat(), 3000); 
 			//return;
 		} else (playerInit < monsterInit); {
@@ -229,12 +235,13 @@ function startcombat() {
 //render battleBox stats
 
 function runCombat() {
-	BattleStats(); //update info on page
-	if (fleeCounter > 2) { //limit number of times to flee
-		modalFleeBtn.style.display = "none";
-	};
-	if (playerHP <= 0) {
-		isCombat = false;
+	BattleStats();
+	spellSlotManager();
+	evalClass();
+	if (fleeCounter > 2) {
+		modalFleeBtn.style.display = "none";};
+    if (playerHP <= 0 ) {
+        isCombat = false;
 		playerHpBar.style.width = `${0}%`;
 		console.log("You have perished!");
 		combatLog.textContent = `You have perished! You were killed by a ${monsterName}. Click the close button to create a new character and try again!`;
@@ -424,13 +431,18 @@ function loadSavedCharacters() {
 function fleeBattle() {
 	fleeCounter++;
 	let fleeRoll = diceRoll();
-
+	modalAttackBtn.style.display = 'none';
+	modalFleeBtn.style.display = 'none';
+	modalMagicBtn.style.display = 'none';
+	modalSneakBtn.style.display = 'none';
 	if (fleeRoll == 20) {
 		console.log("Crit success:", fleeRoll);
 		combatLog.textContent = `You got away clean, leaving your enemy grasping nothing but your afterimage! Click Close to continue on your journey!`;
+		isCombat=false;
 		modalAttackBtn.style.display = 'none';
 		modalFleeBtn.style.display = 'none';
-		isCombat = false;
+		modalMagicBtn.style.display = 'none';
+		modalSneakBtn.style.display = 'none';
 		closeBattle.style.display = 'inline-block';
 	} else if (fleeRoll == 1) {
 		console.log('A dire failure!', roll);
@@ -441,7 +453,9 @@ function fleeBattle() {
 		combatLog.textContent = "You run panting away from the foe, leaving them to their own devices! After all, you're a coward but a living one! Click Close to continue on your journey!";
 		modalAttackBtn.style.display = 'none';
 		modalFleeBtn.style.display = 'none';
-		isCombat = false;
+		modalMagicBtn.style.display = 'none';
+		modalSneakBtn.style.display = 'none';
+		isCombat=false;
 		closeBattle.style.display = 'inline-block';
 	} else {
 		combatLog.textContent = `There is no escape from this foe!`;
@@ -450,13 +464,66 @@ function fleeBattle() {
 	}
 	localStorage.setItem('playerAction', JSON.stringify(combatLog.textContent));
 	BattleStats();
-
 }
 
-modalFleeBtn.addEventListener('click', function (event) {
+function evalClass(){
+	if (playerClass == 'Wizard'){
+		let spellSlots = (3+playerLevel);
+		console.log("Wizard has", spellSlots, "spell slots");
+		modalMagicBtn.style.display = 'inline-block';
+		//document.createElement('li')
+		//trying to append new li to battle modal player stats ul with # of spell slots
+	} else if (playerClass == 'Rogue'){
+		modalSneakBtn.style.display = 'inline-block';
+	} else {
+		return;
+	}
+}
+
+function castMagic(){
+	let spellRoll = diceRoll();
+	spellSlots--;
+	if (spellRoll == 20) {
+		monsterHitPoints = 0;
+		combatLog.textContent = `You cast a spell!
+		Nat20!😎 ${spellRoll} The winds of chaos hammer your foe.  Magic swirls around you and when it passes your foe is not but motes of dust on the wind.
+		It dealt ${monsterName} is utterly destroyed!!!!`;
+		setTimeout(runCombat(), 2500);
+	} else if (spellRoll == 1) {
+		combatLog.textContent = `You cast a spell!
+		Nat1!😎 ${spellRoll} smoke pours for your mouth and claps of thunder echo from inside your body. Something is wrong! Your magic is out of control, you scream and as you and ${monsterName} EXPLODE!!!!`;
+			let spellFailure = diceRoll()*3;
+			playerHP = playerHP - spellFailure;
+			monsterHitPoints = monsterHitPoints - spellFailure;
+		setTimeout(runCombat(), 2500);
+	} else if (spellRoll + playerLevel >= monsterDexterity) {
+		spelldamage = ((spellRoll + playerLevel)*3);
+		monsterHitPoints = monsterHitPoints - spelldamage;
+		combatLog.textContent = `You cast a spell!
+		${spellRoll} to cast! A success! The forces of creation bend to your will and you strike your foe with beams of magic light just like what you imagined.`;
+		setTimeout(runCombat(), 2500);
+	} else {
+		combatLog.textContent = `You cast a spell!
+		${spellRoll} to cast! The ${monsterName} is not impressed and you cast your spell at nothing!`;
+		setTimeout(runCombat(), 2500);
+	}
+}
+
+function spellSlotManager(){
+	if (spellSlots <= 0){
+		modalMagicBtn.style.display = 'none';
+	}
+}
+modalFleeBtn.addEventListener('click', function (event){
 	event.preventDefault();
 	combatLog.textContent = `Attempting to run eh?! Good luck!`;
 	setTimeout(fleeBattle(), 2500);
+});
+
+modalMagicBtn.addEventListener('click', function (event){
+	event.preventDefault();
+	combatLog.textContent = `Attempting to cast a spell eh?!`;
+	setTimeout(castMagic(), 2500);
 });
 
 battleStart.addEventListener('click', function (event) {
@@ -465,10 +532,12 @@ battleStart.addEventListener('click', function (event) {
 	const monsterSpriteImg = document.getElementById("monster-sprite");
 	monsterSpriteImg.src = "./assets/media/8bitwizard.jpeg";
 	enemyHpBar.style.width = `${100}%`;
-	randomMonsterFetch();
-	isCombat = true;
-	console.log(isCombat);
-	modalAttackBtn.style.display = "none"
+    randomMonsterFetch();
+    isCombat = true;
+    console.log(isCombat);
+	spellSlots++;
+	modalInitBtn.style.display = "block"
+    modalAttackBtn.style.display = "none"
 	modalFleeBtn.style.display = "none"
 	modalMagicBtn.style.display = "none"
 	modalSneakBtn.style.display = "none"
