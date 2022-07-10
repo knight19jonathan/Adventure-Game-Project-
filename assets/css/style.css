@@ -12,6 +12,9 @@ header {
 #new-character {
 	margin-bottom: 10px;
 }
+#continue-btn {
+	margin-bottom: 10px;
+}
 #init-button {
 	display: none;
 }
