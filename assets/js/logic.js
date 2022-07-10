@@ -161,7 +161,7 @@ randomMonsterFetch = function () {
 				.then(function (monster) {
 					// console.log(monster);
 					monsterStats = monster;
-					if (monsterStats.challenge_rating > 2) {  //set monster level cap
+					if (monsterStats.challenge_rating > 40) {  //set monster level cap
 						randomMonsterFetch()
 					} else {
 						//assign monster stats to variables
@@ -179,6 +179,7 @@ randomMonsterFetch = function () {
 						monsterStrength = monsterStats.strength;
 						logMonster()
 						BattleStats()
+						combatLog.textContent = `A ${monsterName} appears!`
 						modalInitBtn.style.display = "block"
 					}
 				});
@@ -225,7 +226,6 @@ function startcombat() {
 			//return;
 		}
 	}, 2000)
-
 }
 //render battleBox stats
 
@@ -299,7 +299,7 @@ function playerDeath() {
 function attackRoll() {
 	let roll = diceRoll();
 	//let armorClass = 10
-	modalAttackBtn.style.display = 'none';
+	// modalAttackBtn.style.display = 'none';
 	if (roll == 20) {
 		console.log(roll);
 		let damage = (diceRoll() + playerStrength) * 2;
@@ -489,7 +489,7 @@ modalAttackBtn.addEventListener('click', function (event) {
 	attackRoll();
 	modalAttackBtn.style.display = 'none';
 	if (isCombat === true) {
-		setTimeout(monsterAttackRoll, 1000);
+		setTimeout(monsterAttackRoll, 4000);
 	}
 });
 
