@@ -40,7 +40,7 @@
 						id="continue-btn" style="display:none">
 						Continue
 					</button>
-					<img src="./assets/media/dndeightbitwarr.jpeg" alt="dnd warrior character" width="200px" />
+					<img id="player-img" src="./assets/media/wizardAnime.gif" alt="dnd player character" width="150px"  />
 					<div id="skills-stats">
 						<ul id="player-ul">
 							<li id="name-li">Name:</li>
@@ -52,6 +52,10 @@
 							<li id="atkBnsLi">Attack Bonus:</li>
 						</ul>
 					</div>
+					<button id="camp-fire" class="btn black  darken-4 lime-text hoverable" >Rest
+						<img  src="./assets/media/campfireAnime.gif" height="" alt="campfire">
+						
+					</button>
 
 					<!-- Modal on new start battle click -->
 					<div id="modal3" class="modal lime">
@@ -59,7 +63,7 @@
 							<h4>Fight or Flee!</h4>
 							<div class="row center-align">
 								<div class="col  s12 m4">
-									<img src="./assets/media/8bitwizard.jpeg" id="player-sprite" alt=" 8 bit wizard" />
+									<img src="./assets/media/warranime1.gif" id="player-sprite" alt=" player character" width="250px" />
 									<div class="progress">
 										<div id="player-hp-bar" class="determinate red"></div>
 									</div>
@@ -83,7 +87,7 @@
 									<p>~ The Voices</p>
 								</div>
 								<div class="col s12 m4">
-									<img src="./assets/media/8bitwizard.jpeg" id="monster-sprite" alt=" 8 bit wizard" />
+									<img src="./assets/media/wizardAnime.gif" id="monster-sprite" alt="enemy creature" width="250px" />
 									<div class="progress">
 										<div id="enemy-hp-bar" class="determinate red" style="width: 100%"></div>
 									</div>
@@ -164,17 +168,26 @@
 							Battle
 						</button>
 					</div>
-					<img class="responsive-img" src="./assets/media/27107457885_ebba66b7c1_o.jpg" alt="simple map" />
-					<!--https://www.flickr.com/photos/35034348373@N01/27107457885-->
+					<a class="album">
+						
+						<img class="responsive-img" src="./assets/media/27107457885_ebba66b7c1_o.jpg" alt="simple map" />
+						<img id="traveler1" src="./assets/media/travelerAnime.gif" alt="traveler" width="40px">
+						<img id="traveler2" src="./assets/media/travelerAnime.gif" alt="traveler" width="40px">
+						<img id="traveler3" src="./assets/media/travelerAnime.gif" alt="traveler" width="40px">
+						<img id="traveler4" src="./assets/media/travelerAnime.gif" alt="traveler" width="40px">
+						<!--https://www.flickr.com/photos/35034348373@N01/27107457885-->
+					</a>
 				</section>
-				<br>
+			</main>
+			
+
 				<section class="row center-align" id="quote-section">
 					<h5 class="center lime-text" id="quote-text"></h5>
 					<button class="waves-effect waves-light btn lime black-text hoverable" id="lotr-quote-btn">
 						Get LOTR Quote
 					</button>
 				</section>
-			</main>
+			
 
 			<!-- Compiled and minified JQuery -->
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"
