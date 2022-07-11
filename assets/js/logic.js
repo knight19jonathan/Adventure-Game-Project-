@@ -78,6 +78,7 @@ var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
 var closeBattle = document.querySelector('#battleClose');
 var playerLevel;
 var playerXP;
+var playerMaxHp = '';
 
 // combat script items
 var battleStart = document.querySelector('#start-battle');
@@ -216,7 +217,8 @@ function BattleStats() {
 	}
 	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
 	battleBoxAttackBonus.textContent = `Attack Bonus: ${attackBonus}`;
-	playerHpBar.style.width = `${playerHP}%`;
+	console.log("Max Hp: " + playerMaxHp);
+	playerHpBar.style.width = `${(playerHP / playerMaxHp) * 100}%`;
 	battleBoxPlayerAC.textContent = `Armor Class: ${playerArmorClass}`;
 	battleBoxMonsterName.textContent = `${monsterName}`;
 	battleBoxMonsterHP.textContent = `HP: ${monsterHitPoints}`;
@@ -330,7 +332,8 @@ function startcombat() {
 
 function runCombat() {
 	BattleStats();
-	spellSlotManager();
+	
+	
 	if (fleeCounter > 2) {
 		modalFleeBtn.style.display = 'none';
 	}
@@ -369,6 +372,8 @@ function runCombat() {
 		modalAttackBtn.style.display = 'block';
 		modalAttackBtn.style.display = 'inline-block';
 		modalFleeBtn.style.display = 'inline-block';
+		spellSlotManager();
+		//evalClass();
 		evalClass();
 		evalFleeCount();
 		//combatLog.textContent = `You are still alive somehow!`
@@ -407,6 +412,10 @@ function playerDeath() {
 //combat functions
 function attackRoll() {
 	let roll = diceRoll();
+	modalAttackBtn.style.display = 'none';
+	modalFleeBtn.style.display = 'none';
+	modalMagicBtn.style.display = 'none';
+	modalSneakBtn.style.display = 'none';
 	//let armorClass = 10
 	// modalAttackBtn.style.display = 'none';
 	if (roll == 20) {
@@ -512,6 +521,7 @@ function fleeBattle() {
 		console.log("You sneak away! You're a sneaky one!", fleeRoll);
 		combatLog.textContent = `You distract your for easily and and slip away in the shadows of the forest leaving them wondering if you ever really there. Click Close to continue on your journey! You're getting a little better at giving your foe the slip!`;
 		playerXP = playerXP + Math.Ceil(monsterXP / 10);
+		console.log('Player XP:', playerXP);
 		modalAttackBtn.style.display = 'none';
 		modalFleeBtn.style.display = 'none';
 		modalMagicBtn.style.display = 'none';
@@ -538,7 +548,7 @@ function fleeBattle() {
 }
 
 function evalClass() {
-	if (playerClass == 'Wizard') {
+	if (playerClass == 'Wizard' && spellSlots>0) {
 		console.log('Wizard has', spellSlots, 'spell slots');
 		modalMagicBtn.style.display = 'inline-block';
 		//document.createElement('li')
@@ -638,7 +648,11 @@ function castMagic() {
 function spellSlotManager() {
 	if (spellSlots <= 0) {
 		modalMagicBtn.style.display = 'none';
-		console.log('No spell slots left');
+		
+		console.log('You have no spell slots left!');
+	} else (spellSlots > 1); {
+		modalMagicBtn.style.display = 'inline-block';
+		console.log('You have', spellSlots, 'spell slots left!');
 	}
 }
 
@@ -652,7 +666,7 @@ function healscript() {
 }
 
 function spellSlotrecovery() {
-	spellSlots = spellSlots + 1;
+	spellSlots = spellSlots + playerLevel;
 	console.log('Spell slots:', spellSlots);
 }
 
@@ -759,7 +773,7 @@ function savePlayer() {
 	saveToCurrentStats();
 	localStorage.setItem('playerStats', JSON.stringify(currentPlayerStats));
 	displayCurrentPlayerStats();
-	levelFunction();
+	
 }
 
 //loads character from local storage
@@ -803,9 +817,10 @@ savCharBtn.on('click', function (event) {
 		playerBio = bioInputEl.val();
 		playerHP = 100;
 		playerXP = 100;
+		playerMaxHp = 90;
 		attackBonus =
 			//saves to character array for localStorage
-			savePlayer();
+		savePlayer();
 		nextLevel();
 		levelFunction();
 		isThereAChar();
@@ -815,7 +830,7 @@ savCharBtn.on('click', function (event) {
 campFire.on('click', function (event) {
 	event.preventDefault();
 	console.log(`You light a fire!`);
-	spellSlotManager();
+	spellSlotrecovery();
 	healscript();
 	displayCurrentPlayerStats();
 	campFire.hide();
@@ -829,6 +844,7 @@ function saveToCurrentStats() {
 	currentPlayerStats[0].XP = playerXP;
 	currentPlayerStats[0].HP = playerHP;
 	currentPlayerStats[0].Bio = playerBio;
+	currentPlayerStats[0].MaxHP = playerMaxHp;
 }
 
 //displays currentPlayerStats
@@ -850,6 +866,7 @@ function currentPlayerStatSet() {
 	playerHP = currentPlayerStats[0].HP;
 	playerBio = currentPlayerStats[0].Bio;
 	playerLevel = currentPlayerStats[0].Level;
+	playerMaxHp = currentPlayerStats[0].MaxHP;
 }
 
 //function for loading player level and status from HP
@@ -857,6 +874,7 @@ function levelFunction() {
 	playerDexterity = playerLevel + 3;
 	playerStrength = playerLevel + 4;
 	attackBonus = playerLevel + playerStrength;
+	//playerHP = playerMaxHp;
 }
 
 function nextLevel() {
@@ -864,6 +882,8 @@ function nextLevel() {
 	playerLevel = Math.floor(nextLevel);
 	currentPlayerStats[0].Level = playerLevel;
 	levelLi.text(`Level: ${playerLevel}`);
+	playerMaxHp = playerLevel*10+90;
+	
 }
 
 // jukebox play random song event listener
