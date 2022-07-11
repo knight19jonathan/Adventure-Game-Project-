@@ -23,7 +23,8 @@
 			<nav>
 				<div class="nav-wrapper brown lighten-1">
 					<a href="#" class="brand-logo center lime-text" id="pageTitle">DnD Machine</a>
-					<button id="play-music" class="waves-effect waves-light btn lime black-text hoverable col s12">Play Music</button>
+					<button id="play-music" class="waves-effect waves-light btn lime black-text hoverable col s12">Play
+						Music</button>
 					<a href="https://knight19jonathan.github.io/Adventure-Game-Project-/"
 						class="brand-logo center lime-text" id="pageTitle">DnD Machine</a>
 				</div>
@@ -57,8 +58,7 @@
 						</ul>
 					</div>
 					<button id="camp-fire" class="btn black waves-effect waves-teal darken-4 lime-text hoverable">Rest
-						<img src="./assets/media/campfireAnime.gif" height="" alt="campfire">
-
+						<img src="./assets/media/campfireAnime.gif" class="responsive-img" alt="campfire">
 					</button>
 
 					<!-- Modal on new start battle click -->
@@ -172,7 +172,8 @@
 				</aside>
 				<section id="map" class="col m12 l9 center-align">
 					<div class="row center-align">
-						<button id="start-game"	class="waves-effect waves-light btn  lime black-text hoverable">Start!</button>
+						<button id="start-game"
+							class="waves-effect waves-light btn  lime black-text hoverable">Start!</button>
 
 						<button data-target="modal3"
 							class="waves-effect waves-light btn modal-trigger lime black-text hoverable"
@@ -180,19 +181,27 @@
 							Battle
 						</button>
 					</div>
+					<div id="text1">
+						<p class="lime-text">You leave the comforts of your cabin in the dark woods in search of glory
+							and
+							wealth. At a local inn you hear a rumor of the wizards library. It is said that there is
+							treasure there for the taking! If...you can get past the creatures that guard it.</p>
+					</div>
 					<a class="album">
 
-						<img id="map-img"class="responsive-img" src="./assets/media/27107457885_ebba66b7c1_o.jpg"
+						<img id="map-img" class="responsive-img" src="./assets/media/27107457885_ebba66b7c1_o.jpg"
 							alt="simple map" />
-						<img class="traveler"id="traveler1" src="./assets/media/travelerAnime.gif" alt="traveler" width="40px">
-						<img class="traveler" id="traveler2" src="./assets/media/travelerAnime.gif" alt="traveler" width="40px">
-						<img class="traveler" id="traveler3" src="./assets/media/travelerAnime.gif" alt="traveler" width="40px">
-						<img class="traveler" id="traveler4" src="./assets/media/travelerAnime.gif" alt="traveler" width="40px">
+						<img class="traveler" id="traveler1" src="./assets/media/travelerAnime.gif" alt="traveler"
+							width="40px">
+						<img class="traveler" id="traveler2" src="./assets/media/travelerAnime.gif" alt="traveler"
+							width="40px">
+						<img class="traveler" id="traveler3" src="./assets/media/travelerAnime.gif" alt="traveler"
+							width="40px">
+						<img class="traveler" id="traveler4" src="./assets/media/travelerAnime.gif" alt="traveler"
+							width="40px">
 						<img class="traveler" id="vecna" src="./assets/media/lordVecna.gif" alt="traveler" width="40px">
-						<img class="traveler" id="devil" src="./assets/media/throneDevilAnime.gif" alt="traveler" width="40px">
-						<div class="traveler" id="text1">
-						<p  id="text1">You leave the comforts of your cabin in the dark woods in search of glory and wealth. At a local inn you hear a rumor of the wizards library. It is said that there is treasure there for the taking! If...you can get past the creatures that guard it.</p>
-						</div>
+						<img class="traveler" id="devil" src="./assets/media/throneDevilAnime.gif" alt="traveler"
+							width="40px">
 						<!--https://www.flickr.com/photos/35034348373@N01/27107457885-->
 					</a>
 				</section>
@@ -206,6 +215,43 @@
 					Get LOTR Quote
 				</button>
 			</section>
+
+			<section class="row center-align" id="quote-section">
+				<button data-target="modal4"
+					class="waves-effect waves-light btn modal-trigger lime black-text hoverable" id="credit-button">
+					Credits
+				</button>
+			</section>
+
+			<div id="modal4" class="modal lime">
+				<div class="modal-content">
+					<h4>Credits</h4>
+					<div class="row center-align">
+						<h5>Created By:</h5>
+						<ul>
+							<li>Justus Brown</li>
+							<li>Tucker Reiland</li>
+							<li>Jonathan Knight</li>
+							<li>Austin Gentz</li>
+						</ul>
+						<br>
+						<h5>Image/Gif credits:</h5>
+						<ul>
+							<li>t</li>
+							<li>t</li>
+							<li>t</li>
+							<li>t</li>
+							<li>t</li>
+						</ul>
+					</div>
+
+				</div>
+				<div class="modal-footer lime darken-4">
+					<a href="#!" class="modal-close waves-effect waves-green btn-flat black-text"
+						id="credit-close">Close</a>
+				</div>
+			</div>
+			</div>
 
 
 			<!-- Compiled and minified JQuery -->
