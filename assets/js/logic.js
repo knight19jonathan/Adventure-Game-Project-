@@ -138,6 +138,7 @@ var attackBonusLiEl = $('#atkBnsLi');
 //grab map and story elements
 var traveler1 = $('#traveler1');
 var startBtn = $('#start-game');
+isThereAChar() //hide start game on page load
 $('#traveler1').hide();
 $('#traveler2').hide();
 $('#traveler3').hide();
@@ -155,7 +156,16 @@ function gameStart() {
 	$('#traveler1').show();
 	$('#start-battle').show();
 	$('#text1').show();
-	$('#start-game').hide();
+	startBtn.hide();
+}
+
+function isThereAChar(){
+	if (playerClass !== ''){
+		startBtn.show()
+	}else {
+		startBtn.hide()
+
+	}
 }
 
 //
@@ -732,13 +742,16 @@ continueBtn.addEventListener('click', function (event) {
 	loadPlayer();
 	nextLevel();
 	levelFunction();
+	isThereAChar();
+	continueBtn.style.display = 'none';
+
 });
 
 savCharBtn.on('click', function (event) {
 	// on submission of character creation, set values in the aside
 	event.preventDefault();
 	if (raceInputEl.val() == null || classInputEl.val() == null) {
-		alert('You must enter your character information to proceed');
+		alert('You must enter your character information (race and class) to proceed');
 		return;
 	} else {
 		// sets global variables for created character
@@ -753,6 +766,7 @@ savCharBtn.on('click', function (event) {
 			savePlayer();
 		nextLevel();
 		levelFunction();
+		isThereAChar();
 	}
 });
 
