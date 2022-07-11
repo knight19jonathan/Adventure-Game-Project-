@@ -1,9 +1,7 @@
 * {
 	font-family: 'Press Start 2P', cursive;
 }
-body {
-	height: 1500px;
-}
+
 button {
 	font-family: 'Press Start 2P', cursive;
 }
@@ -60,42 +58,35 @@ header {
 #camp-fire {
 	height: 200px;
 }
-#traveler1 {
-	width: 40px;
-	margin-top: 510px;
-	margin-left: 370px;
-}
-#traveler2 {
-	width: 40px;
-	margin-top: 330px;
-	margin-left: 370px;
-}
-#traveler3 {
-	width: 40px;
-	margin-top: 230px;
-	margin-left: 135px;
-}
-#traveler4 {
-	width: 40px;
-	margin-top: 70px;
-	margin-left: 500px;
-}
+
 .album {
 	position: relative;
-
 	width: 1000px;
-
 	display: block;
 }
 
 /* the images */
-.album img {
+.traveler {
 	position: absolute;
 	top: 0;
 	left: 0;
-
+	width: 40px;
+	
 	display: block;
 }
-#quote-section {
-	margin-top: 200px;
+#traveler1 {
+	margin-top: 510px;
+	margin-left: 370px;
+}
+#traveler2 {
+	margin-top: 330px;
+	margin-left: 370px;
+}
+#traveler3 {
+	margin-top: 230px;
+	margin-left: 135px;
+}
+#traveler4 {
+	margin-top: 70px;
+	margin-left: 500px;
 }
