@@ -322,7 +322,8 @@ function startcombat() {
 
 function runCombat() {
 	BattleStats();
-	spellSlotManager();
+	
+	
 	if (fleeCounter > 2) {
 		modalFleeBtn.style.display = 'none';
 	}
@@ -361,6 +362,8 @@ function runCombat() {
 		modalAttackBtn.style.display = 'block';
 		modalAttackBtn.style.display = 'inline-block';
 		modalFleeBtn.style.display = 'inline-block';
+		spellSlotManager();
+		//evalClass();
 		evalClass();
 		evalFleeCount();
 		//combatLog.textContent = `You are still alive somehow!`
@@ -399,6 +402,10 @@ function playerDeath() {
 //combat functions
 function attackRoll() {
 	let roll = diceRoll();
+	modalAttackBtn.style.display = 'none';
+	modalFleeBtn.style.display = 'none';
+	modalMagicBtn.style.display = 'none';
+	modalSneakBtn.style.display = 'none';
 	//let armorClass = 10
 	// modalAttackBtn.style.display = 'none';
 	if (roll == 20) {
@@ -504,6 +511,7 @@ function fleeBattle() {
 		console.log("You sneak away! You're a sneaky one!", fleeRoll);
 		combatLog.textContent = `You distract your for easily and and slip away in the shadows of the forest leaving them wondering if you ever really there. Click Close to continue on your journey! You're getting a little better at giving your foe the slip!`;
 		playerXP = playerXP + Math.Ceil(monsterXP / 10);
+		console.log('Player XP:', playerXP);
 		modalAttackBtn.style.display = 'none';
 		modalFleeBtn.style.display = 'none';
 		modalMagicBtn.style.display = 'none';
@@ -530,7 +538,7 @@ function fleeBattle() {
 }
 
 function evalClass() {
-	if (playerClass == 'Wizard') {
+	if (playerClass == 'Wizard' && spellSlots>0) {
 		console.log('Wizard has', spellSlots, 'spell slots');
 		modalMagicBtn.style.display = 'inline-block';
 		//document.createElement('li')
@@ -630,10 +638,11 @@ function castMagic() {
 function spellSlotManager() {
 	if (spellSlots <= 0) {
 		modalMagicBtn.style.display = 'none';
-		console.log('No spell slots left');
-	} else {
-		spellSlots+1;
-		console.log('Spell slots left:', spellSlots);
+		
+		console.log('You have no spell slots left!');
+	} else (spellSlots > 1); {
+		modalMagicBtn.style.display = 'inline-block';
+		console.log('You have', spellSlots, 'spell slots left!');
 	}
 }
 
@@ -647,7 +656,7 @@ function healscript() {
 }
 
 function spellSlotrecovery() {
-	spellSlots = spellSlots + 1;
+	spellSlots = spellSlots + playerLevel;
 	console.log('Spell slots:', spellSlots);
 }
 
@@ -807,7 +816,7 @@ savCharBtn.on('click', function (event) {
 campFire.on('click', function (event) {
 	event.preventDefault();
 	console.log(`You light a fire!`);
-	spellSlotManager();
+	spellSlotrecovery();
 	healscript();
 	displayCurrentPlayerStats();
 	campFire.hide();
