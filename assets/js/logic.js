@@ -107,6 +107,7 @@ var savedMonsterAction = JSON.parse(localStorage.getItem('monsterAction')); // m
 var savedPlayerAction = JSON.parse(localStorage.getItem('playerAction')); // Players latest action in local storage
 //buttons
 var characterGenBtn = document.querySelector('#new-character');
+var newCharBtn =  $("#new-character")
 var continueBtn = document.querySelector('#continue-btn');
 var modalAttackBtn = document.querySelector('#attack-button');
 var modalInitBtn = document.querySelector('#init-button');
@@ -813,6 +814,7 @@ continueBtn.addEventListener('click', function (event) {
 	levelFunction();
 	isThereAChar();
 	continueBtn.style.display = 'none';
+	battleStart.style.display = "none";
 
 });
 
@@ -926,3 +928,9 @@ playAudioBtn.addEventListener('click', function (event) {
 $('#jukebox').bind('ended', function () {
 	playAudio;
 });
+
+
+newCharBtn.on("click", function(){
+	startBtn.hide()
+	battleStart.style.display = "none";
+})
