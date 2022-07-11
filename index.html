@@ -22,6 +22,8 @@
 		<body>
 			<nav>
 				<div class="nav-wrapper brown lighten-1">
+					<a href="#" class="brand-logo center lime-text" id="pageTitle">DnD Machine</a>
+					<button id="play-music" class="waves-effect waves-light btn lime black-text hoverable col s12">Play Music</button>
 					<a href="https://knight19jonathan.github.io/Adventure-Game-Project-/"
 						class="brand-logo center lime-text" id="pageTitle">DnD Machine</a>
 				</div>
@@ -50,7 +52,8 @@
 							<li id="raceLi">Race:</li>
 							<li id="classLi">Class:</li>
 							<li id="hPLi">HP:</li>
-							<li id="atkBnsLi">Attack Bonus:</li>
+							<li id="levelLi">Level:</li>
+							<li id="xpLi">XP:</li>
 						</ul>
 					</div>
 					<button id="camp-fire" class="btn black  darken-4 lime-text hoverable">Rest
@@ -187,6 +190,7 @@
 					</a>
 				</section>
 			</main>
+			<audio onended="playAudio()" id="jukebox" src=""></audio>
 
 
 			<section class="row center-align" id="quote-section">
