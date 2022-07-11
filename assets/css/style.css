@@ -89,3 +89,21 @@ header {
 	top: 10%;
 	left: 45%;
 }
+#text1 {
+	top: 52%;
+	left: 12.5%;
+	font-size: 15px;
+	width: 75%;
+	margin: 0 auto;
+	background-color: black;
+}
+#vecna {
+	top: 10%;
+	left: 50%;
+	width: 6%;
+}
+#devil {
+	top: 70%;
+	left: 75%;
+	width: 20%;
+}

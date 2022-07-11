@@ -143,6 +143,7 @@ $('#traveler1').hide();
 $('#traveler2').hide();
 $('#traveler3').hide();
 $('#traveler4').hide();
+$('#text1').hide();
 
 //local storage arrays
 var savedPlayers = [{}];
@@ -161,6 +162,7 @@ var currentPlayerStats = [
 function gameStart() {
 	$('#traveler1').show();
 	$('#start-battle').show();
+	$('#text1').show();
 	$('#start-game').hide();
 }
 
