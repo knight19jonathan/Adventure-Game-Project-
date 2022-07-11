@@ -633,7 +633,6 @@ battleStart.addEventListener('click', function (event) {
 	isCombat = true;
 	console.log(isCombat);
 	spellSlots++;
-	modalInitBtn.style.display = 'block';
 	modalAttackBtn.style.display = 'none';
 	modalFleeBtn.style.display = 'none';
 	modalMagicBtn.style.display = 'none';
