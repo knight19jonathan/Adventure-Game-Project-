@@ -37,10 +37,28 @@ var monsterCR = 0;
 var monsterAttack = 0;
 var monsterDexterity = 0;
 var monsterHpMax = 0;
-var monsterPics = [
+// possible use case for random monster pick on battle start
+var monsterPicsArr = [
 	'./assets/media/ragingBull.gif',
 	'./assets/media/zombieAnime',
 	'./assets/media/dndeightbitwarr.png',
+	'./assets/media/creepyWalker.gif',
+	'./assets/media/Daggerboi.gif',
+	'./assets/media/darkcreature.gif',
+	'./assets/media/dragon.gif',
+	'./assets/media/drooler.gif',
+	'./assets/media/evilbaby.gif',
+	'./assets/media/ghostrider.gif',
+	'./assets/media/goatandarrow.gif',
+	'./assets/media/goatboyhammer.gif',
+	'./assets/media/jummpyboi.gif',
+	'./assets/media/packbois.gif',
+	'./assets/media/pukeyboi.gif',
+	'./assets/media/screamer.gif',
+	'./assets/media/skeleton.gif',
+	'./assets/media/sluggo.gif',
+	'./assets/media/stiches.gif',
+	'./assets/media/zomboids.gif',
 ];
 
 var diceRoll;
