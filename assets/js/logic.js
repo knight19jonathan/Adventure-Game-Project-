@@ -84,6 +84,7 @@ var battleStart = document.querySelector('#start-battle');
 $('#start-battle').hide();
 var attackBonus;
 var combatLog = document.querySelector('#combat-log');
+var quoteLog = document.querySelector('#quote-log');
 // battleBox variables
 var battleBoxPlayerHP = document.querySelector('#player-hp-li');
 var battleBoxPlayerAC = document.querySelector('#player-armor-class-li');
@@ -286,7 +287,7 @@ function diceRoll() {
 function startcombat() {
 	// let playerHP = fetch a value from local storage to equal current player health or default to current
 	BattleStats();
-	evalClass();
+	
 	isCombat = true;
 	let playerInit = diceRoll() + playerDexterity; // get player initiative roll
 	console.log('PlDex:', playerDexterity);
@@ -623,7 +624,6 @@ function castMagic() {
 		spellSlots = spellSlots - 1;
 		setTimeout(runCombat(), 2500);
 	}
-	spellSlots = spellSlots - 1;
 }
 
 function spellSlotManager() {
@@ -631,6 +631,22 @@ function spellSlotManager() {
 		modalMagicBtn.style.display = 'none';
 		console.log('No spell slots left');
 	}
+}
+
+function healscript() {
+	if (playerHP <= 100) {
+		playerHP = playerHP + 10;
+		quoteLog.textContent = `You heal yourself!`;
+	} else {
+		quoteLog.textContent = `You are already at full health!`;
+	}
+	
+
+}
+
+function spellSlotrecovery() {
+	spellSlots = spellSlots + 1;
+	console.log('Spell slots:', spellSlots);
 }
 
 modalSneakAttackBtn.addEventListener('click', function (event) {
@@ -667,6 +683,7 @@ modalMagicBtn.addEventListener('click', function (event) {
 		setTimeout(monsterAttackRoll, 5000);
 	}
 });
+
 startBtn.on('click', function (event) {
 	event.preventDefault();
 	gameStart();
@@ -784,13 +801,13 @@ savCharBtn.on('click', function (event) {
 	}
 });
 
-campFire.addEventListener('click', function (event) {
+campFire.on('click', function (event) {
 	event.preventDefault();
 	console.log = `You light a fire!`;
-	setTimeout(campFire, 1000);
-	spellSlots = spellSlots + 1 + playerLevel;
-	playerHP = playerHP + 50;
-	campFire.hide
+	spellSlotManager();
+	healscript();
+	displayCurrentPlayerStats();
+	$('#camp-fire').hide();
 });
 
 //updates player stats to saveToCurrentStats
