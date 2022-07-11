@@ -61,7 +61,6 @@ header {
 
 .album {
 	position: relative;
-	width: 1000px;
 	display: block;
 }
 
@@ -70,7 +69,7 @@ header {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 40px;
+	width: 4%;
 	
 	display: block;
 }
@@ -88,5 +87,5 @@ header {
 }
 #traveler4 {
 	top:10%;
-	left: 56%;
+	left: 45%;
 }
