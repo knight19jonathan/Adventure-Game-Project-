@@ -81,6 +81,7 @@ var playerXP;
 
 // combat script items
 var battleStart = document.querySelector('#start-battle');
+$('#start-battle').hide();
 var attackBonus;
 var combatLog = document.querySelector('#combat-log');
 // battleBox variables
@@ -135,6 +136,13 @@ var raceLiEl = $('#raceLi');
 var classLiEl = $('#classLi');
 var hpLiEl = $('#hPLi');
 var attackBonusLiEl = $('#atkBnsLi');
+//grab map and story elements
+var traveler1 = $('#traveler1');
+var startBtn = $('#start-game');
+$('#traveler1').hide();
+$('#traveler2').hide();
+$('#traveler3').hide();
+$('#traveler4').hide();
 
 //local storage arrays
 var savedPlayers = [{}];
@@ -149,6 +157,12 @@ var currentPlayerStats = [
 		Bio: `${playerBio}`,
 	},
 ];
+//start game function
+function gameStart() {
+	$('#traveler1').show();
+	$('#start-battle').show();
+	$('#start-game').hide();
+}
 
 //
 function BattleStats() {
@@ -639,6 +653,10 @@ modalMagicBtn.addEventListener('click', function (event) {
 	if (isCombat === true) {
 		setTimeout(monsterAttackRoll, 5000);
 	}
+});
+startBtn.on('click', function (event) {
+	event.preventDefault();
+	gameStart();
 });
 
 battleStart.addEventListener('click', function (event) {

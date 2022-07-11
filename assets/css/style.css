@@ -70,22 +70,22 @@ header {
 	top: 0;
 	left: 0;
 	width: 4%;
-	
+
 	display: block;
 }
 #traveler1 {
-	top:72%;
+	top: 72%;
 	left: 37%;
 }
 #traveler2 {
-	top:50%;
+	top: 50%;
 	left: 37%;
 }
 #traveler3 {
-	top:40%;
+	top: 40%;
 	left: 18%;
 }
 #traveler4 {
-	top:10%;
+	top: 10%;
 	left: 45%;
 }
