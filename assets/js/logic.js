@@ -822,9 +822,17 @@ function playAudio() {
 	jukebox.play();
 }
 
+function pauseAudio() {
+	jukebox.pause()
+}
+
 playAudioBtn.addEventListener('click', function (event) {
 	event.preventDefault();
-	playAudio();
+	if (jukebox.paused){
+		playAudio();
+	} else {
+		pauseAudio();
+	}
 });
 
 $('#jukebox').bind('ended', function () {
