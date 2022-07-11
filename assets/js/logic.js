@@ -78,6 +78,7 @@ var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
 var closeBattle = document.querySelector('#battleClose');
 var playerLevel;
 var playerXP;
+var playerMaxHp = '';
 
 // combat script items
 var battleStart = document.querySelector('#start-battle');
@@ -206,7 +207,8 @@ function BattleStats() {
 	}
 	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
 	battleBoxAttackBonus.textContent = `Attack Bonus: ${attackBonus}`;
-	playerHpBar.style.width = `${playerHP}%`;
+	console.log("Max Hp: " + playerMaxHp);
+	playerHpBar.style.width = `${(playerHP / playerMaxHp) * 100}%`;
 	battleBoxPlayerAC.textContent = `Armor Class: ${playerArmorClass}`;
 	battleBoxMonsterName.textContent = `${monsterName}`;
 	battleBoxMonsterHP.textContent = `HP: ${monsterHitPoints}`;
@@ -630,15 +632,18 @@ function spellSlotManager() {
 	if (spellSlots <= 0) {
 		modalMagicBtn.style.display = 'none';
 		console.log('No spell slots left');
+	} else {
+		spellSlots+1;
+		console.log('Spell slots left:', spellSlots);
 	}
 }
 
 function healscript() {
 	if (playerHP <= 100) {
-		playerHP = playerHP + 10;
-		quoteLog.textContent = `You heal yourself!`;
+		//playerHP = playerHP + 10;
+		quoteLog.text(`You heal yourself!`) ;
 	} else {
-		quoteLog.textContent = `You are already at full health!`;
+		quoteLog.text( `You are already at full health!`) ;
 	}
 	
 
@@ -752,7 +757,7 @@ function savePlayer() {
 	saveToCurrentStats();
 	localStorage.setItem('playerStats', JSON.stringify(currentPlayerStats));
 	displayCurrentPlayerStats();
-	levelFunction();
+	
 }
 
 //loads character from local storage
@@ -793,21 +798,25 @@ savCharBtn.on('click', function (event) {
 		playerBio = bioInputEl.val();
 		playerHP = 100;
 		playerXP = 100;
+		playerMaxHp = 90;
 		attackBonus =
 			//saves to character array for localStorage
-			savePlayer();
+		savePlayer();
 		nextLevel();
 		levelFunction();
 	}
 });
 
-campFire.on('click', function (event) {
-	event.preventDefault();
-	console.log = `You light a fire!`;
-	spellSlotManager();
-	healscript();
-	displayCurrentPlayerStats();
+function hideCampFire() {
 	$('#camp-fire').hide();
+}
+
+campFire.on('click', function (event) {
+	//event.preventDefault();
+	//console.log('You have clicked the camp fire!');
+	//spellSlotManager();
+	healscript();
+	hideCampFire();
 });
 
 //updates player stats to saveToCurrentStats
@@ -818,6 +827,7 @@ function saveToCurrentStats() {
 	currentPlayerStats[0].XP = playerXP;
 	currentPlayerStats[0].HP = playerHP;
 	currentPlayerStats[0].Bio = playerBio;
+	currentPlayerStats[0].MaxHP = playerMaxHp;
 }
 
 //displays currentPlayerStats
@@ -839,6 +849,7 @@ function currentPlayerStatSet() {
 	playerHP = currentPlayerStats[0].HP;
 	playerBio = currentPlayerStats[0].Bio;
 	playerLevel = currentPlayerStats[0].Level;
+	playerMaxHp = currentPlayerStats[0].MaxHP;
 }
 
 //function for loading player level and status from HP
@@ -846,6 +857,7 @@ function levelFunction() {
 	playerDexterity = playerLevel + 3;
 	playerStrength = playerLevel + 4;
 	attackBonus = playerLevel + playerStrength;
+	//playerHP = playerMaxHp;
 }
 
 function nextLevel() {
@@ -853,6 +865,8 @@ function nextLevel() {
 	playerLevel = Math.floor(nextLevel);
 	currentPlayerStats[0].Level = playerLevel;
 	levelLi.text(`Level: ${playerLevel}`);
+	playerMaxHp = playerLevel*10+90;
+	
 }
 
 // jukebox play random song event listener
