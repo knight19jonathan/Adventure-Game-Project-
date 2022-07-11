@@ -20,12 +20,12 @@ https://github.com/knight19jonathan/Adventure-Game-Project-/projects/1
 Welcome to our simple, turn-based DnD game: DnD Machine!  Monsters, dragons, and undead lay waste to the Realm.  Create a character, fight random monsters, and level up to vanquish the Dungeon Master!  
 
 ## Description
-DnD Machine allows users to play a simple, turn-based combat gamed based on Dungeons & Dragons.  On page load, users must create a new character from a selection of Dungeons and Dragons classes and races and give their character a name, at which point the player stats populate the page.  The player then can begin their campagin by pressing the start button, giving them the option to battle monsters for xp to level up their character which in turn gives them access to more difficult monsters.  If the player HP reaches zero, the player is dead and deleted from local storage.  Music can be played at anytime by pressing the button in the header.
+DnD Machine allows users to play a simple, turn-based combat gamed based on Dungeons & Dragons.  On page load, users must create a new character from a selection of Dungeons and Dragons classes and races and give their character a name, at which point the player stats populate the page.  The player then can begin their campaign by pressing the start button, giving them the option to battle monsters for xp to level up their character which in turn gives them access to more difficult monsters.  If the player HP reaches zero, the player is dead and deleted from local storage.  Music can be played at anytime by pressing the button in the header.
 
 ## Create New Character
 The New Character button at the top hand left of the screen triggers a modal.  Within this modal, the user is prompted to enter a character name, select a race and class from the drop down menus, and a bio for the character.  Pressing the save button commits the new character to local storage and populates the aside to display the current character stats.
 
-If a character already exists in local storage on page load then a continue button will appear.  If users press the continue button, the last saved character will be loaded from local storage, global variables will be updated, and the loaded character stats will be displayed in the aside
+If a character already exists in local storage on page load then a continue button will appear.  If users press the continue button, the last saved character will be loaded from local storage, global variables will be updated, and the loaded character stats will be displayed in the aside.
 
 ## Combat
 Once a character has been created or loaded, players can start a campaign by pressing the start button.  They will then be given a brief story reference and the battle button will appear.  
@@ -41,7 +41,11 @@ DnD Machine uses the DnD v5 API to source it's monsters and monster stats.  On i
 
 https://the-one-api.dev/
 
-We included a Lord of the Rings random quote generator, in keeping with the DnD/fantasy theme.  The generator calls the API to pull a quote and atrributed character at a random index from the API.  These are then both displayed on the screen for moral support and entertainment throughout the campaign.  
+We included a Lord of the Rings random quote generator, in keeping with the DnD/fantasy theme.  The generator calls the API to pull a quote and atrributed character at a random index from the API.  These are then both displayed on the screen for moral support and entertainment throughout the campaign. 
+
+https://materializecss.com/about.html
+
+We used materialize as our css framework.
 
 ## Additional Features
 To increase playability, we included a rest function so that players can heal in the absence of other party members or items.
@@ -57,6 +61,7 @@ Async JS became the main bug throughout the rest of the project.  Our code was f
 
 ## Screenshot
 
+![]()
 
 
 
