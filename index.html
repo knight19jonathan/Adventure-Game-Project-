@@ -23,6 +23,7 @@
 			<nav>
 				<div class="nav-wrapper brown lighten-1">
 					<a href="#" class="brand-logo center lime-text" id="pageTitle">DnD Machine</a>
+					<button id="play-music" class="waves-effect waves-light btn lime black-text hoverable col s12">Play Music</button>
 				</div>
 			</nav>
 
@@ -48,7 +49,8 @@
 							<li id="raceLi">Race:</li>
 							<li id="classLi">Class:</li>
 							<li id="hPLi">HP:</li>
-							<li id="atkBnsLi">Attack Bonus:</li>
+							<li id="levelLi">Level:</li>
+							<li id="xpLi">XP:</li>
 						</ul>
 					</div>
 					<div>
@@ -177,7 +179,7 @@
 					</button>
 				</section>
 			</main>
-
+			<audio onended="playAudio()" id="jukebox" src=""></audio>
 			<!-- Compiled and minified JQuery -->
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 				integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
