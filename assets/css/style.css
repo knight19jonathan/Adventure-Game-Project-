@@ -70,22 +70,40 @@ header {
 	top: 0;
 	left: 0;
 	width: 4%;
-	
+
 	display: block;
 }
 #traveler1 {
-	top:72%;
+	top: 72%;
 	left: 37%;
 }
 #traveler2 {
-	top:50%;
+	top: 50%;
 	left: 37%;
 }
 #traveler3 {
-	top:40%;
+	top: 40%;
 	left: 18%;
 }
 #traveler4 {
-	top:10%;
+	top: 10%;
 	left: 45%;
+}
+#text1 {
+	top: 52%;
+	left: 12.5%;
+	font-size: 15px;
+	width: 75%;
+	margin: 0 auto;
+	background-color: black;
+}
+#vecna {
+	top: 10%;
+	left: 50%;
+	width: 6%;
+}
+#devil {
+	top: 70%;
+	left: 75%;
+	width: 20%;
 }

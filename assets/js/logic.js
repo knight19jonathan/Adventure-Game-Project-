@@ -37,10 +37,28 @@ var monsterCR = 0;
 var monsterAttack = 0;
 var monsterDexterity = 0;
 var monsterHpMax = 0;
-var monsterPics = [
+// possible use case for random monster pick on battle start
+var monsterPicsArr = [
 	'./assets/media/ragingBull.gif',
 	'./assets/media/zombieAnime',
 	'./assets/media/dndeightbitwarr.png',
+	'./assets/media/creepyWalker.gif',
+	'./assets/media/Daggerboi.gif',
+	'./assets/media/darkcreature.gif',
+	'./assets/media/dragon.gif',
+	'./assets/media/drooler.gif',
+	'./assets/media/evilbaby.gif',
+	'./assets/media/ghostrider.gif',
+	'./assets/media/goatandarrow.gif',
+	'./assets/media/goatboyhammer.gif',
+	'./assets/media/jummpyboi.gif',
+	'./assets/media/packbois.gif',
+	'./assets/media/pukeyboi.gif',
+	'./assets/media/screamer.gif',
+	'./assets/media/skeleton.gif',
+	'./assets/media/sluggo.gif',
+	'./assets/media/stiches.gif',
+	'./assets/media/zomboids.gif',
 ];
 
 var diceRoll;
@@ -63,6 +81,7 @@ var playerXP;
 
 // combat script items
 var battleStart = document.querySelector('#start-battle');
+$('#start-battle').hide();
 var attackBonus;
 var combatLog = document.querySelector('#combat-log');
 // battleBox variables
@@ -115,40 +134,64 @@ var bioAreaEl = $('#bio-area');
 var raceLiEl = $('#raceLi');
 var classLiEl = $('#classLi');
 var hpLiEl = $('#hPLi');
+var attackBonusLiEl = $('#atkBnsLi');
+//grab map and story elements
+var traveler1 = $('#traveler1');
+var startBtn = $('#start-game');
+$('#traveler1').hide();
+$('#traveler2').hide();
+$('#traveler3').hide();
+$('#traveler4').hide();
+$('#text1').hide();
 var levelLi = $('#levelLi');
 var xpLi = $('#xpLi');
 
 //local storage arrays
 var savedPlayers = [{}];
 var loadedPlayerStats;
-var currentPlayerStats = [{
-	Name: `${playerName}`,
-	Race: `${playerRace}`,
-	Class: `${playerClass}`,
-	XP: `${playerXP}`,
-	HP: `${playerHP}`,
-	Bio: `${playerBio}`,
-	Level: `${playerLevel}`
-}];
+
+//start game function
+function gameStart() {
+	$('#traveler1').show();
+	$('#start-battle').show();
+	$('#text1').show();
+	$('#start-game').hide();
+}
+
+//
+
+//set content of text boxes in battle modal
+var currentPlayerStats = [
+	{
+		Name: `${playerName}`,
+		Race: `${playerRace}`,
+		Class: `${playerClass}`,
+		XP: `${playerXP}`,
+		HP: `${playerHP}`,
+		Bio: `${playerBio}`,
+		Level: `${playerLevel}`,
+	},
+];
 
 //Soundtrack
-var jukebox = document.getElementById("jukebox")
-var playAudioBtn = document.getElementById("play-music")
+var jukebox = document.getElementById('jukebox');
+var playAudioBtn = document.getElementById('play-music');
 var soundtrack = [
-	"./assets/music/Stranger-Things-Theme-8-Bit.mp3",
-	"./assets/music/Skyrim-8-bit-1.mp3",
-	"./assets/music/Skyrim-8-bit-2.mp3",
-	"./assets/music/Oblivion-8-bit.mp3",
-	"./assets/music/The Legend of Zelda A Link to the Past Music_ Light World Dungeon.mp3",
-	"./assets/music/The Legend of Zelda - Overworld.mp3",
-	"./assets/music/The Legend of Zelda - Overworld (1).mp3",
-	"./assets/music/Legend of Zelda_ A link to The Past music - overworld theme.mp3",
-	"./assets/music/Legend Of Zelda Theme (8 Bit Remix Cover Version) [Tribute to NES] - 8 Bit Universe.mp3"
-]
+	'./assets/music/Stranger-Things-Theme-8-Bit.mp3',
+	'./assets/music/Skyrim-8-bit-1.mp3',
+	'./assets/music/Skyrim-8-bit-2.mp3',
+	'./assets/music/Oblivion-8-bit.mp3',
+	'./assets/music/The Legend of Zelda A Link to the Past Music_ Light World Dungeon.mp3',
+	'./assets/music/The Legend of Zelda - Overworld.mp3',
+	'./assets/music/The Legend of Zelda - Overworld (1).mp3',
+	'./assets/music/Legend of Zelda_ A link to The Past music - overworld theme.mp3',
+	'./assets/music/Legend Of Zelda Theme (8 Bit Remix Cover Version) [Tribute to NES] - 8 Bit Universe.mp3',
+];
 
 // Begin functions
 
-function BattleStats() {  //set content of text boxes in battle modal
+function BattleStats() {
+	//set content of text boxes in battle modal
 
 	if (playerHP < 0) {
 		//player hp will never be displayed as less than 0
@@ -326,17 +369,17 @@ function playerDeath() {
 	if (playerHP <= 0) {
 		//hpLiEl.textContent(`HP:${playerHP}`);
 		playerXP = 0;
-		console.log("Player Xp has been reset to 0:", playerXP);
-		localStorage.clear ();
+		console.log('Player Xp has been reset to 0:', playerXP);
+		localStorage.clear();
 		hpLiEl.textContent = `0`;
-		nameAreaLi.textContent = "";
-		bioAreaEl.textContent = "";
-		raceLiEl.textContent = "";
-		classLiEl.textContent = "";
-		levelLi.textContent = "";
-		xpLi.textContent = "";
-		const mainSpriteImg = document.getElementById("main-sprite");
-		mainSpriteImg.src = "./assets/media/deathmark.png";
+		nameAreaLi.textContent = '';
+		bioAreaEl.textContent = '';
+		raceLiEl.textContent = '';
+		classLiEl.textContent = '';
+		levelLi.textContent = '';
+		xpLi.textContent = '';
+		const mainSpriteImg = document.getElementById('main-sprite');
+		mainSpriteImg.src = './assets/media/deathmark.png';
 	} else {
 		return;
 	}
@@ -597,6 +640,10 @@ modalMagicBtn.addEventListener('click', function (event) {
 		setTimeout(monsterAttackRoll, 5000);
 	}
 });
+startBtn.on('click', function (event) {
+	event.preventDefault();
+	gameStart();
+});
 
 battleStart.addEventListener('click', function (event) {
 	combatLog.textContent = `It's too quiet here... SCREEEE!`;
@@ -638,8 +685,8 @@ closeBattle.addEventListener('click', function (event) {
 	nextLevel();
 	savePlayer();
 	levelFunction();
-	modalInitBtn.style.display = "none"
-	modalAttackBtn.style.display = "none"
+	modalInitBtn.style.display = 'none';
+	modalAttackBtn.style.display = 'none';
 	isCombat = false;
 	console.log(isCombat);
 	console.log('You have left the battle!');
@@ -652,14 +699,13 @@ closeBattle.addEventListener('click', function (event) {
 	// }
 });
 
-
 //local storage player stat functions
 
 //local storage functions
 //saves character to local storage
 function savePlayer() {
 	saveToCurrentStats();
-	localStorage.setItem("playerStats", JSON.stringify(currentPlayerStats))
+	localStorage.setItem('playerStats', JSON.stringify(currentPlayerStats));
 	displayCurrentPlayerStats();
 	levelFunction();
 }
@@ -671,7 +717,6 @@ function loadPlayer() {
 	currentPlayerStats = loadedPlayerStats;
 	displayCurrentPlayerStats();
 	currentPlayerStatSet();
-	
 }
 
 //displays continue button on the page
@@ -687,7 +732,7 @@ continueBtn.addEventListener('click', function (event) {
 	loadPlayer();
 	nextLevel();
 	levelFunction();
-})
+});
 
 savCharBtn.on('click', function (event) {
 	// on submission of character creation, set values in the aside
@@ -703,11 +748,11 @@ savCharBtn.on('click', function (event) {
 		playerBio = bioInputEl.val();
 		playerHP = 100;
 		playerXP = 100;
-		attackBonus = 
-		//saves to character array for localStorage
-		savePlayer();
+		attackBonus =
+			//saves to character array for localStorage
+			savePlayer();
 		nextLevel();
-		levelFunction ();
+		levelFunction();
 	}
 });
 
@@ -728,46 +773,46 @@ function displayCurrentPlayerStats() {
 	classLiEl.text(`Class: ${currentPlayerStats[0].Class}`);
 	bioAreaEl.val(`${currentPlayerStats[0].Bio}`);
 	hpLiEl.text(`HP: ${currentPlayerStats[0].HP}`);
-	xpLi.text(`XP: ${currentPlayerStats[0].XP}`)
+	xpLi.text(`XP: ${currentPlayerStats[0].XP}`);
 }
 
 //sets global variables to saved character stats on character load
-function currentPlayerStatSet (){
-	playerName = currentPlayerStats[0].Name
-	playerRace = currentPlayerStats[0].Race
-	playerClass = currentPlayerStats[0].Class
-	playerXP = currentPlayerStats[0].XP
-	playerHP = currentPlayerStats[0].HP
-	playerBio = currentPlayerStats[0].Bio
-	playerLevel = currentPlayerStats[0].Level
+function currentPlayerStatSet() {
+	playerName = currentPlayerStats[0].Name;
+	playerRace = currentPlayerStats[0].Race;
+	playerClass = currentPlayerStats[0].Class;
+	playerXP = currentPlayerStats[0].XP;
+	playerHP = currentPlayerStats[0].HP;
+	playerBio = currentPlayerStats[0].Bio;
+	playerLevel = currentPlayerStats[0].Level;
 }
 
 //function for loading player level and status from HP
-function levelFunction (){
-	playerDexterity=playerLevel+3
-	playerStrength=playerLevel+4
+function levelFunction() {
+	playerDexterity = playerLevel + 3;
+	playerStrength = playerLevel + 4;
 	attackBonus = playerLevel + playerStrength;
 }
 
-function nextLevel (){
-	var nextLevel = (Math.pow(playerXP, 0.5)/5)-1;
+function nextLevel() {
+	var nextLevel = Math.pow(playerXP, 0.5) / 5 - 1;
 	playerLevel = Math.floor(nextLevel);
-	currentPlayerStats[0].Level = playerLevel
+	currentPlayerStats[0].Level = playerLevel;
 	levelLi.text(`Level: ${playerLevel}`);
 }
 
 // jukebox play random song event listener
-function playAudio (){
-	let i = Math.floor(Math.random() * soundtrack.length)
-		jukebox.src = soundtrack[i];
-		jukebox.play();
-	  }
+function playAudio() {
+	let i = Math.floor(Math.random() * soundtrack.length);
+	jukebox.src = soundtrack[i];
+	jukebox.play();
+}
 
 playAudioBtn.addEventListener('click', function (event) {
 	event.preventDefault();
 	playAudio();
 });
 
-$("#jukebox").bind("ended", function() {
-    playAudio;
+$('#jukebox').bind('ended', function () {
+	playAudio;
 });
