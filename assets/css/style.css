@@ -75,18 +75,18 @@ header {
 	display: block;
 }
 #traveler1 {
-	margin-top: 510px;
-	margin-left: 370px;
+	top:72%;
+	left: 37%;
 }
 #traveler2 {
-	margin-top: 330px;
-	margin-left: 370px;
+	top:50%;
+	left: 37%;
 }
 #traveler3 {
-	margin-top: 230px;
-	margin-left: 135px;
+	top:40%;
+	left: 18%;
 }
 #traveler4 {
-	margin-top: 70px;
-	margin-left: 500px;
+	top:10%;
+	left: 56%;
 }
