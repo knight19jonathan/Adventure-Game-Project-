@@ -772,28 +772,25 @@ function runCombat() {
 }
 
 function evalClass() {
-	setTimeout(function () {
+	// setTimeout(function () {
 		if (playerClass == 'Wizard' && spellSlots > 0) {
 			console.log('Wizard has', spellSlots, 'spell slots');
 			modalMagicBtn.style.display = 'inline-block';
-
 			modalFleeBtn.style.display = 'inline-block';
 			//document.createElement('li')
 			//trying to append new li to battle modal player stats ul with # of spell slots
 		} else if (playerClass == 'Rogue') {
 			modalSneakBtn.style.display = 'inline-block';
 			modalMagicBtn.style.display = 'none';
-
 			modalFleeBtn.style.display = 'inline-block';
 		} else {
 			modalSneakAttackBtn.style.display = 'none';
 			modalMagicBtn.style.display = 'none';
 			modalSneakBtn.style.display = 'none';
-
 			modalFleeBtn.style.display = 'inline-block';
 		}
 		console.log(playerClass);
-	}, 1700)
+	// }, 1700)
 };
 
 modalSneakAttackBtn.addEventListener('click', function (event) {
