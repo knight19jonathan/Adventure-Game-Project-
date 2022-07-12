@@ -694,10 +694,10 @@ function healscript() {
 		quoteLog.text(`You are already at full health!`);
 		console.log('You are already at full health');
 
-	} else if ((playerHP + 15) < playerMaxHp) {
-		playerHP = playerHP + 15;
-		quoteLog.text(`You heal yourself!`);
-		console.log('you heal yourself!');
+	// } else if ((playerHP + 30) < playerMaxHp) {
+	// 	playerHP = playerHP + 30;
+	// 	quoteLog.text(`You heal yourself!`);
+	// 	console.log('you heal yourself!');
 	} else {
 		playerHP = playerMaxHp;
 		quoteLog.text(`You heal yourself to full health!`);
@@ -961,7 +961,7 @@ savCharBtn.on('click', function (event) {
 campFire.on('click', function (event) {
 	//event.preventDefault();
 	//console.log(playerName);
-	if (playerName !== "") {
+	if (playerClass !== "") {
 		setTimeout(function () {
 			console.log(`You light a fire!`);
 			spellSlotrecovery();
@@ -1018,7 +1018,7 @@ function levelFunction() {
 	playerDexterity = playerLevel + 3;
 	playerStrength = playerLevel + 4;
 	attackBonus = playerLevel + playerStrength;
-	//playerHP = playerMaxHp;
+	playerMaxHp = (playerLevel-1) * 10 + 100;
 	if (playerClass == 'Wizard') {
 		spellSlots = 2;
 	}
