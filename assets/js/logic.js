@@ -355,6 +355,8 @@ function randomMonsterFetch() {
 					if (monsterStats.challenge_rating > playerLevel + 3) {
 						//set monster level cap related to playerlevel
 						randomMonsterFetch();
+					} else if (monsterStats.challenge_rating < playerLevel - 4 && monsterStats.challenge_rating < 30){
+						randomMonsterFetch();//set monster level floor related to playerlevel
 					} else {
 						//assign monster stats to variables
 						monsterName = monsterStats.name;
@@ -377,7 +379,7 @@ function randomMonsterFetch() {
 						}
 					}
 				});
-});
+		});
 }
 
 //////////////////////////////
@@ -788,14 +790,12 @@ function evalClass() {
 			modalMagicBtn.style.display = 'none';
 			modalFleeBtn.style.display = 'inline-block';
 			console.log("BUGHUNT");
-			modalAttackBtn.style.display = 'inline-block';
 		} else {
 			modalSneakAttackBtn.style.display = 'none';
 			modalMagicBtn.style.display = 'none';
 			modalSneakBtn.style.display = 'none';
 			modalFleeBtn.style.display = 'inline-block';
 			console.log("BUGHUNT");
-			modalAttackBtn.style.display = 'inline-block';
 		}
 		console.log(playerClass);
 	 }, 1700)
