@@ -61,7 +61,7 @@ Async JS became the main bug throughout the rest of the project.  Our code was f
 
 ## Screenshot
 
-![]()
+![Screenshot of the deployed application](./assets/media/DnDMachineScreenshot.png)
 
 
 
