@@ -106,6 +106,7 @@ var savedMonsterAction = JSON.parse(localStorage.getItem('monsterAction')); // m
 var savedPlayerAction = JSON.parse(localStorage.getItem('playerAction')); // Players latest action in local storage
 //buttons
 var characterGenBtn = document.querySelector('#new-character');
+var newCharBtn = $('#new-character');
 var continueBtn = document.querySelector('#continue-btn');
 var modalAttackBtn = document.querySelector('#attack-button');
 var modalInitBtn = document.querySelector('#init-button');
@@ -115,6 +116,7 @@ var modalSneakBtn = document.querySelector('#sneak-button');
 var modalSneakAttackBtn = document.querySelector('#sneak-attack-button');
 var campFire = $('#camp-fire');
 var campCount = 0;
+var battleModals = $('.waves-green');
 
 //classes
 //var classChoice = document.getElementById("#class-input");
@@ -418,53 +420,6 @@ function startcombat() {
 
 //render battleBox stats
 
-function runCombat() {
-	BattleStats();
-	spellSlotManager();
-	if (fleeCounter > 2) {
-		modalFleeBtn.style.display = 'none';
-	}
-	if (playerHP <= 0) {
-		isCombat = false;
-		playerHpBar.style.width = `${0}%`;
-		console.log('You have perished!');
-		combatLog.textContent = `You have perished! You were killed by a ${monsterName}. Click the close button to create a new character and try again!`;
-		modalAttackBtn.style.display = 'none';
-		modalFleeBtn.style.display = 'none';
-		modalMagicBtn.style.display = 'none';
-		modalSneakBtn.style.display = 'none';
-		const playerSpriteImg = document.getElementById('player-sprite');
-		playerSpriteImg.src = './assets/media/nerdRage.gif';
-		closeBattle.style.display = 'inline-block';
-		// clear character local storage would you like to play again?
-		//playerDeath(); //call function to reset character stats
-	} else if (monsterHitPoints <= 0) {
-		isCombat = false;
-		enemyHpBar.style.width = `${0}%`;
-		console.log('The monster is slain! It will trouble you no more.');
-		playerXP = playerXP + monsterXP;
-		combatLog.textContent = `You have slain the ${monsterName}! You gain ${monsterXP} XP! Close this window to continue.`;
-		console.log('You gained', monsterXP, 'XP!');
-		console.log('Current XP:', playerXP);
-		modalAttackBtn.style.display = 'none';
-		modalFleeBtn.style.display = 'none';
-		modalMagicBtn.style.display = 'none';
-		modalSneakBtn.style.display = 'none';
-		closeBattle.style.display = 'inline-block';
-		const monsterSpriteImg = document.getElementById('monster-sprite');
-		monsterSpriteImg.src = './assets/media/skeleton.png';
-	} else {
-		isCombat = true;
-		console.log('still in combat');
-		modalAttackBtn.style.display = 'block';
-		modalAttackBtn.style.display = 'inline-block';
-		modalFleeBtn.style.display = 'inline-block';
-		evalClass();
-		evalFleeCount();
-		//combatLog.textContent = `You are still alive somehow!`
-	}
-}
-
 function evalFleeCount() {
 	if (fleeCounter > 2) {
 		combatLog.textContent = `You have tried to flee too many times!`;
@@ -497,6 +452,11 @@ function playerDeath() {
 //combat functions
 function attackRoll() {
 	let roll = diceRoll();
+	modalMagicBtn.style.display = 'none';
+	modalAttackBtn.style.display = 'none';
+	modalFleeBtn.style.display = 'none';
+	//modalMagicBtn.style.display = 'none';
+	modalSneakBtn.style.display = 'none';
 	//let armorClass = 10
 	// modalAttackBtn.style.display = 'none';
 	if (roll == 20) {
@@ -598,10 +558,12 @@ function fleeBattle() {
 		console.log('A dire failure!', roll);
 		combatLog.textContent = `Running eh? You spineless cretin you've left yourself wide open!!`;
 		setTimeout(monsterAttackRoll(), 2500);
+		setTimeout(runCombat(), 3000);
 	} else if (sneaking == true) {
 		console.log("You sneak away! You're a sneaky one!", fleeRoll);
 		combatLog.textContent = `You distract your for easily and and slip away in the shadows of the forest leaving them wondering if you ever really there. Click Close to continue on your journey! You're getting a little better at giving your foe the slip!`;
-		playerXP = playerXP + Math.Ceil(monsterXP / 10);
+		playerXP = playerXP + Math.ceil(monsterXP / 10);
+		console.log('Player XP:', playerXP);
 		modalAttackBtn.style.display = 'none';
 		modalFleeBtn.style.display = 'none';
 		modalMagicBtn.style.display = 'none';
@@ -625,21 +587,6 @@ function fleeBattle() {
 	}
 	localStorage.setItem('playerAction', JSON.stringify(combatLog.textContent));
 	BattleStats();
-}
-
-function evalClass() {
-	if (playerClass == 'Wizard') {
-		console.log('Wizard has', spellSlots, 'spell slots');
-		modalMagicBtn.style.display = 'inline-block';
-		//document.createElement('li')
-		//trying to append new li to battle modal player stats ul with # of spell slots
-	} else if (playerClass == 'Rogue') {
-		modalSneakBtn.style.display = 'inline-block';
-	} else {
-		modalSneakAttackBtn.style.display = 'none';
-		modalMagicBtn.style.display = 'none';
-		modalSneakBtn.style.display = 'none';
-	}
 }
 
 function sneak() {
@@ -677,6 +624,7 @@ function sneakAttack() {
 		combatLog.textContent = `You sneak attack the foe, delvering a blow while they couldn't see you!`;
 		isCombat = true;
 		sneakAtkDmg = Math.floor((diceRoll() + playerDexterity) * 1.5);
+		monsterHitPoints = monsterHitPoints - sneakAtkDmg;
 		console.log('Sneak attack damage:', sneakAtkDmg);
 		setTimeout(runCombat(), 2500);
 	} else {
@@ -690,11 +638,12 @@ function sneakAttack() {
 }
 
 function castMagic() {
+	let spellRoll = diceRoll();
 	modalAttackBtn.style.display = 'none';
 	modalFleeBtn.style.display = 'none';
 	modalMagicBtn.style.display = 'none';
 	modalSneakBtn.style.display = 'none';
-	let spellRoll = diceRoll();
+
 	if (spellRoll == 20) {
 		monsterHitPoints = 0;
 		combatLog.textContent = `You cast a spell!
@@ -725,12 +674,16 @@ function castMagic() {
 	}
 }
 
-function spellSlotManager() {
-	if (spellSlots <= 0) {
-		modalMagicBtn.style.display = 'none';
-		console.log('No spell slots left');
-	}
-}
+// function spellSlotManager() {
+// 	if (spellSlots <= 0) {
+// 		modalMagicBtn.style.display = 'none';
+
+// 		console.log('You have no spell slots left!');
+// 	} else (spellSlots > 1); {
+// 		//modalMagicBtn.style.display = 'inline-block';
+// 		console.log('You have', spellSlots, 'spell slots left!');
+// 	}
+// }
 
 function healscript() {
 	if (playerHP <= 100) {
@@ -744,6 +697,71 @@ function healscript() {
 function spellSlotrecovery() {
 	spellSlots = spellSlots + 1;
 	console.log('Spell slots:', spellSlots);
+}
+
+function runCombat() {
+	BattleStats();
+	if (playerHP <= 0) {
+		isCombat = false;
+		playerHpBar.style.width = `${0}%`;
+		console.log('You have perished!');
+		combatLog.textContent = `You have perished! You were killed by a ${monsterName}. Click the close button to create a new character and try again!`;
+		modalAttackBtn.style.display = 'none';
+		modalFleeBtn.style.display = 'none';
+		modalMagicBtn.style.display = 'none';
+		modalSneakBtn.style.display = 'none';
+		const playerSpriteImg = document.getElementById('player-sprite');
+		playerSpriteImg.src = './assets/media/nerdRage.gif';
+		closeBattle.style.display = 'inline-block';
+		// clear character local storage would you like to play again?
+		//playerDeath(); //call function to reset character stats
+	} else if (monsterHitPoints <= 0) {
+		isCombat = false;
+		enemyHpBar.style.width = `${0}%`;
+		console.log('The monster is slain! It will trouble you no more.');
+		playerXP = playerXP + monsterXP;
+		combatLog.textContent = `You have slain the ${monsterName}! You gain ${monsterXP} XP! Close this window to continue.`;
+		console.log('You gained', monsterXP, 'XP!');
+		console.log('Current XP:', playerXP);
+		modalAttackBtn.style.display = 'none';
+		modalFleeBtn.style.display = 'none';
+		modalMagicBtn.style.display = 'none';
+		modalSneakBtn.style.display = 'none';
+		closeBattle.style.display = 'inline-block';
+		const monsterSpriteImg = document.getElementById('monster-sprite');
+		monsterSpriteImg.src = './assets/media/skeleton.png';
+	} else {
+		isCombat = true;
+		console.log('still in combat');
+		//modalAttackBtn.style.display = 'block';
+		modalAttackBtn.style.display = 'inline-block';
+		modalFleeBtn.style.display = 'inline-block';
+
+		//evalClass();
+		setTimeout(evalClass(), 3000);
+		//setTimeout(spellSlotManager(), 3000);
+		evalFleeCount();
+		if (fleeCounter > 2) {
+			modalFleeBtn.style.display = 'none';
+		}
+		//combatLog.textContent = `You are still alive somehow!`
+	}
+}
+
+function evalClass() {
+	if (playerClass == 'Wizard' && spellSlots > 0) {
+		console.log('Wizard has', spellSlots, 'spell slots');
+		modalMagicBtn.style.display = 'inline-block';
+		//document.createElement('li')
+		//trying to append new li to battle modal player stats ul with # of spell slots
+	} else if (playerClass == 'Rogue') {
+		modalSneakBtn.style.display = 'inline-block';
+		modalMagicBtn.style.display = 'none';
+	} else {
+		modalSneakAttackBtn.style.display = 'none';
+		modalMagicBtn.style.display = 'none';
+		modalSneakBtn.style.display = 'none';
+	}
 }
 
 modalSneakAttackBtn.addEventListener('click', function (event) {
@@ -775,9 +793,9 @@ modalFleeBtn.addEventListener('click', function (event) {
 modalMagicBtn.addEventListener('click', function (event) {
 	event.preventDefault();
 	combatLog.textContent = `Attempting to cast a spell eh?!`;
-	setTimeout(castMagic(), 2500);
+	setTimeout(castMagic(), 1500);
 	if (isCombat === true) {
-		setTimeout(monsterAttackRoll, 5000);
+		setTimeout(monsterAttackRoll, 4000);
 	}
 });
 
@@ -870,6 +888,10 @@ function loadSavedCharacters() {
 	}
 }
 
+function resetFlee() {
+	fleeCounter = 0;
+}
+
 //continue button event listener
 continueBtn.addEventListener('click', function (event) {
 	event.preventDefault();
@@ -878,6 +900,7 @@ continueBtn.addEventListener('click', function (event) {
 	levelFunction();
 	isThereAChar();
 	continueBtn.style.display = 'none';
+	battleStart.style.display = 'none';
 });
 
 savCharBtn.on('click', function (event) {
@@ -911,6 +934,7 @@ campFire.on('click', function (event) {
 	spellSlotManager();
 	healscript();
 	displayCurrentPlayerStats();
+	resetFlee();
 	campFire.hide();
 });
 
@@ -950,6 +974,10 @@ function levelFunction() {
 	playerDexterity = playerLevel + 3;
 	playerStrength = playerLevel + 4;
 	attackBonus = playerLevel + playerStrength;
+	//playerHP = playerMaxHp;
+	if (playerClass == 'Wizard') {
+		spellSlots = 2;
+	}
 }
 
 function nextLevel() {
@@ -981,4 +1009,9 @@ playAudioBtn.addEventListener('click', function (event) {
 
 $('#jukebox').bind('ended', function () {
 	playAudio;
+});
+
+newCharBtn.on('click', function () {
+	startBtn.hide();
+	battleStart.style.display = 'none';
 });
