@@ -308,7 +308,7 @@ function BattleStats() {
 	}
 	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
 	battleBoxAttackBonus.textContent = `Attack Bonus: ${attackBonus}`;
-	playerHpBar.style.width = `${playerHP}%`;
+	playerHpBar.style.width = `${100 * playerHP / playerMaxHp}%`;
 	battleBoxPlayerAC.textContent = `Armor Class: ${playerArmorClass}`;
 	battleBoxMonsterName.textContent = `${monsterName}`;
 	battleBoxMonsterHP.textContent = `HP: ${monsterHitPoints}`;
@@ -363,20 +363,21 @@ function randomMonsterFetch() {
 						monsterHpMax = monsterStats.hit_points;
 						monsterXP = monsterStats.xp;
 						monsterCR = monsterStats.challenge_rating;
-						monsterAttack = monsterStats.actions[0].attack_bonus;
-						if (monsterAttack == null) {
-							monsterAttack = Math.ceil(Math.random() * 6) + -1;
-							console.log(monsterAttack);
-						} // works for everthing but 'sea horse need to splice it from monsters array
-						monsterDexterity = monsterStats.dexterity;
-						monsterStrength = monsterStats.strength;
-						logMonster();
-						BattleStats();
-						combatLog.textContent = `A ${monsterName} appears!`;
-						modalInitBtn.style.display = 'block';
+						if (monsterStats.actions[0].attack_bonus == undefined) { //get new enemy if attack bonus is empty
+							randomMonsterFetch()
+						} else {
+
+							monsterAttack = monsterStats.actions[0].attack_bonus;
+							monsterDexterity = monsterStats.dexterity;
+							monsterStrength = monsterStats.strength;
+							logMonster();
+							BattleStats();
+							combatLog.textContent = `A ${monsterName} appears!`;
+							modalInitBtn.style.display = 'block';
+						}
 					}
 				});
-		});
+});
 }
 
 //////////////////////////////
@@ -396,13 +397,13 @@ function startcombat() {
 	let playerInit = diceRoll() + playerDexterity; // get player initiative roll
 	console.log('PlDex:', playerDexterity);
 	console.log('Player Init:', playerInit);
-	
+
 	let monsterInit = diceRoll() + Math.floor(monsterDexterity / 2); // get enemy initiative roll
 	console.log('MonsterDex:', monsterDexterity);
 	console.log('Monster Init:', monsterInit);
-	
+
 	combatLog.textContent = `You jump into the fight and roll a ${playerInit} and the attacker replies with a ${monsterInit}`;
-	
+
 	modalInitBtn.style.display = 'none';
 	modalAttackBtn.style.display = 'none';
 
@@ -427,11 +428,11 @@ function startcombat() {
 
 function evalFleeCount() {
 	setTimeout(function () {
-	if (fleeCounter > 2) {
-		combatLog.textContent = `You have tried to flee too many times!`;
-		modalFleeBtn.style.display = 'none';
-	}
-}, 2550);
+		if (fleeCounter > 2) {
+			combatLog.textContent = `You have tried to flee too many times!`;
+			modalFleeBtn.style.display = 'none';
+		}
+	}, 2550);
 }
 
 function playerDeath() {
@@ -529,9 +530,8 @@ function monsterAttackRoll() {
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
 		combatLog.textContent = `The monster attacks...
-        ... dealing a savage blow, ${
-					monAtkRoll + monsterAttack
-				} to hit, and deals ${damage} damage to your HP!`;
+        ... dealing a savage blow, ${monAtkRoll + monsterAttack
+			} to hit, and deals ${damage} damage to your HP!`;
 		setTimeout(runCombat(), 2500);
 	} else {
 		combatLog.textContent = `The monster attacks...
@@ -593,11 +593,11 @@ function fleeBattle() {
 
 function hideModalButtonsDuringMonsterAttack() {
 	setTimeout(function () {
-	modalAttackBtn.style.display = 'none';
-	modalFleeBtn.style.display = 'none';
-	modalMagicBtn.style.display = 'none';
-	modalSneakBtn.style.display = 'none';
-	modalSneakAttackBtn.style.display = 'none';
+		modalAttackBtn.style.display = 'none';
+		modalFleeBtn.style.display = 'none';
+		modalMagicBtn.style.display = 'none';
+		modalSneakBtn.style.display = 'none';
+		modalSneakAttackBtn.style.display = 'none';
 	}, 100);
 }
 
@@ -612,7 +612,7 @@ function sneak() {
 			modalFleeBtn.style.display = 'inline-block'
 			modalSneakAttackBtn.style.display = 'inline-block'
 		}, 1000);
-		
+
 		isCombat = false;
 	} else {
 		console.log('Sneak failure!', sneakRoll);
@@ -694,17 +694,17 @@ function healscript() {
 		quoteLog.text(`You are already at full health!`);
 		console.log('You are already at full health');
 
-	// } else if ((playerHP + 30) < playerMaxHp) {
-	// 	playerHP = playerHP + 30;
-	// 	quoteLog.text(`You heal yourself!`);
-	// 	console.log('you heal yourself!');
+		// } else if ((playerHP + 30) < playerMaxHp) {
+		// 	playerHP = playerHP + 30;
+		// 	quoteLog.text(`You heal yourself!`);
+		// 	console.log('you heal yourself!');
 	} else {
 		playerHP = playerMaxHp;
 		quoteLog.text(`You heal yourself to full health!`);
 		console.log('You heal yourself to full health!')
 	}
-	
-	
+
+
 	// if (playerHP <= playerMaxHp) {
 	// 	playerHP = playerHP + 15;
 	// 	quoteLog.text(`You heal yourself!`);
@@ -726,10 +726,11 @@ function runCombat() {
 		console.log('You have perished!');
 		combatLog.textContent = `You have perished! You were killed by a ${monsterName}. Click the close button to create a new character and try again!`;
 		setTimeout(function () {
-		modalAttackBtn.style.display = 'none';
-		modalFleeBtn.style.display = 'none';
-		modalMagicBtn.style.display = 'none';
-		modalSneakBtn.style.display = 'none';}, 100);
+			modalAttackBtn.style.display = 'none';
+			modalFleeBtn.style.display = 'none';
+			modalMagicBtn.style.display = 'none';
+			modalSneakBtn.style.display = 'none';
+		}, 100);
 		const playerSpriteImg = document.getElementById('player-sprite');
 		playerSpriteImg.src = './assets/media/nerdRage.gif';
 		closeBattle.style.display = 'inline-block';
@@ -744,10 +745,11 @@ function runCombat() {
 		console.log('You gained', monsterXP, 'XP!');
 		console.log('Current XP:', playerXP);
 		setTimeout(function () {
-		modalAttackBtn.style.display = 'none';
-		modalFleeBtn.style.display = 'none';
-		modalMagicBtn.style.display = 'none';
-		modalSneakBtn.style.display = 'none';}, 100);
+			modalAttackBtn.style.display = 'none';
+			modalFleeBtn.style.display = 'none';
+			modalMagicBtn.style.display = 'none';
+			modalSneakBtn.style.display = 'none';
+		}, 100);
 		closeBattle.style.display = 'inline-block';
 		const monsterSpriteImg = document.getElementById('monster-sprite');
 		monsterSpriteImg.src = './assets/media/skeleton.png';
@@ -757,7 +759,7 @@ function runCombat() {
 		//modalAttackBtn.style.display = 'block';
 		// modalAttackBtn.style.display = 'inline-block';
 		// modalFleeBtn.style.display = 'inline-block';
-		
+
 		setTimeout(evalClass(), 1800);
 		//setTimeout(spellSlotManager(), 3000);
 		setTimeout(evalFleeCount(), 2000);
@@ -769,28 +771,28 @@ function runCombat() {
 }
 
 function evalClass() {
-	setTimeout ( function() {
-	if (playerClass == 'Wizard' && spellSlots > 0) {
-		console.log('Wizard has', spellSlots, 'spell slots');
-		modalMagicBtn.style.display = 'inline-block';
-		modalAttackBtn.style.display = 'inline-block'
-		modalFleeBtn.style.display = 'inline-block';
-		//document.createElement('li')
-		//trying to append new li to battle modal player stats ul with # of spell slots
-	} else if (playerClass == 'Rogue') {
-		modalSneakBtn.style.display = 'inline-block';
-		modalMagicBtn.style.display = 'none';
-		modalAttackBtn.style.display = 'inline-block'
-		modalFleeBtn.style.display = 'inline-block';
-	} else {
-		modalSneakAttackBtn.style.display = 'none';
-		modalMagicBtn.style.display = 'none';
-		modalSneakBtn.style.display = 'none';
-		modalAttackBtn.style.display = 'inline-block'
-		modalFleeBtn.style.display = 'inline-block';
-	}
-	console.log(playerClass);
-}, 1700)
+	setTimeout(function () {
+		if (playerClass == 'Wizard' && spellSlots > 0) {
+			console.log('Wizard has', spellSlots, 'spell slots');
+			modalMagicBtn.style.display = 'inline-block';
+			modalAttackBtn.style.display = 'inline-block'
+			modalFleeBtn.style.display = 'inline-block';
+			//document.createElement('li')
+			//trying to append new li to battle modal player stats ul with # of spell slots
+		} else if (playerClass == 'Rogue') {
+			modalSneakBtn.style.display = 'inline-block';
+			modalMagicBtn.style.display = 'none';
+			modalAttackBtn.style.display = 'inline-block'
+			modalFleeBtn.style.display = 'inline-block';
+		} else {
+			modalSneakAttackBtn.style.display = 'none';
+			modalMagicBtn.style.display = 'none';
+			modalSneakBtn.style.display = 'none';
+			modalAttackBtn.style.display = 'inline-block'
+			modalFleeBtn.style.display = 'inline-block';
+		}
+		console.log(playerClass);
+	}, 1700)
 };
 
 modalSneakAttackBtn.addEventListener('click', function (event) {
@@ -846,7 +848,7 @@ battleStart.addEventListener('click', function (event) {
 	console.log(isCombat);
 	//spellSlots++;
 	hideModalButtonsDuringMonsterAttack()
-	
+
 	closeBattle.style.display = 'none';
 	let fleeCounter = 0;
 	console.log("Flee Count:", fleeCounter);
@@ -918,7 +920,7 @@ function loadSavedCharacters() {
 
 function resetFlee() {
 	setInterval(function () {
-	fleeCounter = 0;
+		fleeCounter = 0;
 	}, 1000);
 }
 
@@ -975,10 +977,12 @@ campFire.on('click', function (event) {
 			resetFlee();
 			console.log(`You have ${spellSlots} spell slots left`);
 			console.log("Courage comes back to you and your stamina; Flee counter reset", fleeCounter);
-			campFire.hide();}, 500)} 
-			else {
-				return;
-				}
+			campFire.hide();
+		}, 500)
+	}
+	else {
+		return;
+	}
 });
 
 
@@ -1018,7 +1022,7 @@ function levelFunction() {
 	playerDexterity = playerLevel + 3;
 	playerStrength = playerLevel + 4;
 	attackBonus = playerLevel + playerStrength;
-	playerMaxHp = (playerLevel-1) * 10 + 100;
+	playerMaxHp = (playerLevel - 1) * 10 + 100;
 	if (playerClass == 'Wizard') {
 		spellSlots = 2;
 	}
@@ -1056,7 +1060,7 @@ $('#jukebox').bind('ended', function () {
 });
 
 
-newCharBtn.on("click", function(){
+newCharBtn.on("click", function () {
 	startBtn.hide()
 	resetFlee();
 	battleStart.style.display = "none";
