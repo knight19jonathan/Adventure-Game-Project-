@@ -78,7 +78,6 @@ var playerStrength = 4; //4 for fighter, 1 for thief, -1 for wizard
 var closeBattle = document.querySelector('#battleClose');
 var playerLevel;
 var playerXP;
-var playerMaxHp = '';
 
 // combat script items
 var battleStart = document.querySelector('#start-battle');
@@ -107,7 +106,7 @@ var savedMonsterAction = JSON.parse(localStorage.getItem('monsterAction')); // m
 var savedPlayerAction = JSON.parse(localStorage.getItem('playerAction')); // Players latest action in local storage
 //buttons
 var characterGenBtn = document.querySelector('#new-character');
-var newCharBtn =  $("#new-character")
+var newCharBtn = $('#new-character');
 var continueBtn = document.querySelector('#continue-btn');
 var modalAttackBtn = document.querySelector('#attack-button');
 var modalInitBtn = document.querySelector('#init-button');
@@ -117,7 +116,7 @@ var modalSneakBtn = document.querySelector('#sneak-button');
 var modalSneakAttackBtn = document.querySelector('#sneak-attack-button');
 var campFire = $('#camp-fire');
 var campCount = 0;
-var battleModals = $('.waves-green')
+var battleModals = $('.waves-green');
 
 //classes
 //var classChoice = document.getElementById("#class-input");
@@ -144,12 +143,27 @@ var attackBonusLiEl = $('#atkBnsLi');
 //grab map and story elements
 var traveler1 = $('#traveler1');
 var startBtn = $('#start-game');
-isThereAChar() //hide start game on page load
+var btnAct2 = $('#travel-act2');
+var btnAct3 = $('#travel-act3');
+var btnAct4 = $('#travel-act4');
+var act = 0;
+
+isThereAChar(); //hide start game on page load
 $('#traveler1').hide();
 $('#traveler2').hide();
 $('#traveler3').hide();
 $('#traveler4').hide();
 $('#text1').hide();
+$('#text2').hide();
+$('#text3').hide();
+$('#text4').hide();
+$('#text5').hide();
+$('#text6').hide();
+$('#text7').hide();
+$('#text8').hide();
+$('#travel-act2').hide();
+$('#travel-act3').hide();
+$('#travel-act4').hide();
 var levelLi = $('#levelLi');
 var xpLi = $('#xpLi');
 
@@ -164,16 +178,91 @@ function gameStart() {
 	$('#text1').show();
 	startBtn.hide();
 }
+function act1end() {
+	// hide previous
+	$('#start-battle').hide();
+	$('#text1').hide();
+	// show current
+	$('#text2').show();
+	$('#travel-act2').show();
+}
+function act2start() {
+	$('#traveler1').hide();
+	$('#travel-act2').hide();
+	$('#text2').hide();
 
-function isThereAChar(){
-	if (playerClass !== ''){
-		startBtn.show()
-	}else {
-		startBtn.hide()
+	$('#traveler2').show();
+	$('#text3').show();
+	$('#start-battle').show();
+}
+function act2end() {
+	$('#start-battle').hide();
+	$('#text3').hide();
+	$('#text4').show();
+	$('#travel-act3').show();
+}
+function act3start() {
+	$('#traveler2').hide();
+	$('#text4').hide();
+	$('#travel-act3').hide();
+	$('#start-battle').show();
+	$('#traveler3').show();
+	$('#text5').show();
+}
+function act3end() {
+	$('#text5').hide();
+	$('#start-battle').hide();
+	$('#travel-act4').show();
+	$('#text6').show();
+}
+function act4start() {
+	$('#travel-act4').hide();
+	$('#text6').hide();
+	$('#traveler3').hide();
+	$('#start-battle').show();
+	$('#traveler4').show();
+	$('#text7').show();
+}
+function act4end() {
+	$('#text7').hide();
+	$('#vecna').hide();
+	$('#text8').show();
+}
+btnAct2.on('click', function (event) {
+	event.preventDefault();
+	act2start();
+});
+btnAct3.on('click', function (event) {
+	event.preventDefault();
+	act3start();
+});
+btnAct4.on('click', function (event) {
+	event.preventDefault();
+	act4start();
+});
 
+function isThereAChar() {
+	if (playerClass !== '') {
+		startBtn.show();
+	} else {
+		startBtn.hide();
 	}
 }
-
+// var actEndArr = [act1end, act2end, act3end, act4end];
+function nextAct() {
+	if (act == 1) {
+		act1end();
+	}
+	if (act == 2) {
+		act2end();
+	}
+	if (act == 3) {
+		act3end();
+	}
+	if (act == 4) {
+		act4end();
+	}
+}
 //
 
 //set content of text boxes in battle modal
@@ -219,8 +308,7 @@ function BattleStats() {
 	}
 	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
 	battleBoxAttackBonus.textContent = `Attack Bonus: ${attackBonus}`;
-	console.log("Max Hp: " + playerMaxHp);
-	playerHpBar.style.width = `${(playerHP / playerMaxHp) * 100}%`;
+	playerHpBar.style.width = `${playerHP}%`;
 	battleBoxPlayerAC.textContent = `Armor Class: ${playerArmorClass}`;
 	battleBoxMonsterName.textContent = `${monsterName}`;
 	battleBoxMonsterHP.textContent = `HP: ${monsterHitPoints}`;
@@ -336,7 +424,6 @@ function startcombat() {
 }
 
 //render battleBox stats
-
 
 function evalFleeCount() {
 	setTimeout(function () {
@@ -627,10 +714,9 @@ function healscript() {
 }
 
 function spellSlotrecovery() {
-	spellSlots = spellSlots + playerLevel;
+	spellSlots = spellSlots + 1;
 	console.log('Spell slots:', spellSlots);
 }
-
 
 function runCombat() {
 	BattleStats();
@@ -795,6 +881,8 @@ closeBattle.addEventListener('click', function (event) {
 	console.log('Current Player HP', playerHP);
 	campFire.show();
 	playerDeath();
+	act++;
+	nextAct();
 
 	// else {
 	// 	savePlayer();
@@ -809,7 +897,7 @@ function savePlayer() {
 	saveToCurrentStats();
 	localStorage.setItem('playerStats', JSON.stringify(currentPlayerStats));
 	displayCurrentPlayerStats();
-	
+	levelFunction();
 }
 
 //loads character from local storage
@@ -842,15 +930,16 @@ continueBtn.addEventListener('click', function (event) {
 	levelFunction();
 	isThereAChar();
 	continueBtn.style.display = 'none';
-	battleStart.style.display = "none";
-
+	battleStart.style.display = 'none';
 });
 
 savCharBtn.on('click', function (event) {
 	// on submission of character creation, set values in the aside
 	event.preventDefault();
 	if (raceInputEl.val() == null || classInputEl.val() == null) {
-		alert('You must enter your character information (race and class) to proceed');
+		alert(
+			'You must enter your character information (race and class) to proceed'
+		);
 		return;
 	} else {
 		// sets global variables for created character
@@ -860,10 +949,9 @@ savCharBtn.on('click', function (event) {
 		playerBio = bioInputEl.val();
 		playerHP = 100;
 		playerXP = 100;
-		playerMaxHp = 90;
 		attackBonus =
 			//saves to character array for localStorage
-		savePlayer();
+			savePlayer();
 		nextLevel();
 		levelFunction();
 		isThereAChar();
@@ -902,7 +990,6 @@ function saveToCurrentStats() {
 	currentPlayerStats[0].XP = playerXP;
 	currentPlayerStats[0].HP = playerHP;
 	currentPlayerStats[0].Bio = playerBio;
-	currentPlayerStats[0].MaxHP = playerMaxHp;
 }
 
 //displays currentPlayerStats
@@ -924,7 +1011,6 @@ function currentPlayerStatSet() {
 	playerHP = currentPlayerStats[0].HP;
 	playerBio = currentPlayerStats[0].Bio;
 	playerLevel = currentPlayerStats[0].Level;
-	playerMaxHp = currentPlayerStats[0].MaxHP;
 }
 
 //function for loading player level and status from HP
@@ -943,8 +1029,6 @@ function nextLevel() {
 	playerLevel = Math.floor(nextLevel);
 	currentPlayerStats[0].Level = playerLevel;
 	levelLi.text(`Level: ${playerLevel}`);
-	playerMaxHp = playerLevel*10+90;
-	
 }
 
 // jukebox play random song event listener
@@ -955,12 +1039,12 @@ function playAudio() {
 }
 
 function pauseAudio() {
-	jukebox.pause()
+	jukebox.pause();
 }
 
 playAudioBtn.addEventListener('click', function (event) {
 	event.preventDefault();
-	if (jukebox.paused){
+	if (jukebox.paused) {
 		playAudio();
 	} else {
 		pauseAudio();
