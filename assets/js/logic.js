@@ -585,7 +585,9 @@ function fleeBattle() {
 	} else {
 		combatLog.textContent = `There is no escape from this foe!`;
 		console.log('Flee failure:', fleeRoll);
-		setTimeout(runCombat(), 2500);
+		//setTimeout(monsterAttackRoll(), 2000);
+		isCombat = true;
+		runCombat();
 	}
 	localStorage.setItem('playerAction', JSON.stringify(combatLog.textContent));
 	BattleStats();
@@ -598,7 +600,7 @@ function hideModalButtonsDuringMonsterAttack() {
 		modalMagicBtn.style.display = 'none';
 		modalSneakBtn.style.display = 'none';
 		modalSneakAttackBtn.style.display = 'none';
-	}, 100);
+	}, 200);
 }
 
 function sneak() {
@@ -610,6 +612,7 @@ function sneak() {
 		combatLog.textContent = `You sneak away from the foe, leaving them to their own devices! After all, you're a coward but a living one! Click Close to continue on your journey!`;
 		setTimeout(function () {
 			modalFleeBtn.style.display = 'inline-block'
+			console.log("BUGHUNT");
 			modalSneakAttackBtn.style.display = 'inline-block'
 		}, 1000);
 
@@ -646,10 +649,10 @@ function castMagic() {
 	let spellRoll = diceRoll();
 
 	hideModalButtonsDuringMonsterAttack()
-	console.log("wenk1");
+	
 
 	if (spellRoll == 20) {
-		console.log("wenk2");
+		
 		monsterHitPoints = 0;
 		combatLog.textContent = `You cast a spell!
 		Nat20!😎 ${spellRoll} The winds of chaos hammer your foe.  Magic swirls around you and when it passes your foe is not but motes of dust on the wind.
@@ -658,7 +661,7 @@ function castMagic() {
 		setTimeout(runCombat(), 2500);
 
 	} else if (spellRoll == 1) {
-		console.log("wenk3");
+		
 		combatLog.textContent = `You cast a spell!
 		Nat1!😎 ${spellRoll} smoke pours for your mouth and claps of thunder echo from inside your body. Something is wrong! Your magic is out of control, you scream and as you and ${monsterName} EXPLODE!!!!`;
 		let spellFailure = diceRoll() * 3;
@@ -668,7 +671,7 @@ function castMagic() {
 		setTimeout(runCombat(), 2500);
 
 	} else if (spellRoll + playerLevel >= monsterDexterity) {
-		console.log("wenk4");
+		
 		spelldamage = (spellRoll + playerLevel) * 3;
 		monsterHitPoints = monsterHitPoints - spelldamage;
 		combatLog.textContent = `You cast a spell!
@@ -677,13 +680,13 @@ function castMagic() {
 		setTimeout(runCombat(), 2500);
 
 	} else {
-		console.log("wenk5");
+		
 		combatLog.textContent = `You cast a spell!
 		${spellRoll} to cast! The ${monsterName} is not impressed and you cast your spell at nothing!`;
 		spellSlots = spellSlots - 1;
 		setTimeout(runCombat(), 2500);
 	}
-	console.log("wenk6");
+	
 }
 
 
@@ -772,25 +775,30 @@ function runCombat() {
 }
 
 function evalClass() {
-	// setTimeout(function () {
+	 setTimeout(function () {
 		if (playerClass == 'Wizard' && spellSlots > 0) {
 			console.log('Wizard has', spellSlots, 'spell slots');
 			modalMagicBtn.style.display = 'inline-block';
 			modalFleeBtn.style.display = 'inline-block';
+			console.log("BUGHUNT");
 			//document.createElement('li')
 			//trying to append new li to battle modal player stats ul with # of spell slots
 		} else if (playerClass == 'Rogue') {
 			modalSneakBtn.style.display = 'inline-block';
 			modalMagicBtn.style.display = 'none';
 			modalFleeBtn.style.display = 'inline-block';
+			console.log("BUGHUNT");
+			modalAttackBtn.style.display = 'inline-block';
 		} else {
 			modalSneakAttackBtn.style.display = 'none';
 			modalMagicBtn.style.display = 'none';
 			modalSneakBtn.style.display = 'none';
 			modalFleeBtn.style.display = 'inline-block';
+			console.log("BUGHUNT");
+			modalAttackBtn.style.display = 'inline-block';
 		}
 		console.log(playerClass);
-	// }, 1700)
+	 }, 1700)
 };
 
 modalSneakAttackBtn.addEventListener('click', function (event) {
@@ -919,7 +927,7 @@ function loadSavedCharacters() {
 function resetFlee() {
 	setInterval(function () {
 		fleeCounter = 0;
-	}, 1000);
+	}, 10);
 }
 
 //continue button event listener
@@ -1002,6 +1010,7 @@ function displayCurrentPlayerStats() {
 	bioAreaEl.val(`${currentPlayerStats[0].Bio}`);
 	hpLiEl.text(`HP: ${currentPlayerStats[0].HP}`);
 	xpLi.text(`XP: ${currentPlayerStats[0].XP}`);
+
 }
 
 //sets global variables to saved character stats on character load
@@ -1022,8 +1031,13 @@ function levelFunction() {
 	attackBonus = playerLevel + playerStrength;
 	playerMaxHp = (playerLevel - 1) * 10 + 100;
 	if (playerClass == 'Wizard') {
-		spellSlots = 2;
+		if (spellSlots <= 0) {
+			spellSlots = 2;
+		} else if (spellSlots > 0) {
+			spellSlots = spellSlots+1;
+		}
 	}
+	
 }
 
 function nextLevel() {
