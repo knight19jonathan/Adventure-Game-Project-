@@ -1060,4 +1060,6 @@ newCharBtn.on("click", function(){
 	startBtn.hide()
 	resetFlee();
 	battleStart.style.display = "none";
+
+	$("#player-sprite").attr('src', './assets/media/warrior1.gif');
 })
