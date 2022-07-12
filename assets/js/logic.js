@@ -880,7 +880,7 @@ battleStart.addEventListener('click', function (event) {
 	combatLog.textContent = `It's too quiet here... SCREEEE!`;
 	event.preventDefault();
 	const monsterSpriteImg = document.getElementById('monster-sprite');
-	monsterSpriteImg.src = './assets/media/zombieAnime.gif';
+	monsterSpriteImg.src = './assets/media/skeleton.gif';
 	enemyHpBar.style.width = `${100}%`;
 	randomMonsterFetch();
 	isCombat = true;
