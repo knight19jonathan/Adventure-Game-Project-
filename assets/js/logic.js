@@ -141,9 +141,10 @@ var attackBonusLiEl = $('#atkBnsLi');
 //grab map and story elements
 var traveler1 = $('#traveler1');
 var startBtn = $('#start-game');
-var BtnAct2 = $('#travel-act2');
-var BtnAct3 = $('#travel-act3');
-var BtnAct4 = $('#travel-act4');
+var btnAct2 = $('#travel-act2');
+var btnAct3 = $('#travel-act3');
+var btnAct4 = $('#travel-act4');
+var act = 0;
 
 isThereAChar(); //hide start game on page load
 $('#traveler1').hide();
@@ -156,6 +157,8 @@ $('#text3').hide();
 $('#text4').hide();
 $('#text5').hide();
 $('#text6').hide();
+$('#text7').hide();
+$('#text8').hide();
 $('#travel-act2').hide();
 $('#travel-act3').hide();
 $('#travel-act4').hide();
@@ -182,6 +185,7 @@ function act1end() {
 	$('#travel-act2').show();
 }
 function act2start() {
+	$('#traveler1').hide();
 	$('#travel-act2').hide();
 	$('#text2').hide();
 
@@ -196,6 +200,7 @@ function act2end() {
 	$('#travel-act3').show();
 }
 function act3start() {
+	$('#traveler2').hide();
 	$('#text4').hide();
 	$('#travel-act3').hide();
 	$('#start-battle').show();
@@ -209,20 +214,27 @@ function act3end() {
 	$('#text6').show();
 }
 function act4start() {
+	$('#travel-act4').hide();
 	$('#text6').hide();
 	$('#traveler3').hide();
 	$('#start-battle').show();
 	$('#traveler4').show();
+	$('#text7').show();
 }
-BtnAct2.on('click', function (event) {
+function act4end() {
+	$('#text7').hide();
+	$('#vecna').hide();
+	$('#text8').show();
+}
+btnAct2.on('click', function (event) {
 	event.preventDefault();
 	act2start();
 });
-BtnAct3.on('click', function (event) {
+btnAct3.on('click', function (event) {
 	event.preventDefault();
 	act3start();
 });
-BtnAct4.on('click', function (event) {
+btnAct4.on('click', function (event) {
 	event.preventDefault();
 	act4start();
 });
@@ -234,8 +246,21 @@ function isThereAChar() {
 		startBtn.hide();
 	}
 }
-var actEndArr = [act1end, act2end, act3end];
-
+// var actEndArr = [act1end, act2end, act3end, act4end];
+function nextAct() {
+	if (act == 1) {
+		act1end();
+	}
+	if (act == 2) {
+		act2end();
+	}
+	if (act == 3) {
+		act3end();
+	}
+	if (act == 4) {
+		act4end();
+	}
+}
 //
 
 //set content of text boxes in battle modal
@@ -810,6 +835,8 @@ closeBattle.addEventListener('click', function (event) {
 	console.log('Current Player HP', playerHP);
 	campFire.show();
 	playerDeath();
+	act++;
+	nextAct();
 
 	// else {
 	// 	savePlayer();
