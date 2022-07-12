@@ -1,6 +1,7 @@
 * {
 	font-family: 'Press Start 2P', cursive;
 }
+
 button {
 	font-family: 'Press Start 2P', cursive;
 }
@@ -10,6 +11,9 @@ header {
 }
 
 #new-character {
+	margin-bottom: 10px;
+}
+#continue-btn {
 	margin-bottom: 10px;
 }
 #init-button {
@@ -33,7 +37,7 @@ header {
 #bio-area {
 	font-family: 'Press Start 2P', cursive;
 	color: white;
-	font-size: .5em;
+	font-size: 0.5em;
 }
 
 #skills-stats {
@@ -50,4 +54,61 @@ header {
 	font-size: 2em;
 	height: 3em;
 	font-family: 'Press Start 2P', cursive;
+}
+#camp-fire {
+	height: 200px;
+}
+
+.album {
+	position: relative;
+	display: block;
+	max-width: 1000px;
+}
+
+/* the images */
+.traveler {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 4%;
+
+	display: block;
+}
+#traveler1 {
+	top: 72%;
+	left: 37%;
+}
+#traveler2 {
+	top: 50%;
+	left: 37%;
+}
+#traveler3 {
+	top: 40%;
+	left: 18%;
+}
+#traveler4 {
+	top: 10%;
+	left: 45%;
+}
+#text1 {
+	color: white;
+	width: 75%;
+	margin: 0 auto;
+}
+#vecna {
+	top: 10%;
+	left: 50%;
+	width: 6%;
+}
+#devil {
+	top: 63%;
+	left: 75%;
+	width: 20%;
+}
+#player-sprite {
+	mix-blend-mode: darken;
+}
+
+.modal {
+	width: 75%;
 }
