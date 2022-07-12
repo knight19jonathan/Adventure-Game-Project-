@@ -108,3 +108,7 @@ header {
 #player-sprite {
 	mix-blend-mode: darken;
 }
+
+.modal {
+	width: 75%;
+}
