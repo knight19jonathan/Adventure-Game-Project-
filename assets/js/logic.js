@@ -142,8 +142,8 @@ var attackBonusLiEl = $('#atkBnsLi');
 var traveler1 = $('#traveler1');
 var startBtn = $('#start-game');
 var BtnAct2 = $('#travel-act2');
-var BtnAct2 = $('#travel-act3');
-var BtnAct2 = $('#travel-act4');
+var BtnAct3 = $('#travel-act3');
+var BtnAct4 = $('#travel-act4');
 
 isThereAChar(); //hide start game on page load
 $('#traveler1').hide();
@@ -185,7 +185,7 @@ function act2start() {
 	$('#travel-act2').hide();
 	$('#text2').hide();
 
-	$('traveler2').show();
+	$('#traveler2').show();
 	$('#text3').show();
 	$('#start-battle').show();
 }
@@ -199,7 +199,8 @@ function act3start() {
 	$('#text4').hide();
 	$('#travel-act3').hide();
 	$('#start-battle').show();
-	$('traveler3').show();
+	$('#traveler3').show();
+	$('#text5').show();
 }
 function act3end() {
 	$('#text5').hide();
@@ -209,10 +210,22 @@ function act3end() {
 }
 function act4start() {
 	$('#text6').hide();
-	$('traveler3').hide();
+	$('#traveler3').hide();
 	$('#start-battle').show();
-	$('traveler4').show();
+	$('#traveler4').show();
 }
+BtnAct2.on('click', function (event) {
+	event.preventDefault();
+	act2start();
+});
+BtnAct3.on('click', function (event) {
+	event.preventDefault();
+	act3start();
+});
+BtnAct4.on('click', function (event) {
+	event.preventDefault();
+	act4start();
+});
 
 function isThereAChar() {
 	if (playerClass !== '') {
