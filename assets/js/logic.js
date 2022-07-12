@@ -141,6 +141,10 @@ var attackBonusLiEl = $('#atkBnsLi');
 //grab map and story elements
 var traveler1 = $('#traveler1');
 var startBtn = $('#start-game');
+var BtnAct2 = $('#travel-act2');
+var BtnAct2 = $('#travel-act3');
+var BtnAct2 = $('#travel-act4');
+
 isThereAChar(); //hide start game on page load
 $('#traveler1').hide();
 $('#traveler2').hide();
@@ -148,6 +152,13 @@ $('#traveler3').hide();
 $('#traveler4').hide();
 $('#text1').hide();
 $('#text2').hide();
+$('#text3').hide();
+$('#text4').hide();
+$('#text5').hide();
+$('#text6').hide();
+$('#travel-act2').hide();
+$('#travel-act3').hide();
+$('#travel-act4').hide();
 var levelLi = $('#levelLi');
 var xpLi = $('#xpLi');
 
@@ -162,6 +173,46 @@ function gameStart() {
 	$('#text1').show();
 	startBtn.hide();
 }
+function act1end() {
+	// hide previous
+	$('#start-battle').hide();
+	$('#text1').hide();
+	// show current
+	$('#text2').show();
+	$('#travel-act2').show();
+}
+function act2start() {
+	$('#travel-act2').hide();
+	$('#text2').hide();
+
+	$('traveler2').show();
+	$('#text3').show();
+	$('#start-battle').show();
+}
+function act2end() {
+	$('#start-battle').hide();
+	$('#text3').hide();
+	$('#text4').show();
+	$('#travel-act3').show();
+}
+function act3start() {
+	$('#text4').hide();
+	$('#travel-act3').hide();
+	$('#start-battle').show();
+	$('traveler3').show();
+}
+function act3end() {
+	$('#text5').hide();
+	$('#start-battle').hide();
+	$('#travel-act4').show();
+	$('#text6').show();
+}
+function act4start() {
+	$('#text6').hide();
+	$('traveler3').hide();
+	$('#start-battle').show();
+	$('traveler4').show();
+}
 
 function isThereAChar() {
 	if (playerClass !== '') {
@@ -170,6 +221,7 @@ function isThereAChar() {
 		startBtn.hide();
 	}
 }
+var actEndArr = [act1end, act2end, act3end];
 
 //
 
