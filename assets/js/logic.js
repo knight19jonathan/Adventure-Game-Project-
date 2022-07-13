@@ -309,7 +309,7 @@ function BattleStats() {
 	}
 	battleBoxPlayerHP.textContent = `HP: ${playerHP}`;
 	battleBoxAttackBonus.textContent = `Attack Bonus: ${attackBonus}`;
-	playerHpBar.style.width = `${100 * playerHP / playerMaxHp}%`;
+	playerHpBar.style.width = `${(100 * playerHP) / playerMaxHp}%`;
 	battleBoxPlayerAC.textContent = `Armor Class: ${playerArmorClass}`;
 	battleBoxMonsterName.textContent = `${monsterName}`;
 	battleBoxMonsterHP.textContent = `HP: ${monsterHitPoints}`;
@@ -332,7 +332,7 @@ function logMonster() {
 	console.log('Monster Name:', monsterName);
 }
 
-// Populates a random monster from the Dnd API 
+// Populates a random monster from the Dnd API
 function randomMonsterFetch() {
 	//Get a random monster
 	fetch(monsterAPI)
@@ -359,8 +359,11 @@ function randomMonsterFetch() {
 					if (monsterStats.challenge_rating > playerLevel + 3) {
 						//set monster level cap related to playerlevel
 						randomMonsterFetch();
-					} else if (monsterStats.challenge_rating < playerLevel - 4 && monsterStats.challenge_rating < 30){
-						randomMonsterFetch();//set monster level floor related to playerlevel
+					} else if (
+						monsterStats.challenge_rating < playerLevel - 4 &&
+						monsterStats.challenge_rating < 30
+					) {
+						randomMonsterFetch(); //set monster level floor related to playerlevel
 					} else {
 						//assign monster stats to variables
 						monsterName = monsterStats.name;
@@ -369,10 +372,10 @@ function randomMonsterFetch() {
 						monsterHpMax = monsterStats.hit_points;
 						monsterXP = monsterStats.xp;
 						monsterCR = monsterStats.challenge_rating;
-						if (monsterStats.actions[0].attack_bonus == undefined) { //get new enemy if attack bonus is empty
-							randomMonsterFetch()
+						if (monsterStats.actions[0].attack_bonus == undefined) {
+							//get new enemy if attack bonus is empty
+							randomMonsterFetch();
 						} else {
-
 							monsterAttack = monsterStats.actions[0].attack_bonus;
 							monsterDexterity = monsterStats.dexterity;
 							monsterStrength = monsterStats.strength;
@@ -430,7 +433,7 @@ function startcombat() {
 	}, 2000);
 }
 
-// deteremines if player has fleed too many times to flee 
+// deteremines if player has fleed too many times to flee
 function evalFleeCount() {
 	setTimeout(function () {
 		if (fleeCounter > 2) {
@@ -454,8 +457,8 @@ function playerDeath() {
 		classLiEl.textContent = '';
 		levelLi.textContent = '';
 		xpLi.textContent = '';
-		const mainSpriteImg = document.getElementById('main-sprite');
-		mainSpriteImg.src = './assets/media/deathmark.png';
+		const mainSpriteImg = document.getElementById('player-sprite');
+		mainSpriteImg.src = './assets/media/nerdrage';
 	} else {
 		return;
 	}
@@ -464,8 +467,8 @@ function playerDeath() {
 //player attack to hit monster and tree of outcomes and calls runCombat continue whether to contine combat
 function attackRoll() {
 	let roll = diceRoll();
-	hideModalButtonsDuringMonsterAttack()
-	
+	hideModalButtonsDuringMonsterAttack();
+
 	if (roll == 20) {
 		console.log(roll);
 		let damage = (diceRoll() + playerStrength) * 2;
@@ -532,8 +535,9 @@ function monsterAttackRoll() {
 		playerHP = playerHP - damage;
 		console.log('Player HP:', playerHP);
 		combatLog.textContent = `The monster attacks...
-        ... dealing a savage blow, ${monAtkRoll + monsterAttack
-			} to hit, and deals ${damage} damage to your HP!`;
+        ... dealing a savage blow, ${
+					monAtkRoll + monsterAttack
+				} to hit, and deals ${damage} damage to your HP!`;
 		setTimeout(runCombat(), 2500);
 	} else {
 		combatLog.textContent = `The monster attacks...
@@ -545,8 +549,7 @@ function monsterAttackRoll() {
 	BattleStats();
 }
 
-
-//attempt to fix flee failure, feature in progress 
+//attempt to fix flee failure, feature in progress
 var fleeFailure = Boolean(false);
 
 function fleeFailureCheck() {
@@ -554,15 +557,14 @@ function fleeFailureCheck() {
 		modalAttackBtn.style.display = 'inline-block';
 		modalFleeBtn.style.display = 'inline-block';
 		console.log('FLEE BUG TRAACKER');
-	};
-
+	}
 }
 
 //function to flee from combat
 function fleeBattle() {
 	fleeCounter++;
 	let fleeRoll = diceRoll();
-	hideModalButtonsDuringMonsterAttack()
+	hideModalButtonsDuringMonsterAttack();
 	if (fleeRoll == 20) {
 		console.log('Crit success:', fleeRoll);
 		combatLog.textContent = `You got away clean, leaving your enemy grasping nothing but your afterimage! Click Close to continue on your journey!`;
@@ -635,9 +637,9 @@ function sneak() {
 		console.log('Sneak success!', sneakRoll);
 		combatLog.textContent = `You sneak away from the foe, leaving them to their own devices! After all, you're a coward but a living one! Click Close to continue on your journey!`;
 		setTimeout(function () {
-			modalFleeBtn.style.display = 'inline-block'
-			console.log("BUGHUNT");
-			modalSneakAttackBtn.style.display = 'inline-block'
+			modalFleeBtn.style.display = 'inline-block';
+			console.log('BUGHUNT');
+			modalSneakAttackBtn.style.display = 'inline-block';
 		}, 1000);
 
 		isCombat = false;
@@ -651,7 +653,7 @@ function sneak() {
 // function for rogue to sneak attack
 function sneakAttack() {
 	let sneakAttackRoll = diceRoll() + playerDexterity;
-	hideModalButtonsDuringMonsterAttack()
+	hideModalButtonsDuringMonsterAttack();
 	if (sneakAttackRoll >= monsterArmorClass - 5) {
 		console.log('Sneak attack success!', sneakAttackRoll);
 		combatLog.textContent = `You sneak attack the foe, delvering a blow while they couldn't see you!`;
@@ -670,24 +672,20 @@ function sneakAttack() {
 	}
 }
 
-//function for class wizard to cast magic 
+//function for class wizard to cast magic
 function castMagic() {
 	let spellRoll = diceRoll();
 
-	hideModalButtonsDuringMonsterAttack()
-	
+	hideModalButtonsDuringMonsterAttack();
 
 	if (spellRoll == 20) {
-		
 		monsterHitPoints = 0;
 		combatLog.textContent = `You cast a spell!
 		Nat20!😎 ${spellRoll} The winds of chaos hammer your foe.  Magic swirls around you and when it passes your foe is not but motes of dust on the wind.
 		It dealt ${monsterName} is utterly destroyed!!!!`;
 		spellSlots = spellSlots - 1;
 		setTimeout(runCombat(), 2500);
-
 	} else if (spellRoll == 1) {
-		
 		combatLog.textContent = `You cast a spell!
 		Nat1!😎 ${spellRoll} smoke pours for your mouth and claps of thunder echo from inside your body. Something is wrong! Your magic is out of control, you scream and as you and ${monsterName} EXPLODE!!!!`;
 		let spellFailure = diceRoll() * 3;
@@ -695,30 +693,23 @@ function castMagic() {
 		monsterHitPoints = monsterHitPoints - spellFailure;
 		spellSlots = spellSlots - 1;
 		setTimeout(runCombat(), 2500);
-
 	} else if (spellRoll + playerLevel >= monsterDexterity) {
-		
 		spelldamage = (spellRoll + playerLevel) * 3;
 		monsterHitPoints = monsterHitPoints - spelldamage;
 		combatLog.textContent = `You cast a spell!
 		${spellRoll} to cast! A success! The forces of creation bend to your will and you strike your foe with beams of magic light just like what you imagined.`;
 		spellSlots = spellSlots - 1;
 		setTimeout(runCombat(), 2500);
-
 	} else {
-		
 		combatLog.textContent = `You cast a spell!
 		${spellRoll} to cast! The ${monsterName} is not impressed and you cast your spell at nothing!`;
 		spellSlots = spellSlots - 1;
 		setTimeout(runCombat(), 2500);
 	}
-	
 }
 
-// function to get HP back when rest is clicked 
+// function to get HP back when rest is clicked
 function healscript() {
-
-
 	if (playerHP == playerMaxHp) {
 		quoteLog.text(`You are already at full health!`);
 		console.log('You are already at full health');
@@ -730,9 +721,8 @@ function healscript() {
 	} else {
 		playerHP = playerMaxHp;
 		quoteLog.text(`You heal yourself to full health!`);
-		console.log('You heal yourself to full health!')
+		console.log('You heal yourself to full health!');
 	}
-
 
 	// if (playerHP <= playerMaxHp) {
 	// 	playerHP = playerHP + 15;
@@ -742,13 +732,13 @@ function healscript() {
 	// }
 }
 
-//function to get spell slots back on rest 
+//function to get spell slots back on rest
 function spellSlotrecovery() {
 	spellSlots = spellSlots + 1;
 	console.log('Spell slots:', spellSlots);
 }
 
-//calls to evaluate status of player and monster and whether to continue combat cycle 
+//calls to evaluate status of player and monster and whether to continue combat cycle
 function runCombat() {
 	BattleStats();
 	if (playerHP <= 0) {
@@ -790,7 +780,7 @@ function runCombat() {
 		//modalAttackBtn.style.display = 'block';
 		// modalAttackBtn.style.display = 'inline-block';
 		modalFleeBtn.style.display = 'inline-block';
-		modalAttackBtn.style.display = 'inline-block'
+		modalAttackBtn.style.display = 'inline-block';
 		setTimeout(evalClass(), 1100);
 		//setTimeout(spellSlotManager(), 3000);
 		setTimeout(evalFleeCount(), 1000);
@@ -799,34 +789,34 @@ function runCombat() {
 		// }
 		//combatLog.textContent = `You are still alive somehow!`
 	}
-	modalAttackBtn.style.display = 'inline-block' //reveal attack button after each round of combat
+	modalAttackBtn.style.display = 'inline-block'; //reveal attack button after each round of combat
 }
 
-//calls to eval playerClass and enable features or disable features 
+//calls to eval playerClass and enable features or disable features
 function evalClass() {
-	 setTimeout(function () {
+	setTimeout(function () {
 		if (playerClass == 'Wizard' && spellSlots > 0) {
 			console.log('Wizard has', spellSlots, 'spell slots');
 			modalMagicBtn.style.display = 'inline-block';
 			//modalFleeBtn.style.display = 'inline-block';
-			console.log("BUGHUNT");
+			console.log('BUGHUNT');
 			//document.createElement('li')
 			//trying to append new li to battle modal player stats ul with # of spell slots
 		} else if (playerClass == 'Rogue') {
 			modalSneakBtn.style.display = 'inline-block';
 			modalMagicBtn.style.display = 'none';
 			//modalFleeBtn.style.display = 'inline-block';
-			console.log("BUGHUNT");
+			console.log('BUGHUNT');
 		} else {
 			modalSneakAttackBtn.style.display = 'none';
 			modalMagicBtn.style.display = 'none';
 			modalSneakBtn.style.display = 'none';
 			//modalFleeBtn.style.display = 'inline-block';
-			console.log("BUGHUNT");
+			console.log('BUGHUNT');
 		}
 		console.log(playerClass);
-	 }, 500)
-};
+	}, 500);
+}
 
 //listens to sneak attack button click and calls to sneakAttack function
 modalSneakAttackBtn.addEventListener('click', function (event) {
@@ -857,7 +847,7 @@ modalFleeBtn.addEventListener('click', function (event) {
 	setTimeout(fleeBattle(), 2500);
 });
 
-//listens to button click of Cast a Spell and calls castMagic function 
+//listens to button click of Cast a Spell and calls castMagic function
 modalMagicBtn.addEventListener('click', function (event) {
 	event.preventDefault();
 	hideModalButtonsDuringMonsterAttack();
@@ -869,13 +859,13 @@ modalMagicBtn.addEventListener('click', function (event) {
 	}
 });
 
-//listens to button click of Start and calls gameStart function 
+//listens to button click of Start and calls gameStart function
 startBtn.on('click', function (event) {
 	event.preventDefault();
 	gameStart();
 });
 
-//fucntions to run at start of Battle 
+//fucntions to run at start of Battle
 battleStart.addEventListener('click', function (event) {
 	combatLog.textContent = `It's too quiet here... SCREEEE!`;
 	event.preventDefault();
@@ -886,11 +876,11 @@ battleStart.addEventListener('click', function (event) {
 	isCombat = true;
 	console.log(isCombat);
 	//spellSlots++;
-	hideModalButtonsDuringMonsterAttack()
+	hideModalButtonsDuringMonsterAttack();
 
 	closeBattle.style.display = 'none';
 	let fleeCounter = 0;
-	console.log("Flee Count:", fleeCounter);
+	console.log('Flee Count:', fleeCounter);
 });
 
 //named the Roll buttons, runs startCombat function when clicked
@@ -910,7 +900,7 @@ modalAttackBtn.addEventListener('click', function (event) {
 	}
 });
 
-//exits the battle modal saves player data and updates story 
+//exits the battle modal saves player data and updates story
 closeBattle.addEventListener('click', function (event) {
 	event.preventDefault();
 	nextLevel();
@@ -952,7 +942,6 @@ function loadSavedCharacters() {
 		continueBtn.style.display = 'inline-block';
 	}
 }
-
 
 function resetFlee() {
 	setInterval(function () {
@@ -997,8 +986,7 @@ savCharBtn.on('click', function (event) {
 });
 
 campFire.on('click', function (event) {
-
-	if (playerClass !== "") {
+	if (playerClass !== '') {
 		setTimeout(function () {
 			console.log(`You light a fire!`);
 			spellSlotrecovery();
@@ -1011,15 +999,16 @@ campFire.on('click', function (event) {
 			}, 100);
 			resetFlee();
 			console.log(`You have ${spellSlots} spell slots left`);
-			console.log("Courage comes back to you and your stamina; Flee counter reset", fleeCounter);
+			console.log(
+				'Courage comes back to you and your stamina; Flee counter reset',
+				fleeCounter
+			);
 			campFire.hide();
-		}, 500)
-	}
-	else {
+		}, 500);
+	} else {
 		return;
 	}
 });
-
 
 //updates player stats to saveToCurrentStats
 function saveToCurrentStats() {
@@ -1039,7 +1028,6 @@ function displayCurrentPlayerStats() {
 	bioAreaEl.val(`${currentPlayerStats[0].Bio}`);
 	hpLiEl.text(`HP: ${currentPlayerStats[0].HP}`);
 	xpLi.text(`XP: ${currentPlayerStats[0].XP}`);
-
 }
 
 //sets global variables to saved character stats on character load
@@ -1063,10 +1051,9 @@ function levelFunction() {
 		if (spellSlots <= 0) {
 			spellSlots = 2;
 		} else if (spellSlots > 0) {
-			spellSlots = spellSlots+1;
+			spellSlots = spellSlots + 1;
 		}
 	}
-	
 }
 
 function nextLevel() {
@@ -1100,12 +1087,11 @@ $('#jukebox').bind('ended', function () {
 	playAudio;
 });
 
-
-newCharBtn.on("click", function () {
-	startBtn.hide()
+newCharBtn.on('click', function () {
+	startBtn.hide();
 	resetFlee();
-	battleStart.style.display = "none";
-	act=0;
+	battleStart.style.display = 'none';
+	act = 0;
 
-	$("#player-sprite").attr('src', './assets/media/warrior1.gif');
-})
+	$('#player-sprite').attr('src', './assets/media/warrior1.gif');
+});
