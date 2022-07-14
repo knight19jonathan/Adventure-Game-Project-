@@ -458,7 +458,7 @@ function playerDeath() {
 		levelLi.textContent = '';
 		xpLi.textContent = '';
 		const mainSpriteImg = document.getElementById('player-sprite');
-		mainSpriteImg.src = './assets/media/nerdrage';
+		mainSpriteImg.src = './assets/media/nerdrage.gif';
 	} else {
 		return;
 	}
@@ -753,7 +753,7 @@ function runCombat() {
 			modalSneakBtn.style.display = 'none';
 		}, 100);
 		const playerSpriteImg = document.getElementById('player-sprite');
-		playerSpriteImg.src = './assets/media/nerdRage.gif';
+		playerSpriteImg.src = './assets/media/nerdrage.gif';
 		closeBattle.style.display = 'inline-block';
 		// clear character local storage would you like to play again?
 		//playerDeath(); //call function to reset character stats
